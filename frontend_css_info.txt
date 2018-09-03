@@ -1,0 +1,19 @@
+Div Classes
+=======================
+SignIn - Will hold the entire Sign-in and Register Fields
+Reg - Will only hold the fields required for registration.
+
+Input Names
+=======================
+RegFirst - Will hold the first name when registering. Belongs to class Reg.
+RegLast - Will hold the last name when registering. Belongs to class Reg.
+LogUser - Will hold the Username when registering and signing in. Belongs to class SignIn.
+LogPassword - Will hold the password when registering and signing in. Belongs to class SignIn.
+RePassword - Will hold the exact password as LogPassword when registering. Belongs to class Reg.
+LogButton - Will be hidden by default. Visible once client clicks Sign-In Hyper. Belongs to class SignIn.
+RegButton - Will be visible by default. Hidden once client clicks Sign-In Hyper. Visible if client clicks Register Hyper again. Belongs to class Reg.
+
+HyperLink Ids
+=======================
+SignHyper - Will hide Reg div. Belongs to head.
+RegHyper - Will show Reg div. Belongs to head.
