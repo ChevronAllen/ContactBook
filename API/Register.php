@@ -18,7 +18,7 @@ $password 	= "";
 if($inData  == NULL)
 {
 	returnWithError("Communications Error, NULL input");
-	
+
 //	Test for connection errors
 }else if($conn->connect_error)
 {
@@ -30,7 +30,7 @@ if($inData  == NULL)
 	$firstName = $mysqli->real_escape_string($inData["firstName"];
 	$lastName = $mysqli->real_escape_string($inData["lastName"]);
 	$password = $mysqli->real_escape_string($inData["password"]);
-	
+
 	//	Call stored procedure that will insert a new user
 	$sql = 'CALL proc_Add_New_User('  . $firstName . ',
 									' . $lastName . ',
@@ -38,24 +38,24 @@ if($inData  == NULL)
 									' . $password . ')';
 	//	Capture results
 	$results = conn->query($sql);
-	
+
 	/*
 		result should be a row from the users table
 		capture the new users id to be sent back
-		we recieve the whole row so that if we need to implement 
+		we recieve the whole row so that if we need to implement
 		a session id that would be sent.
 	*/
 	if ($result->num_rows <= 0){
 		returnWithError("Error adding new user");
 	}else{
-		
-				
+
+
 		$row = $result->fetch_assoc();
 		//$firstName = $row["user_firstname"];
 		//$lastName = $row["user_lastname"];
-		$id = $row["iduser"];			
-		
-		
+		$id = $row["iduser"];
+
+
 		//	if the id is zero somethign went wrong
 		if($id == 0)
 		{
@@ -63,7 +63,7 @@ if($inData  == NULL)
 		}else
 		{
 			returnWithInfo($id, $firstName, $lastName);
-		}			
+		}
 	}
 }
 
@@ -88,6 +88,7 @@ function createJSONString($id_,$firstName_,$lastName_,$username_,$password_,$con
           "contacts" : '. $contacts_ . ' ,
           "error" : "' . $error_ . '"
         }';
+  return $ret;
 }
 
 function sendResultInfoAsJson( $obj )
