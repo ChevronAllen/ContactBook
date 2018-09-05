@@ -7,6 +7,17 @@ var lastName = '';
 var sessionID = 0;
 var contacts = [];
 
+var contactFirstName;
+var contactLastName;
+var contactAddress;
+var contactState;
+var contactCity;
+var contactZipcode;
+var contactAPT;
+var contactEmail;
+var contactPhoneNumber;
+
+
 function doLogin()
 {
   userId = 0;
@@ -199,13 +210,42 @@ function doRegister()
 
 function addContact()
 {
-  var contactFirstName;
-	var contactLastName;
-	var contactAddress;
-	var contactZipcode;
-	var contactCity;
-	var contactState;
-	var contactPhoneNumber;
+	//initailizing variable to empty strings
+	contactFirstName = "";
+	contactLastName = "";
+	contactAddress = "";
+	contactState = "";
+	contactCity	= "";
+	contactZipcode = "";
+	contactAPT = "";
+	contactEmail = "";
+	contactPhoneNumber = "";
+
+	//obtaining and storing the values entered by user into the specified variable
+	contactFirstName = document.getElementById("firstname").value;
+	contactLastName = document.getElementById("lastname").value;
+	contactAddress = document.getElementById("contactaddress").value;
+	contactState = document.getElementById("state").value;
+	contactCity = document.getElementById("city").value;
+	contactZipcode = document.getElementById("zipcode").value;
+
+	//unsure if we are using these parameters
+	//contactAPT = document.getElementById("aptnum").value;
+	//contactEmail = document.getElementById("emailaddress").value;
+	//contactPhoneNumber = document.getElementById("phonenumber").value;
+
+	var jsonPayload = '{'
+			+ '"id":"'			+ userId			+ '",'
+			+ '"firstName":"'	+ contactFirstName	+ '",'
+			+ '"lastName":"'	+ contactLastName	+ '",'
+			+ '"address":"'		+ contactAddress 	+ '",'
+			+ '"city":"'		+ contactCity		+ '",'
+			+ '"state":"'		+ contactState		+ '",'
+			+ '"zipCode":"'		+ contactZipcode 	+ '",'
+			+ '"sessionID":"'	+ sessionID
+			+ '"}';
+
+	var url = urlBase + '/AddContact.' + extension;
 }
 
 function searchContact()
