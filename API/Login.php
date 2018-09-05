@@ -84,7 +84,7 @@ function getRequestInfo()
   return json_decode(file_get_contents('php://input'), true);
 }
 
-function createJSONString($id_,$firstName_,$lastName_,$contacts_,$error_)
+function createJSONString($id_, $firstName_, $lastName_, $contacts_, $error_)
 {
   $ret = '
         {
@@ -110,9 +110,9 @@ function returnWithError( $err )
   sendResultInfoAsJson( $retValue );
 }
 
-function returnWithInfo($id, $firstName, $lastName )
+function returnWithInfo($id_, $firstName_, $lastName_, $contacts_ )
 {
-  $retValue = createJSONString($id,$firstName,$lastName,"","");
+  $retValue = createJSONString($id_, $firstName_, $lastName_, $contacts_,"");
   sendResultInfoAsJson( $retValue );
 }
 

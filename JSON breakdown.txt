@@ -45,6 +45,8 @@ Login GET
                 city: "",       //  contacts city
                 state: "",      //  contacts state
                 zipCode: "",    //  contacts zipCode
+		email: "",
+		phone: ""
               },
               {                 // There can be many of these, Parse as async
                 contactID: "",
@@ -54,6 +56,8 @@ Login GET
                 city: "",
                 state: "",
                 zipCode: "",
+		email: "",
+		phone: ""
               }...
           ],
   error: ""                     //  Error description if id = 0
@@ -69,6 +73,8 @@ AddContact POST
   city: "",         //  new contacts city
   state: "",        //  new contacts state
   zipCode: "",      //  new contacts zipCode
+  email: "",
+  phone: "",
   sessionID: ""    	//  clients current sessionID
 }
 
