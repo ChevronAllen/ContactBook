@@ -4,7 +4,7 @@
  doesnt insert the new user if a user under that username exists.
 */
 
-CREATE DEFINER=`root`@`%` PROCEDURE `createUser`(IN u_fname VARCHAR(45), u_lname VARCHAR(45), uname VARCHAR(45), u_pass VARCHAR(45), sessionID INT)
+CREATE DEFINER=`root`@`%` PROCEDURE `createUser`(IN u_fname VARCHAR(45), u_lname VARCHAR(45), uname VARCHAR(45), u_pass VARCHAR(45), sessionID VARCHAR(32))
 BEGIN
 
 INSERT INTO USER (username, user_firstname, user_lastname, user_password, session_id)

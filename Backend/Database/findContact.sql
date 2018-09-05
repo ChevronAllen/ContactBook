@@ -6,7 +6,7 @@
  updates date_lastLogin
 */
 
-CREATE DEFINER=`root`@`%` PROCEDURE `findContacts`(IN user_id INT, matchString VARCHAR(32), sessionID INT)
+CREATE DEFINER=`root`@`%` PROCEDURE `findContacts`(IN user_id INT, matchString VARCHAR(32), sessionID VARCHAR(32))
 BEGIN
 IF matchString IS NOT NULL AND matchString <> '' THEN
 	SELECT * FROM contacts
