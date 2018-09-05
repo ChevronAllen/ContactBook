@@ -1,58 +1,80 @@
-var urlbase = //'website address';
+var urlbase = ''  //'website address';
 var extension = 'php';
 
 var userId = 0;
 var firstName = '';
 var lastName = '';
+var sessionID = 0;
+var contacts = NULL;
 
 function doLogin()
 {
-	userId = 0;
-	firstName = "";
-	lastName = "";
+  userId = 0;
+  firstName = "";
+  lastName = "";
+  sessionID = 0;
+  contacts = NULL;
 
-	var login = document.getElementById("LogUser").value;	//obtaining value held in loginname and placing it inside the login variable
-	var password = document.getElementById("LogPassword").value; //obtaining value held in loginpassoword and placing it inside password variable
+  var username = document.getElementById("LogUser").value;	//obtaining value held in loginname and placing it inside the login variable
+  var password = document.getElementById("LogPassword").value; //obtaining value held in loginpassoword and placing it inside password variable
+  var error = '';
 
-	//document.getElementById("").innerHTML = "Need an ID inside HTML file to manipulate"; This line holds a place to change to error message to inform user they have entered an incorrect username or password
+  // creates a unique 10 character string in base 36 ranging from 0-9 to a-z
+  sessionID = Math.random().toString(36).substr(2, 10);
 
-	var jsonPayload = '{"login" : "' + login + '", "password" : "' + password + '"}';
-	var url = urlBase + '/Login.' + extension;
+  var jsonPayload = '{'
+      + '"username":"'   + username  + '", '
+      + '"password":"'   + password  + '", '
+      + '"sessionID":"'  + sessionID + '", '
+      + '"error":"'      + error
+      + '"}';
 
-	var xhr = new XMLHttpRequest();
-	//async for login?
-	xhr.open("POST", url, true);	//true associates with asyncrous
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+  var url = urlBase + '/Login.' + extension;
 
-	try
-	{
-		xhr.send(jsonPayload);
-		var jsonObject = JSON.parse(xhr.responseText);
-		userId = jsonObject.id;
+  var xhr = new XMLHttpRequest();
 
-		if(userId < 1)	//checking if the username entered exists in the database
-		{
-			//document.getElementById("need section on login page of HTML to alert user that they have entered an incorrect username or password").innerHTML = "User/Password combination is incorrect";
-			//return;
-		}
+  xhr.open("POST", url, true);	//true associates with asyncrous
+  xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
-		firstName = jsonObject.firstName;
-		lastName = jsonObject.lastName;
+  // xhr.onreadystatechange is called when xhr.send recieves a response
+  // readyState == 4 means done with XMLHttpRequest
+  // status == 200 is a successful request once finished
+  xhr.onreadystatechange = function()
+  {
+    if (this.readyState == 4 && this.status == 200)
+    {
+      var jsonObject = JSON.parse(xhr.responseText);
 
-		document.getElementById(//"id for section to show users first and last name").innerHTML = firstName + " " + lastName;
+  		userId = jsonObject.id;
 
-		document.getElementById("LogUser").value = "";		//resetting username
-		document.getElementById("LogPassword").value = "";	//resetting password
+      if(userId < 1)	//checking if the username entered exists in the database
+      {
+        console.log("not a user");  // temp notification
+        //document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
+        return;
+      }
 
-		//hideOrShow("div for the logged in div", true);
-		//hideOrShow("accessUIDiv", true);
-		hideOrShow("SignIn", false);
-		}
-		catch(err)
-		{
-			//document.getElementById("section to hold to see if the login in process worked correctly").innerHTML = err.message;
-		}
-	}
+      firstName = jsonObject.firstName;
+      lastName  = jsonObject.lastName;
+      contacts  = jsonObject.contacts;
+      error     = jsonObject.error;
+
+      document.getElementById(//"id for section to show users first and last name").innerHTML = firstName + " " + lastName;
+      document.getElementById("LogUser").value = "";		//resetting username
+      document.getElementById("LogPassword").value = "";	//resetting password
+
+      //hideOrShow("div for the logged in div", true);
+      //hideOrShow("accessUIDiv", true);
+      hideOrShow("SignIn", false);
+    }
+    else
+    {
+      console.log("error with response");
+      //document.getElementById("loginResult").innerHTML = err.message;
+    }
+  }
+
+  xhr.send(jsonPayload);
 }
 
 function doHideorShow(elementId, showState)
