@@ -246,14 +246,46 @@ function addContact()
 			+ '"}';
 
 	var url = urlBase + '/AddContact.' + extension;
+  var xhr = new XMLHttpRequest();
+
+  xhr.open("POST", url, true);	//true associates with asyncrous
+  xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+  xhr.onreadystatechange = function()
+  {
+    if (this.readyState == 4 && this.status == 200)
+    {
+      var jsonObject = JSON.parse(xhr.responseText);
+
+      userId = jsonObject.id;
+      error  = jsonObject.error;
+
+      if(userId < 1)	//checking if the username entered exists in the database
+      {
+        console.log(error);  // temp notification
+        //document.getElementById("loginResult").innerHTML = error;
+        return;
+      }
+
+      // TODO:  we can use the contact info we sent to add to our array of contacts
+      //        only added if there is no error recieved
+    }
+    else
+    {
+      console.log("error with response");
+      //document.getElementById("loginResult").innerHTML = this.status;
+    }
+  }
+
+  xhr.send(jsonPayload);
 }
 
 function searchContact()
 {
-	// TODO:
+  // TODO: search contacts array async
 }
 
 function deleteContact()
 {
-	// TODO:
+	// TODO: similar to add but once response is verified remove contact from contacts
 }
