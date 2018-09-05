@@ -12,6 +12,7 @@ $firstName 	= "";
 $lastName 	= "";
 $username 	= "";
 $password 	= "";
+$sessionID  = "";
 
 
 //	TODO:	proper check for JSON POST data http://thisinterestsme.com/receiving-json-post-data-via-php/
@@ -32,10 +33,12 @@ if($inData  == NULL)
 	$password = $mysqli->real_escape_string($inData["password"]);
 
 	//	Call stored procedure that will insert a new user
-	$sql = 'CALL proc_Add_New_User('  . $firstName . ',
-									' . $lastName . ',
-									' . $username . ',
-									' . $password . ')';
+	$sql = 'CALL creatUser("'  . $firstName . '",
+							"' . $lastName . '",
+							"' . $username . '",
+							"' . $password . '",
+							"' . $sessionID .'")';
+	
 	//	Capture results
 	$results = conn->query($sql);
 
@@ -51,8 +54,6 @@ if($inData  == NULL)
 
 
 		$row = $result->fetch_assoc();
-		//$firstName = $row["user_firstname"];
-		//$lastName = $row["user_lastname"];
 		$id = $row["iduser"];
 
 

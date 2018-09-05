@@ -68,8 +68,8 @@ AddContact POST
   address: "",      //  new contacts address
   city: "",         //  new contacts city
   state: "",        //  new contacts state
-  zipCode: ""       //  new contacts zipCode
-  sessionID: "";    //  clients current sessionID
+  zipCode: "",      //  new contacts zipCode
+  sessionID: ""    	//  clients current sessionID
 }
 
 AddContact GET
@@ -82,7 +82,7 @@ AddContact GET
   city: "",
   state: "",
   zipCode: "",
-  contactID: "";
+  contactID: "",
   error: "";        //  error description
 }
 
