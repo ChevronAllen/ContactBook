@@ -1,0 +1,122 @@
+<head>
+<link href="ContactPageCSS.css" rel="stylesheet" type="text/css">
+</head>
+
+
+<div class="container">
+  <div style="text-align:center">
+    <h2>Contact Book</h2>
+    <!-- <p>Add Contact:</p> -->
+  </div>
+  <div class="row">
+    <div class="column">
+     <!-- <form action="/action_page.php"> need to change this to our php page -->
+        <label for="fname">First Name</label>
+        <input type="text" id="firstnameadd" name="firstnameadd" placeholder="Contact's first name...">
+        <label for="lname">Last Name</label>
+        <input type="text" id="lastnameadd" name="lastnameadd" placeholder="Contact's last name...">
+		<label for="contactaddress">Address</label>
+        <input type="text" id="contactaddress" name="contactaddress" placeholder="Contact's address...">
+        <label for="state">State</label>
+        <select id="state" name="state">
+          <option value="Alabama">Alabama</option>
+          <option value="Alaska">Alaska</option>
+          <option value="Arizona">Arizona</option>
+		  <option value="Arkansas">Arkansas</option>
+		  <option value="California">California</option>
+		  <option value="Colorado">Colorado</option>
+		  <option value="Connecticut">Connecticut</option>
+		  <option value="Delaware">Delaware</option>
+		  <option value="Florida">Florida</option>
+		  <option value="Georgia">Georgia</option>
+		  <option value="Hawaii">Hawaii</option>
+		  <option value="Idaho">Idaho</option>
+		  <option value="Illinois">Illinois</option>
+		  <option value="Indiana">Indiana</option>
+		  <option value="Iowa">Iowa</option>
+		  <option value="Kansas">Kansas</option>
+		  <option value="Kentucky">Kentucky</option>
+		  <option value="Louisiana">Louisiana</option>
+		  <option value="Maine">Maine</option>
+		  <option value="Maryland">Maryland</option>
+		  <option value="Massachusetts">Massachusetts</option>
+		  <option value="Michigan">Michigan</option>
+		  <option value="Minnesota">Minnesota</option>
+		  <option value="Mississippi">Mississippi</option>
+		  <option value="Missouri">Missouri</option>
+		  <option value="Montana">Montana</option>
+		  <option value="Nebraska">Nebraska</option>
+		  <option value="Nevada">Nevada</option>
+		  <option value="New_Hampshire">New Hampshire</option>
+		  <option value="New_Jersey">New Jersey</option>
+		  <option value="New_Mexico">New Mexico</option>
+		  <option value="New_York">New York</option>
+		  <option value="North_Carolina">North Carolina</option>
+		  <option value="North_Dakota">North Dakota</option>
+		  <option value="Ohio">Ohio</option>
+		  <option value="Oklahoma">Oklahoma</option>
+		  <option value="Oregon">Oregon</option>
+		  <option value="Pennsylvania">Pennsylvania</option>
+		  <option value="Rhode_Island">Rhode Island</option>
+		  <option value="South_Carolina">South Carolina</option>
+		  <option value="South_Dakota">South Dakota</option>
+		  <option value="Tennessee">Tennessee</option>
+		  <option value="Texas">Texas</option>
+		  <option value="Utah">Utah</option>
+		  <option value="Vermont">Vermont</option>
+		  <option value="Virginia">Virginia</option>
+		  <option value="Washington">Washington</option>
+		  <option value="West_Virginia">West Virginia</option>
+		  <option value="Winconsin">Winconsin</option>
+		  <option value="Wyoming">Wyoming</option>
+        </select>
+		<label for="city">City</label>
+        <input type="text" id="city" name="city" placeholder="Contact's city...">
+		<label for="zipcode">ZIP Code</label>
+        <input type="text" id="zipcode" name="zipcode" placeholder="Contact's zipcode...">
+		<label for="aptnum">APT#</label>
+        <input type="text" id="aptnum" name="aptnum" placeholder="Contact's APT#... (If one exists)">
+		<label for="emailaddress">Email Address</label>
+        <input type="text" id="emailaddress" name="emailaddress" placeholder="Contact's Email...">
+		<label for="phonenumber">Phone Number</label>
+        <input type="text" id="phonenumber" name="phonenumber" placeholder="Contact's phone number...">
+       <!-- <label for="subject">Subject</label>
+        <textarea id="subject" name="subject" placeholder="Write something.." style="height:170px"></textarea> -->
+        <input type="addcontact" value="Add Contact">
+    <!--  </form> -->
+    </div>
+	
+	
+	
+	<div class="column">
+	   <!-- <form action="/action_page.php"> need to change this to our php page -->
+		<label for="fnamedelete">First Name</label>
+        <input type="text" id="firstnamedelete" name="firstnamedelete" placeholder="Contact's first name...">
+        <label for="lnamedelete">Last Name</label>
+        <input type="text" id="lastnamedelete" name="lastnamedelete" placeholder="Contact's last name...">
+        <input type="deletecontact" value="Delete Contact"> <br><br>	
+		<label for="fnamesearch">First Name (FILL OUT)</label>
+        <input type="text" id="firstnamesearch" name="firstnamesearch" placeholder="Contact's first name...">
+		<label for="lnamesearch">Last Name (FILL OUT)</label>
+        <input type="text" id="lastnamesearch" name="lastnamesearch" placeholder="Contact's last name...">
+		<label for="contactaddresssearch">Address</label>
+        <input type="text" id="contactaddresssearch" name="contactaddresssearch" placeholder="Contact's address..." readonly>
+		<label for="statesearch">State</label>
+        <input type="text" id="statesearch" name="statesearch" placeholder="Contact's state..." readonly>
+		<label for="citysearch">City</label>
+        <input type="text" id="citysearch" name="citysearch" placeholder="Contact's city..." readonly>
+		<label for="zipcodesearch">ZIP Code</label>
+        <input type="text" id="zipcodesearch" name="zipcodesearch" placeholder="Contact's zipcode..." readonly>
+		<label for="aptnumsearch">APT#</label>
+        <input type="text" id="aptnumsearch" name="aptnumsearch" placeholder="Contact's APT#... (If one exists)" readonly>
+		<label for="emailaddresssearch">Email Address</label>
+        <input type="text" id="emailaddresssearch" name="emailaddresssearch" placeholder="Contact's Email..." readonly>
+		<label for="phonenumbersearch">Phone Number</label>
+        <input type="text" id="phonenumbersearch" name="phonenumbersearch" placeholder="Contact's phone number..." readonly>
+		<input type="searchcontact" value="Search Contact">
+	<!--  </form> -->
+    </div> 	
+  </div>
+</div>
+
+
