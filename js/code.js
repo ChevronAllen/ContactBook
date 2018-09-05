@@ -5,7 +5,7 @@ var userId = 0;
 var firstName = '';
 var lastName = '';
 var sessionID = 0;
-var contacts = NULL;
+var contacts = [];
 
 function doLogin()
 {
@@ -13,20 +13,27 @@ function doLogin()
   firstName = "";
   lastName = "";
   sessionID = 0;
-  contacts = NULL;
+  contacts = [];
 
-  var username = document.getElementById("LogUser").value;	//obtaining value held in loginname and placing it inside the login variable
-  var password = document.getElementById("LogPassword").value; //obtaining value held in loginpassoword and placing it inside password variable
-  var error = '';
+  username = document.getElementById("LogUser").value;	//obtaining value held in loginname and placing it inside the login variable
+  password = document.getElementById("LogPassword").value; //obtaining value held in loginpassoword and placing it inside password variable
+
+  if(!isAlphaNumeric(username))
+  {
+    console.log("username invalid");  // temp notification
+    //document.getElementById("loginResult").innerHTML = "Username can only consist of alphabetical, numerical, or _ characters";
+    return;
+  }
+
+  hashedPassword = md5(password);
 
   // creates a unique 10 character string in base 36 ranging from 0-9 to a-z
   sessionID = Math.random().toString(36).substr(2, 10);
 
   var jsonPayload = '{'
       + '"username":"'   + username  + '", '
-      + '"password":"'   + password  + '", '
+      + '"password":"'   + hashedPassword  + '", '
       + '"sessionID":"'  + sessionID + '", '
-      + '"error":"'      + error
       + '"}';
 
   var url = urlBase + '/Login.' + extension;
@@ -59,7 +66,7 @@ function doLogin()
       contacts  = jsonObject.contacts;
       error     = jsonObject.error;
 
-      document.getElementById(//"id for section to show users first and last name").innerHTML = firstName + " " + lastName;
+      //document.getElementById("id for section to show users first and last name").innerHTML = firstName + " " + lastName;
       document.getElementById("LogUser").value = "";		//resetting username
       document.getElementById("LogPassword").value = "";	//resetting password
 
@@ -106,7 +113,88 @@ function doLogout()
 
 function doRegister()
 {
-	// TODO:
+  userId    = 0;
+  firstName = "";
+  lastName  = "";
+  sessionID = 0;
+  contacts  = [];
+
+  firstName   = document.getElementById("RegFirst").value;	//obtaining value held in loginname and placing it inside the login variable
+  lastName    = document.getElementById("RegLast").value; //obtaining value held in loginpassoword and placing it inside password variable
+  username    = document.getElementById("LogUser").value;	//obtaining value held in loginname and placing it inside the login variable
+  password    = document.getElementById("LogPassword").value; //obtaining value held in loginpassoword and placing it inside password variable
+  rePassword  = document.getElementById("RePassword").value; //obtaining value held in loginpassoword and placing it inside password variable
+
+
+  if(!isAlphaNumeric(username))
+  {
+    console.log("username invalid");  // temp notification
+    //document.getElementById("loginResult").innerHTML = "Username can only consist of alphabetical, numerical, or _ characters";
+    return;
+  }
+
+  if(password != rePassword)
+  {
+    console.log("password mismatch");  // temp notification
+    //document.getElementById("loginResult").innerHTML = "Passwords are not identical";
+    return;
+  }
+
+  hashedPassword = md5(password);
+
+  // creates a unique 10 character string in base 36 ranging from 0-9 to a-z
+  sessionID = Math.random().toString(36).substr(2, 10);
+
+  var jsonPayload = '{'
+      + '"firstName":"'   + firstName       + '", '
+      + '"lastName":"'    + lasteName       + '", '
+      + '"username":"'    + username        + '", '
+      + '"password":"'    + hashedPassword  + '", '
+      + '"sessionID":"'   + sessionID
+      + '"}';
+
+  var url = urlBase + '/Register.' + extension;
+
+  var xhr = new XMLHttpRequest();
+
+  xhr.open("POST", url, true);	//true associates with asyncrous
+  xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+  xhr.onreadystatechange = function()
+  {
+    if (this.readyState == 4 && this.status == 200)
+    {
+      var jsonObject = JSON.parse(xhr.responseText);
+
+      userId = jsonObject.id;
+
+      if(userId < 1)	//checking if the username entered exists in the database
+      {
+        console.log("not a user");  // temp notification
+        //document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
+        return;
+      }
+
+      firstName = jsonObject.firstName;
+      lastName  = jsonObject.lastName;
+      error     = jsonObject.error;
+
+      //document.getElementById("id for section to show users first and last name").innerHTML = firstName + " " + lastName;
+      document.getElementById("LogUser").value = "";		//resetting username
+      document.getElementById("LogPassword").value = "";	//resetting password
+
+      //hideOrShow("div for the logged in div", true);
+      //hideOrShow("accessUIDiv", true);
+      hideOrShow("SignIn", false);
+    }
+    else
+    {
+      console.log("error with response");
+      //document.getElementById("loginResult").innerHTML = err.message;
+    }
+  }
+
+  xhr.send(jsonPayload);
 }
 
 function addContact()
