@@ -6,21 +6,16 @@
  updates date_lastLogin
 */
 
-CREATE DEFINER=`root`@`%` PROCEDURE `findContact`(IN user_id INT, matchString VARCHAR(32), sessionID VARCHAR(32))
+CREATE DEFINER=`root`@`%` PROCEDURE `createContact`(IN user_id INT, contactFirstName VARCHAR(32), contactLastName VARCHAR(32), contactPhone VARCHAR(32), contactEmail VARCHAR(32), contactAddress VARCHAR(32),
+					contactCity VARCHAR(32), contactState VARCHAR(32), contactZipCode VARCHAR(32), sessionID VARCHAR(32))
 BEGIN
-
 DECLARE last_login DATETIME;
 SET last_login = (SELECT date_last_login FROM user WHERE userid= user_id AND session_id= sessionID LIMIT 1);
 IF  last_login IS NOT NULL THEN
-	IF (timestampdiff(MINUTE, last_login, now()) > 30) THEN
-		IF matchString IS NOT NULL AND matchString <> '' THEN
-			SELECT * FROM contacts
-			WHERE  userid = user_id;
-		ELSE
-			SELECT * FROM contacts
-			WHERE  userid = user_id
-			LIKE matchString;
-		END IF;
+	IF (timestampdiff(MINUTE, last_login, now()) < 30) THEN
+		INSERT INTO contact (contact_firstname, contact_lastname, contact_email, contact_phone, contact_address, contact_city, contact_state, contact_zipcode, userid)
+        VALUES(contactFirstName, contactLastName, contactEmail, contactPhone, contactAddress, contactCity, contactState, contactZipCode, user_id);
+        SELECT * FROM contact WHERE contactid= LAST_INSERT_ID();
 	END IF;
 END IF;
 END
