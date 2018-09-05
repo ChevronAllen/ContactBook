@@ -94,13 +94,14 @@ function doHideorShow(elementId, showState)
 function doLogout()
 {
   //resetting these three variables to empty
-	userId = 0;
-	firstName = "";
-	lastName = "";
+  userId    = 0;
+  firstName = "";
+  lastName  = "";
+  sessionID = 0;
 
-	doHideorShow("//name of logged in div in html code", false); //hiding logged in div section
-	doHideorShow("//name of access div in html code", false);	//hiding access interface section
-	doHideorShow("SignIn", true);		//showing login section
+  doHideorShow("//name of logged in div in html code", false); //hiding logged in div section
+  doHideorShow("//name of access div in html code", false);	//hiding access interface section
+  doHideorShow("SignIn", true);		//showing login section
 }
 
 function doRegister()
