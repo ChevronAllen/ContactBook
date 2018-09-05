@@ -20,8 +20,8 @@ if($conn->connect_error)
 }else
 {
 	//	Sanitize JSON input
-	$username = $mysqli->real_escape_string($inData["username"]);
-	$password = $mysqli->real_escape_string($inData["password"]);
+	$username 	= $mysqli->real_escape_string($inData["username"]);
+	$password 	= $mysqli->real_escape_string($inData["password"]);
 	$sessionID  = $mysqli->real_escape_string($inData["sessionID"]);
 	
 	//	Call stored procedure that will insert a new user
@@ -41,10 +41,11 @@ if($conn->connect_error)
 		returnWithError("Invalid Username/Password.");
 	}else{
 
-
 		$row = $result->fetch_assoc();
+		
 		$id = $row["iduser"];
-
+		$firstName = $row["user_firstname"];
+		$lastName = $row["user_lastname"];
 
 		//	if the id is zero something went wrong
 		if($id == 0)
@@ -52,23 +53,24 @@ if($conn->connect_error)
 			returnWithError("Invalid Username/Password.");
 		}else
 		{
-			// Successful login
-			
-			// find contacts
+			/*
+				On a succesful login find all the user's contacts
+			*/
 			
 			$sql = 'CALL findContacts ("' . $id . '","","' . $sessionID .'");';
 			
 			$results =  conn->query($sql);
-			$list = array();
+			$list = array();	// Empty array
 			while($row = mysql_fetch_assoc($result))
 			{
+				//add rows to array individually
 				$list[] = $row;
 			}
 			
-			$contacts = json_decode($data); 
-			returnWithInfo($id, $firstName, $lastName, $contacts,"");
+			//	convert array of rows to json data
+			$contacts = json_encode($data); 
 			
-			
+			returnWithInfo($id, $firstName, $lastName, $contacts,"");			
 		}
 	}
 }
@@ -92,10 +94,7 @@ function createJSONString($id_,$firstName_,$lastName_,$contacts_,$error_)
           "contacts" : '. $contacts_ . ' ,
           "error" : "' . $error_ . '"
         }';
-		
-		
 
-}
   return $ret;
 }
 
@@ -107,13 +106,13 @@ function sendResultInfoAsJson( $obj )
 
 function returnWithError( $err )
 {
-  $retValue = createJSONString(0,"","","","","",$err);
+  $retValue = createJSONString(0,"","","",$err);
   sendResultInfoAsJson( $retValue );
 }
 
 function returnWithInfo($id, $firstName, $lastName )
 {
-  $retValue = createJSONString($id,$firstName,$lastName,"","","","");
+  $retValue = createJSONString($id,$firstName,$lastName,"","");
   sendResultInfoAsJson( $retValue );
 }
 
