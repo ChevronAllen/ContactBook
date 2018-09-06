@@ -228,24 +228,24 @@ function addContact()
 	contactState = document.getElementById("state").value;
 	contactCity = document.getElementById("city").value;
 	contactZipcode = document.getElementById("zipcode").value;
-
-	//unsure if we are using these parameters
-	//contactAPT = document.getElementById("aptnum").value;
-	//contactEmail = document.getElementById("emailaddress").value;
-	//contactPhoneNumber = document.getElementById("phonenumber").value;
+	contactAPT = document.getElementById("aptnum").value;
+	contactEmail = document.getElementById("emailaddress").value;
+	contactPhoneNumber = document.getElementById("phonenumber").value;
 
 	var jsonPayload = '{'
-			+ '"id":"'			+ userId			+ '",'
-			+ '"firstName":"'	+ contactFirstName	+ '",'
-			+ '"lastName":"'	+ contactLastName	+ '",'
-			+ '"address":"'		+ contactAddress 	+ '",'
-			+ '"city":"'		+ contactCity		+ '",'
-			+ '"state":"'		+ contactState		+ '",'
-			+ '"zipCode":"'		+ contactZipcode 	+ '",'
+			+ '"id":"'			+ userId			 + '",'
+			+ '"firstName":"'	+ contactFirstName	 + '",'
+			+ '"lastName":"'	+ contactLastName	 + '",'
+			+ '"address":"'		+ contactAddress 	 + '",'
+			+ '"city":"'		+ contactCity		 + '",'
+			+ '"state":"'		+ contactState		 + '",'
+			+ '"zipCode":"'		+ contactZipcode 	 + '",'
+			+ '"email":"'		+ contactEmail 		 + '",'
+			+ '"phoneNumber":"' + contactPhoneNumber + '",'
 			+ '"sessionID":"'	+ sessionID
 			+ '"}';
 
-	var url = urlBase + '/AddContact.' + extension;
+  var url = urlBase + '/AddContact.' + extension;
   var xhr = new XMLHttpRequest();
 
   xhr.open("POST", url, true);	//true associates with asyncrous
