@@ -1,22 +1,11 @@
-// TODO: Comments
 var urlbase = ''  //'website address';
 var extension = 'php';
 
-var userId = 0;
-var firstName = '';
-var lastName = '';
-var sessionID = 0;
-var contacts = [];
-
-var contactFirstName;
-var contactLastName;
-var contactAddress;
-var contactState;
-var contactCity;
-var contactZipcode;
-var contactAPT;
-var contactEmail;
-var contactPhoneNumber;
+var userId = 0;	// userId is an int that must match with the database id for contact manipulation
+var firstName = ''; // user first name
+var lastName = '';	// user last name
+var sessionID = 0;	// generated sessionID that is created and sent on login/registration
+var contacts = [];	// array of contacts for user
 
 function hideOrShow(elementId, showState)
 {
@@ -73,6 +62,12 @@ function switchToSignUp()
 	console.log("sign up");
 }
 
+// doLogin takes a username and password from LogUser and LogPassword id
+// sessionID is created as a 10 alphanumeric char string
+// JSON payload is then created and sent asynchronously
+// the wait for the response will then continue in the background
+// once a response is recieved the JSON recieved will be parsed for an error
+// if no error is found the user fields are filled
 function doLogin()
 {
   userId = 0;
@@ -114,53 +109,66 @@ function doLogin()
   // status == 200 is a successful request once finished
   xhr.onreadystatechange = function()
   {
-    if (this.readyState == 4 && this.status == 200)
-    {
-      var jsonObject = JSON.parse(xhr.responseText);
+    if (this.readyState == 4)
+		{
+			if(this.status == 200)
+    	{
+      	var jsonObject = JSON.parse(xhr.responseText);
 
-  		userId = jsonObject.id;
+				userId = jsonObject.id;
 
-      if(userId < 1)	//checking if the username entered exists in the database
-      {
-        document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
-        return;
-      }
+      	if(userId < 1)	//checking if the username entered exists in the database
+      	{
+        	document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
+        	return;
+      	}
 
-      firstName = jsonObject.firstName;
-      lastName  = jsonObject.lastName;
-      contacts  = jsonObject.contacts;
-      error     = jsonObject.error;
+      	firstName = jsonObject.firstName;
+      	lastName  = jsonObject.lastName;
+      	contacts  = jsonObject.contacts;
+      	error     = jsonObject.error;
 
-      //document.getElementById("id for section to show users first and last name").innerHTML = firstName + " " + lastName;
-      document.getElementById("LogUser").value = "";		//resetting username
-      document.getElementById("LogPassword").value = "";	//resetting password
+      	//document.getElementById("id for section to show users first and last name").innerHTML = firstName + " " + lastName;
+      	document.getElementById("LogUser").value = "";		//resetting username
+      	document.getElementById("LogPassword").value = "";	//resetting password
 
-      //hideOrShow("div for the logged in div", true);
-      //hideOrShow("accessUIDiv", true);
-      hideOrShow("loginContainer", false);
-    }
-    else
-    {
-      document.getElementById("loginResult").innerHTML = " error " + this.status;
-    }
+      	//hideOrShow("div for the logged in div", true);
+      	//hideOrShow("accessUIDiv", true);
+      	//hideOrShow("loginContainer", false);
+				document.getElementById("loginResult").innerHTML = "Logged in";
+    	}
+    	else
+    	{
+      	document.getElementById("loginResult").innerHTML = " error " + this.status;
+    	}
+		}
   }
 
   xhr.send(jsonPayload);
 }
 
+// erases logged in fields
 function doLogout()
 {
   //resetting these three variables to empty
   userId    = 0;
   firstName = "";
   lastName  = "";
+	contacts = [];
   sessionID = 0;
 
-  doHideorShow("//name of logged in div in html code", false); //hiding logged in div section
-  doHideorShow("//name of access div in html code", false);	//hiding access interface section
+  doHideorShow("name of logged in div in html code", false); //hiding logged in div section
+  doHideorShow("name of access div in html code", false);	//hiding access interface section
   doHideorShow("SignIn", true);		//showing login section
 }
 
+// doRegister takes a username and password from LogUser and LogPassword id
+// a first name from RegFirst, last name from RegLast id
+// sessionID is created as a 10 alphanumeric char string
+// JSON payload is then created and sent asynchronously
+// the wait for the response will then continue in the background
+// once a response is recieved the JSON recieved will be parsed for an error
+// if no error is found the user fields are filled
 function doRegister()
 {
   userId    = 0;
@@ -177,9 +185,9 @@ function doRegister()
   rePassword  = document.getElementById("RePassword").value; //obtaining value held in loginpassoword and placing it inside password variable
 
 
-  if(!isAlphaNumeric(username))
+  if(!isAlphaNumeric(username) || !isAlphaNumeric(firstName) || !isAlphaNumeric(lastName))
   {
-    document.getElementById("loginResult").innerHTML = "Username can only consist of alphabetical characters, numerical characters, or _";
+    document.getElementById("loginResult").innerHTML = "Username and name fields can only consist of alphabetical characters, numerical characters, or _";
     return;
   }
 
@@ -211,51 +219,56 @@ function doRegister()
 
   xhr.onreadystatechange = function()
   {
-    if (this.readyState == 4 && this.status == 200)
-    {
-      var jsonObject = JSON.parse(xhr.responseText);
+    if (this.readyState == 4)
+		{
+			if (this.status == 200)
+    	{
+      	var jsonObject = JSON.parse(xhr.responseText);
 
-      userId = jsonObject.id;
-      error  = jsonObject.error;
-      if(userId < 1)	//checking if the username entered exists in the database
-      {
-        document.getElementById("loginResult").innerHTML = error;
-        return;
-      }
+      	userId = jsonObject.id;
+      	error  = jsonObject.error;
+      	if(userId < 1)	//checking if the username entered exists in the database
+      	{
+        	document.getElementById("loginResult").innerHTML = error;
+        	return;
+      	}
 
-      firstName = jsonObject.firstName;
-      lastName  = jsonObject.lastName;
-      contacts  = jsonObject.contacts;
+      	firstName = jsonObject.firstName;
+      	lastName  = jsonObject.lastName;
+      	contacts  = jsonObject.contacts;
 
-      //document.getElementById("id for section to show users first and last name").innerHTML = firstName + " " + lastName;
-      document.getElementById("LogUser").value = "";		//resetting username
-      document.getElementById("LogPassword").value = "";	//resetting password
+      	//document.getElementById("id for section to show users first and last name").innerHTML = firstName + " " + lastName;
+      	document.getElementById("LogUser").value = "";		//resetting username
+      	document.getElementById("LogPassword").value = "";	//resetting password
 
-      //hideOrShow("div for the logged in div", true);
-      //hideOrShow("accessUIDiv", true);
-      hideOrShow("loginContainer", false);
-    }
-    else
-    {
-      document.getElementById("loginResult").innerHTML = " error " + this.status;
-    }
+      	//hideOrShow("div for the logged in div", true);
+      	//hideOrShow("accessUIDiv", true);
+      	//hideOrShow("loginContainer", false);
+				document.getElementById("loginResult").innerHTML = "Logged in";
+    	}
+    	else
+			{
+      	document.getElementById("loginResult").innerHTML = " error " + this.status;
+    	}
+		}
   }
 
   xhr.send(jsonPayload);
 }
 
+// TODO: comment on addContact
 function addContact()
 {
 	//initailizing variable to empty strings
-	contactFirstName = "";
-	contactLastName = "";
-	contactAddress = "";
-	contactState = "";
-	contactCity	= "";
-	contactZipcode = "";
-	contactAPT = "";
-	contactEmail = "";
-	contactPhoneNumber = "";
+	var contactFirstName = "";
+	var contactLastName = "";
+	var contactAddress = "";
+	var contactState = "";
+	var contactCity	= "";
+	var contactZipcode = "";
+	var contactAPT = "";
+	var contactEmail = "";
+	var contactPhoneNumber = "";
 
 	//obtaining and storing the values entered by user into the specified variable
 	contactFirstName = document.getElementById("firstname").value;
@@ -289,23 +302,25 @@ function addContact()
 
   xhr.onreadystatechange = function()
   {
-    if (this.readyState == 4 && this.status == 200)
-    {
-      var jsonObject = JSON.parse(xhr.responseText);
+    if (this.readyState == 4)
+		{
+			if (this.status == 200)
+    	{
+      	var jsonObject = JSON.parse(xhr.responseText);
 
-      userId = jsonObject.id;
-      error  = jsonObject.error;
+      	userId = jsonObject.id;
+      	error  = jsonObject.error;
 
-      if(userId < 1)	//checking if the username entered exists in the database
-      {
-        console.log(error);  // temp notification
-        //document.getElementById("loginResult").innerHTML = error;
-        return;
-      }
+      	if(userId < 1)	//checking if the username entered exists in the database
+      	{
+        	console.log(error);  // temp notification
+        	//document.getElementById("loginResult").innerHTML = error;
+        	return;
+      	}
 
-      var contactID = jsonObject.contactID;
+      	var contactID = jsonObject.contactID;
 
-      var jsonContact = '{'
+      	var jsonContact = '{'
     			+ '"contactID":""' + contactID           + '",'
     			+ '"firstName":"'  + contactFirstName    + '",'
     			+ '"lastName":"'   + contactLastName     + '",'
@@ -317,18 +332,20 @@ function addContact()
     			+ '"phone":"'      + contactPhoneNumber  +
     			+ '"}';
 
-      contacts.push(JSON.parse(jsonContact));
-    }
-    else
-    {
-      console.log("error with response");
-      //document.getElementById("loginResult").innerHTML = this.status;
-    }
+      	contacts.push(JSON.parse(jsonContact));
+    	}
+    	else
+    	{
+      	console.log("error with response");
+      	//document.getElementById("loginResult").innerHTML = this.status;
+    	}
+		}
   }
 
   xhr.send(jsonPayload);
 }
 
+// searches local contacts array for a match
 function searchContact()
 {
   var search = new RegExp(document.getElementById("").innerHTML);
@@ -351,6 +368,7 @@ function searchContact()
     });
 }
 
+// TODO: comments
 function deleteContact()
 {
 	// TODO: similar to add but once response is verified remove contact from contacts
