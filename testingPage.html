@@ -1,17 +1,11 @@
 <!DOCTYPE html>
 <html>
 
-<button onclick="doRegister">Test Register</button>
+
 
 <script>
 function doRegister(){
-  var jsonPayload = '{'
-      + '"firstName":"'   + "Larry" + '", '
-      + '"lastName":"'    + "Larry" + '", '
-      + '"username":"'    + "Larry" + '", '
-      + '"password":"'    + "Larry" + '", '
-      + '"sessionID":"'   + "Larry"
-      + '"}';
+  var jsonPayload = '{ "firstName": "Larry" , "lastName": "Larry", "username": "Larry", "password": "Larry" , "sessionID": "Larry" }';
 
   var url = location.protocol + '//' + location.hostname + '/Register.php';
 
@@ -52,8 +46,12 @@ function doRegister(){
       //document.getElementById("loginResult").innerHTML = " error " + this.status;
     }
   }
-
+*/
   xhr.send(jsonPayload);
 }
 </script>
+
+<button onclick="doRegister()">Test Register</button>
+
+
 </html>
