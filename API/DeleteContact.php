@@ -12,12 +12,15 @@ $userID = 0;
 $contactID = 0;
 $sessionID = "";
 
-if($inData  == NULL){
+if($inData  == NULL)
+{
 	returnWithError("Communications Error, NULL input");
 //	Test for connection errors
-}else if($conn->connect_error){}
+}else if($conn->connect_error)
+{
 	returnWithError("Error Connecting to the Server");
-}else{
+}else
+{
 
 	//	Sanitize JSON input
   $userID = $mysqli->real_escape_string($inData["id"]);
@@ -25,7 +28,7 @@ if($inData  == NULL){
   $sessionID = $mysqli->real_escape_string($inData["sessionID"]);
 
 	//	Call stored procedure that will insert a new user
-	$sql = 'CALL deleteContact("'.$userID.'", "'.$contactID.'","'.$sessionID'")';
+	$sql = 'CALL deleteContact("'.$userID.'", "'.$contactID.'","'.$sessionID'");';
 
 	//	Capture results
 	$results = conn->query($sql);
@@ -34,47 +37,55 @@ if($inData  == NULL){
 		result should be a row from the contacts table
 		of the contact that was deleted
 	*/
-	if ($result->num_rows <= 0){
+	if ($result->num_rows <= 0)
+	{
 		returnWithError("Error deleting contact");
-	}else{
-
+	}else
+	{
+	
 		returnWithInfo($userID, "");
 	}
 }
-
-
  // Close the connection
 $conn->close();
+
+
  //	Retrieves data sent to the php
-function getRequestInfo(){
+function getRequestInfo()
+{
 
   return json_decode(file_get_contents('php://input'), true);
 }
 
-function createJSONString($userID_, $err_){
+function createJSONString($userID_, $err_)
+{
 
-  $ret = '
-	{
+  $ret = 
+		'{
     "id": '.$userID_.',
-    "error": '$err_';
-  }'
+    "error": "'$err_'"
+  }';
+	return $ret;
 }
 
-function sendResultInfoAsJson( $obj ){
+function sendResultInfoAsJson( $obj )
+{
 
   header('Content-type: application/json');
   echo $obj;
 }
 
-function returnWithError( $err ){
+function returnWithError( $err )
+{
 
   $retValue = createJSONString(0,$err);
   sendResultInfoAsJson( $retValue );
 }
 
-function returnWithInfo($userID, $err){
+function returnWithInfo($userID_, $err_)
+{
 
-  $retValue = createJSONString($userID, $err);
+  $retValue = createJSONString($userID_, $err_);
   sendResultInfoAsJson( $retValue );
 }
 
