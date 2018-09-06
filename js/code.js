@@ -136,6 +136,8 @@ function doLogin()
       	//hideOrShow("accessUIDiv", true);
       	//hideOrShow("loginContainer", false);
 				document.getElementById("loginResult").innerHTML = "Logged in";
+
+				// TODO: switch to contacts page, fill contacts on html
     	}
     	else
     	{
@@ -245,6 +247,8 @@ function doRegister()
       	//hideOrShow("accessUIDiv", true);
       	//hideOrShow("loginContainer", false);
 				document.getElementById("loginResult").innerHTML = "Logged in";
+
+				// TODO: switch to contacts page, fill contacts on html
     	}
     	else
 			{
@@ -333,6 +337,7 @@ function addContact()
     			+ '"}';
 
       	contacts.push(JSON.parse(jsonContact));
+				// TODO: fill contacts on html
     	}
     	else
     	{
