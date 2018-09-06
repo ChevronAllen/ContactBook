@@ -1,3 +1,4 @@
+// TODO: Comments
 var urlbase = ''  //'website address';
 var extension = 'php';
 
@@ -17,6 +18,60 @@ var contactAPT;
 var contactEmail;
 var contactPhoneNumber;
 
+function hideOrShow(elementId, showState)
+{
+	var visible = "visible";
+	var display = "block";
+	if(!showState)
+	{
+		visible = "hidden";
+		display = "none";
+	}
+
+	document.getElementById(elementId).style.visibility = visible;
+	document.getElementById(elementId).style.display = display;
+}
+
+// Changes visibility to Sign In view
+function switchToSignIn()
+{
+	var signUpItems = document.getElementsByClassName("Reg");
+	var i = 1;
+	for( i = 0; i < signUpItems.length; i++ )
+	{
+		signUpItems[i].style.visibility = "hidden";
+	}
+
+	var signInItems = document.getElementsByClassName("SignIn");
+	for( i = 0; i < signInItems.length; i++ )
+	{
+		signInItems[i].style.visibility = "visible";
+	}
+
+	var title = document.getElementById("title").innerHTML = "Sign-In";
+	console.log("sign in");
+
+}
+
+// Changes visibility to Registration view
+function switchToSignUp()
+{
+	var signUpItems = document.getElementsByClassName("Reg");
+	var i = 1;
+	for( i = 0; i < signUpItems.length; i++ )
+	{
+		signUpItems[i].style.visibility = "visible";
+	}
+
+	var signInItems = document.getElementsByClassName("SignIn");
+	for( i = 0; i < signInItems.length; i++ )
+	{
+		signInItems[i].style.visibility = "hidden";
+	}
+
+	var title = document.getElementById("title").innerHTML = "Register";
+	console.log("sign up");
+}
 
 function doLogin()
 {
@@ -25,14 +80,14 @@ function doLogin()
   lastName = "";
   sessionID = 0;
   contacts = [];
+  document.getElementById("loginResult").innerHTML = "";
 
   username = document.getElementById("LogUser").value;	//obtaining value held in loginname and placing it inside the login variable
   password = document.getElementById("LogPassword").value; //obtaining value held in loginpassoword and placing it inside password variable
 
   if(!isAlphaNumeric(username))
   {
-    console.log("username invalid");  // temp notification
-    //document.getElementById("loginResult").innerHTML = "Username can only consist of alphabetical, numerical, or _ characters";
+    document.getElementById("loginResult").innerHTML = "Username can only consist of alphabetical, numerical, or _ characters";
     return;
   }
 
@@ -67,8 +122,7 @@ function doLogin()
 
       if(userId < 1)	//checking if the username entered exists in the database
       {
-        console.log("not a user");  // temp notification
-        //document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
+        document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
         return;
       }
 
@@ -83,30 +137,15 @@ function doLogin()
 
       //hideOrShow("div for the logged in div", true);
       //hideOrShow("accessUIDiv", true);
-      hideOrShow("SignIn", false);
+      hideOrShow("loginContainer", false);
     }
     else
     {
-      console.log("error with response");
-      //document.getElementById("loginResult").innerHTML = err.message;
+      document.getElementById("loginResult").innerHTML = " error " + this.status;
     }
   }
 
   xhr.send(jsonPayload);
-}
-
-function doHideorShow(elementId, showState)
-{
-	var visible = "visible";
-	var display = "block";
-	if(!showState)
-	{
-		visible = "hidden";
-		display = "none";
-	}
-
-	document.getElementById(elementId).style.visibility = visible;
-	document.getElementById(elementId).style.display = display;
 }
 
 function doLogout()
@@ -129,6 +168,7 @@ function doRegister()
   lastName  = "";
   sessionID = 0;
   contacts  = [];
+  document.getElementById("loginResult").innerHTML = "";
 
   firstName   = document.getElementById("RegFirst").value;	//obtaining value held in loginname and placing it inside the login variable
   lastName    = document.getElementById("RegLast").value; //obtaining value held in loginpassoword and placing it inside password variable
@@ -139,15 +179,13 @@ function doRegister()
 
   if(!isAlphaNumeric(username))
   {
-    console.log("username invalid");  // temp notification
-    //document.getElementById("loginResult").innerHTML = "Username can only consist of alphabetical, numerical, or _ characters";
+    document.getElementById("loginResult").innerHTML = "Username can only consist of alphabetical characters, numerical characters, or _";
     return;
   }
 
   if(password != rePassword)
   {
-    console.log("password mismatch");  // temp notification
-    //document.getElementById("loginResult").innerHTML = "Passwords are not identical";
+    document.getElementById("loginResult").innerHTML = "Passwords are not identical";
     return;
   }
 
@@ -178,17 +216,16 @@ function doRegister()
       var jsonObject = JSON.parse(xhr.responseText);
 
       userId = jsonObject.id;
-
+      error  = jsonObject.error;
       if(userId < 1)	//checking if the username entered exists in the database
       {
-        console.log("not a user");  // temp notification
-        //document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
+        document.getElementById("loginResult").innerHTML = error;
         return;
       }
 
       firstName = jsonObject.firstName;
       lastName  = jsonObject.lastName;
-      error     = jsonObject.error;
+      contacts  = jsonObject.contacts;
 
       //document.getElementById("id for section to show users first and last name").innerHTML = firstName + " " + lastName;
       document.getElementById("LogUser").value = "";		//resetting username
@@ -196,12 +233,11 @@ function doRegister()
 
       //hideOrShow("div for the logged in div", true);
       //hideOrShow("accessUIDiv", true);
-      hideOrShow("SignIn", false);
+      hideOrShow("loginContainer", false);
     }
     else
     {
-      console.log("error with response");
-      //document.getElementById("loginResult").innerHTML = err.message;
+      document.getElementById("loginResult").innerHTML = " error " + this.status;
     }
   }
 
@@ -233,16 +269,16 @@ function addContact()
 	contactPhoneNumber = document.getElementById("phonenumber").value;
 
 	var jsonPayload = '{'
-			+ '"id":"'			+ userId			 + '",'
-			+ '"firstName":"'	+ contactFirstName	 + '",'
-			+ '"lastName":"'	+ contactLastName	 + '",'
-			+ '"address":"'		+ contactAddress 	 + '",'
-			+ '"city":"'		+ contactCity		 + '",'
-			+ '"state":"'		+ contactState		 + '",'
-			+ '"zipCode":"'		+ contactZipcode 	 + '",'
-			+ '"email":"'		+ contactEmail 		 + '",'
-			+ '"phoneNumber":"' + contactPhoneNumber + '",'
-			+ '"sessionID":"'	+ sessionID
+			+ '"id":'			     + userId              + ','
+			+ '"firstName":"'  + contactFirstName    + '",'
+			+ '"lastName":"'   + contactLastName     + '",'
+			+ '"address":"'    + contactAddress      + '",'
+			+ '"city":"'       + contactCity         + '",'
+			+ '"state":"'      + contactState        + '",'
+			+ '"zipCode":"'    + contactZipcode      + '",'
+			+ '"email":"'      + contactEmail        + '",'
+			+ '"phone":"'      + contactPhoneNumber  + '",'
+			+ '"sessionID":"'  + sessionID
 			+ '"}';
 
   var url = urlBase + '/AddContact.' + extension;
@@ -267,8 +303,21 @@ function addContact()
         return;
       }
 
-      // TODO:  we can use the contact info we sent to add to our array of contacts
-      //        only added if there is no error recieved
+      var contactID = jsonObject.contactID;
+
+      var jsonContact = '{'
+    			+ '"contactID":""' + contactID           + '",'
+    			+ '"firstName":"'  + contactFirstName    + '",'
+    			+ '"lastName":"'   + contactLastName     + '",'
+    			+ '"address":"'    + contactAddress      + '",'
+    			+ '"city":"'       + contactCity         + '",'
+    			+ '"state":"'      + contactState        + '",'
+    			+ '"zipCode":"'    + contactZipcode      + '",'
+    			+ '"email":"'      + contactEmail        + '",'
+    			+ '"phone":"'      + contactPhoneNumber  +
+    			+ '"}';
+
+      contacts.push(JSON.parse(jsonContact));
     }
     else
     {
@@ -282,7 +331,24 @@ function addContact()
 
 function searchContact()
 {
-  // TODO: search contacts array async
+  var search = new RegExp(document.getElementById("").innerHTML);
+
+  contacts.forEach(
+    displayIfMatch(element)
+    {
+      var match = 0;
+      for(var key in element)
+      {
+        if(search.test(element[key]))
+        {
+          match = 1;
+        }
+      }
+      if(match == 1)
+      {
+        // TODO: display contact to html
+      }
+    });
 }
 
 function deleteContact()
