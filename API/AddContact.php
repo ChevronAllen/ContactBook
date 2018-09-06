@@ -20,22 +20,19 @@ $zipCode = "";
 $sessionID = "";
 
 //	TODO:	proper check for JSON POST data http://thisinterestsme.com/receiving-json-post-data-via-php/
-if($inData  == NULL)
-{
+if($inData  == NULL){
 	returnWithError("Communications Error, NULL input");
 //	Test for connection errors
-}else if($conn->connect_error)
-{
+}else if($conn->connect_error){
 	returnWithError("Error Connecting to the Server");
-}else
-{
+}else{
 
 	//	Sanitize JSON input
   $userID = $mysqli->real_escape_string($inData["id"]);
 	$firstName = $mysqli->real_escape_string($inData["firstName"]);
-	$lastName = $mysqli->real_escape_string($inData["lastName"];
+	$lastName = $mysqli->real_escape_string($inData["lastName"]);
 	$email = $mysqli->real_escape_string($inData["email"]);
-	$phoneNumber = $mysqli->real_escape_string($inData["phone"]);
+	$phoneNumber = $mysqli->real_escape_string($inData["phoneNumber"]);
   $address = $mysqli->real_escape_string($inData["address"]);
   $city = $mysqli->real_escape_string($inData["city"]);
   $state = $mysqli->real_escape_string($inData["state"]);
@@ -45,10 +42,10 @@ if($inData  == NULL)
 	//	Call stored procedure that will insert a new user
 	$sql = 'CALL createContact("'.$userID.'", "'.$firstName.'",
     "'.$lastName.'","'.$phoneNumber.'","'. $email.'","'. $address.'",
-    "'.$city.'","'.$state.'","'.$zipCode.'","'.$sessionID'")';
+    "'.$city.'","'.$state.'","'.$zipCode.'","'.$sessionID.'")';
 
 	//	Capture results
-	$results = conn->query($sql);
+	$results = $conn->query($sql);
 
 	/*
 		result should be a row from the contacts table
@@ -56,30 +53,25 @@ if($inData  == NULL)
 		we recieve the whole row so that if we need to implement
 		a session id that would be sent.
 	*/
-	if ($result->num_rows <= 0)
-	{
+	if ($result->num_rows <= 0){
 		returnWithError("Error adding new contact");
-	}else
-	{
+	}else{
 
     //create array from sql result data
 		$row = $result->fetch_assoc();
 		$contactID = $row["contactid"];
 		$userID = $row["iduser"];
-
-		/*	
+		/*
 			FIX:  read in contadtID and usrID from  $row
 			then check if either of them is zero
 		*/
 		//	if the id is zero something went wrong
-		if($contactID == 0 || $userID == 0)
-		{
+		if($contactID == 0 || $userID == 0) {
 			returnWithError("Error adding new contact");
-		}else
-		{
-
+		}else {
 			returnWithInfo($userID, $contactID, "");
 		}
+
 	}
 }
 
@@ -93,13 +85,12 @@ function getRequestInfo(){
 
 function createJSONString($userID_, $contactID_, $err_){
 
-  $ret = 
-	'{
-    "id": ' . $userID_ . ',
-    "contactID": ' . $contactID_ . ',
-    "error": "' . $err_ . '"
+  $ret = '
+	{
+    "id": '.$userID_.',
+    "contactID": '.$contactID_.',
+    "error": '.$err_.';
   }';
-	return $ret;
 }
 
 function sendResultInfoAsJson( $obj ){
@@ -114,9 +105,9 @@ function returnWithError( $err ){
   sendResultInfoAsJson( $retValue );
 }
 
-function returnWithInfo($userID_, $contactID_, $err_){
+function returnWithInfo($userID, $contactID, $err){
 
-  $retValue = createJSONString($userID_, $contactID_, $err_);
+  $retValue = createJSONString($userID, $contactID, $err);
   sendResultInfoAsJson( $retValue );
 }
 
