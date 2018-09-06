@@ -66,7 +66,7 @@ USE `contact_book` ;
 
 DELIMITER $$
 USE `contact_book`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `createContact`(IN user_id INT, contactFirstName VARCHAR(32), contactLastName VARCHAR(32), contactPhone VARCHAR(32), contactEmail VARCHAR(32), contactAddress VARCHAR(32),
+CREATE PROCEDURE `createContact`(IN user_id INT, contactFirstName VARCHAR(32), contactLastName VARCHAR(32), contactPhone VARCHAR(32), contactEmail VARCHAR(32), contactAddress VARCHAR(32),
 					contactCity VARCHAR(32), contactState VARCHAR(32), contactZipCode VARCHAR(32), sessionID VARCHAR(32))
 BEGIN
 DECLARE last_login DATETIME;
@@ -88,7 +88,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `contact_book`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `createUser`(IN u_fname VARCHAR(45), u_lname VARCHAR(45), uname VARCHAR(45), u_pass VARCHAR(45), sessionID VARCHAR(32))
+CREATE PROCEDURE `createUser`(IN u_fname VARCHAR(45), u_lname VARCHAR(45), uname VARCHAR(45), u_pass VARCHAR(45), sessionID VARCHAR(32))
 BEGIN
 
 INSERT INTO USER (username, user_firstname, user_lastname, user_password, session_id)
@@ -107,21 +107,21 @@ DELIMITER ;
 
 DELIMITER $$
 USE `contact_book`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteContact`(IN user_id INT, contact_id INT, sessionID VARCHAR(32))
+CREATE PROCEDURE `deleteContact`(IN user_id INT, contact_id INT, sessionID VARCHAR(32))
 BEGIN
 DECLARE last_login DATETIME;
 SET last_login = (SELECT date_last_login FROM user WHERE userid= user_id AND session_id= sessionID LIMIT 1);
 IF  last_login IS NOT NULL THEN
 	IF (timestampdiff(MINUTE, last_login, now()) < 30) THEN
 		DELETE FROM contact WHERE contactid = contact_id;
-        
+
 	UPDATE user
-	SET date_last_login = CURRENT_TIMESTAMP() 
+	SET date_last_login = CURRENT_TIMESTAMP()
     WHERE userid= user_id
     LIMIT 1;
-    
+
     SELECT   userid, username, user_firstname, user_lastname, date_added, date_last_login, session_id
-    FROM user 
+    FROM user
     WHERE userid= user_id;
 	END IF;
 END IF;
@@ -135,7 +135,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `contact_book`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `findContact`(IN user_id INT, matchString VARCHAR(32), sessionID VARCHAR(32))
+CREATE PROCEDURE `findContact`(IN user_id INT, matchString VARCHAR(32), sessionID VARCHAR(32))
 BEGIN
 
 DECLARE last_login DATETIME;
@@ -162,9 +162,9 @@ DELIMITER ;
 
 DELIMITER $$
 USE `contact_book`$$
-CREATE DEFINER=`root`@`%` PROCEDURE `findContacts_json`(IN user_id INT, OUT results VARCHAR(5000))
+CREATE PROCEDURE `findContacts_json`(IN user_id INT, OUT results VARCHAR(5000))
 BEGIN
-SELECT group_concat(concat('[ ', json_object('firstName', contact_firstname, 'lastName', contact_lastname, 'email', contact_email, 
+SELECT group_concat(concat('[ ', json_object('firstName', contact_firstname, 'lastName', contact_lastname, 'email', contact_email,
 										'phone', contact_phone, 'address', contact_address, 'state', contact_state, 'zipcode', contact_zipcode), ']'))
 INTO results
 FROM contact
@@ -181,16 +181,16 @@ DELIMITER ;
 
 DELIMITER $$
 USE `contact_book`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `userLogin`(IN uname VARCHAR(45),  pword VARCHAR(32), sessionID VARCHAR(32))
+CREATE PROCEDURE `userLogin`(IN uname VARCHAR(45),  pword VARCHAR(32), sessionID VARCHAR(32))
 BEGIN
 IF EXISTS (SELECT userid FROM user WHERE username= uname AND user_password = pword) THEN
 	UPDATE user
-	SET session_id= sessionID, date_last_login = CURRENT_TIMESTAMP() 
+	SET session_id= sessionID, date_last_login = CURRENT_TIMESTAMP()
     WHERE username= uname AND user_password = pword
     LIMIT 1;
-    
+
     SELECT   userid, username, user_firstname, user_lastname, date_added, date_last_login, session_id
-    FROM user 
+    FROM user
     WHERE username= uname AND user_password = pword;
 END IF;
 END$$
