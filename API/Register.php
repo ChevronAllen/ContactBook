@@ -32,9 +32,9 @@ if($conn->connect_error)
 							"' . $username . '",
 							"' . $password . '",
 							"' . $sessionID .'")';
-	
+
 	//	Capture results
-	$results = conn->query($sql);
+	$results = $conn->query($sql);
 
 	/*
 		result should be a row from the users table
@@ -45,9 +45,9 @@ if($conn->connect_error)
 	if ($result->num_rows <= 0){
 		returnWithError("Error adding new user");
 	}else{
-	
+
 		$row = $result->fetch_assoc();
-		
+
 		$id = $row["iduser"];
 		$firstName = $row["user_firstname"];
 		$lastName = $row["user_lastname"];
