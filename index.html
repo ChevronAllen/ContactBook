@@ -9,15 +9,12 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
 	<!--
-    Here import the main stylesheet, javascript, and the
-    md5 hash function i found off the web.
-    (I would prefer if the MD5 was nested or imported through code.js)
-  -->
+    Here import the main stylesheet, javascript
+  	-->
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
 	<script src="js/code.js"></script>
-	<script src="js/md5.js"></script>
 
-    <title>Hello, world!</title>
+    <title>Sign-In</title>
   </head>
   <body>
 
@@ -44,14 +41,7 @@
     <label id="loginResult"> </label>
 
     <!--
-      Used to test the MD5 output
-    -->
-		<label id="md5Hash"> </label>
-    <!--
       These are the hyper links that switch between Sign and Register views.
-      Please do not use the phrase 'Sign Up', this is too simular to
-      the phrase 'Sign In' and could lead to easily missed errors. Lets keep it consistent by
-      using 'Sign In' and 'Register'
     -->
 		<div>
 			<span id="SignHyper" ><a onclick="switchToSignIn()" href="javascript:void(0);" return false> Sign-In </a></span>
