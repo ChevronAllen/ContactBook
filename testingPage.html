@@ -19,7 +19,8 @@ function doRegister(){
 
   xhr.open("POST", url, true);	//true associates with asyncrous
   xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-
+  xhr.setRequestHeader("Accept", "application/json; charset=UTF-8");
+  
   xhr.onreadystatechange = function()
   {
     if (this.readyState == 4 && this.status == 200)
