@@ -91,7 +91,7 @@ function createJSONString($id_, $firstName_, $lastName_, $contacts_, $error_)
           "id" : '. $id_ .' ,
           "firstName" : "' . $firstName_ . '",
           "lastName" : "' . $lastName_ . '",
-          "contacts" : '. $contacts_ . ' ,
+          "contacts" : '. ($contacts_ == "" ? "[]":$contacts_) . ' ,
           "error" : "' . $error_ . '"
         }';
 
