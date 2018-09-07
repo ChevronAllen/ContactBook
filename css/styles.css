@@ -4,7 +4,7 @@
     border: 3px solid #73AD21;
     padding: 10px;
 }
-
+/* Login/Register Page  */
 #loginContainer{
 	text-align: center;
 }
@@ -21,15 +21,48 @@
 }
 
 .Reg{
-	visibility:visible;
+	visibility:hidden;
 }
 
 .SignIn{
-	visibility:hidden;
+	visibility:visible;
 }
 
 #loginButton,
 #SignHyper,
 #RegHyper{
 	margin: 0 30px 0 30px;
+}
+
+/* Contact Page  */
+
+.coloumn{
+
+}
+
+#contactPageContainer{
+  visibility:hidden;
+  min-width: 50%;
+}
+#contactPageContainer #header{
+  min-height: 3em;
+  max-height: 3em;
+  margin: 0px 2em 0px 2em;
+}
+
+#contactPageBody{
+  margin: 0px;
+
+}
+
+#contactViewer{
+  margin: 0px;
+  display: inline-block;
+}
+
+#contactListBox{
+  min-width: 10em;
+  min-height:
+  display: inline-block;
+  overflow-y: scroll;
 }
