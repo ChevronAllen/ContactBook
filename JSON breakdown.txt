@@ -107,3 +107,41 @@ DeleteContact GET
   id: 0,            //  user's ID
   error: ""         //  error description
 }
+
+SearchContacts POST
+=========================
+{
+  id: 0,            //  user's id
+  matchString: "",     //  contact id of contact to delete
+  sessionID:""      //  sessionID to validate user
+}
+
+
+SearchContact GET
+=========================
+id: 0,                        //  The user's ID, error if  = 0
+contacts: [                   //  Array of Contacts belonging to the user
+            {
+              contactID: "",  //  unique contact id
+              firstName: "",  //  contacts first name
+              lastName: "",   //  contacts last name
+              address: "",    //  contacts address
+              city: "",       //  contacts city
+              state: "",      //  contacts state
+              zipCode: "",    //  contacts zipCode
+  email: "",
+  phone: ""
+            },
+            {                 // There can be many of these, Parse as async
+              contactID: "",
+              firstName: "",
+              lastName: "",
+              address: "",
+              city: "",
+              state: "",
+              zipCode: "",
+  email: "",
+  phone: ""
+            }...
+        ],
+error: ""                     //  Error description if id = 0
