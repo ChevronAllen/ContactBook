@@ -20,6 +20,7 @@ if($conn->connect_error)
 	$lastName 	= mysqli_real_escape_string($conn, $inData["lastName"]);
 	$username 	= mysqli_real_escape_string($conn, $inData["username"]);
 	$password 	= mysqli_real_escape_string($conn, $inData["password"]);
+	$sessionID  = mysqli_real_escape_string($conn, $inData["sessionID"]);
 	//	Call stored procedure that will insert a new user
 	$sql = 'CALL contact_book.createUser("'  . $firstName . '",
 							"' . $lastName . '",
