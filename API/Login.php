@@ -25,9 +25,9 @@ if($conn->connect_error)
 	$sessionID  = mysqli_real_escape_string($inData["sessionID"]);
 
 	//	Call stored procedure that will insert a new user
-	$sql = 'CALL contact_book.userLogin("'	. $username 	. '",
-							"' 	. $password 	. '",
-							"' 	. $sessionID 	.'");';
+	$sql = 'CALL contact_book.userLogin('	. $username . ',' 	. $password 	. ', ' 	. $sessionID 	.' );';
+
+
 	//	Capture results
 	$result = $conn->query($sql);
 
@@ -46,6 +46,8 @@ if($conn->connect_error)
 		$id = $row["userid"];
 		$firstName = $row["user_firstname"];
 		$lastName = $row["user_lastname"];
+
+    echo "$id $firstName $lastName";
 
 		//	if the id is zero something went wrong
 		if($id == 0)
