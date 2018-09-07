@@ -20,13 +20,14 @@ if($conn->connect_error)
 }else
 {
 	//	Sanitize JSON input
-	$username 	= mysqli_real_escape_string($inData["username"]);
-	$password 	= mysqli_real_escape_string($inData["password"]);
-	$sessionID  = mysqli_real_escape_string($inData["sessionID"]);
+	$username 	= mysqli_real_escape_string($conn, $inData["username"]);
+	$password 	= mysqli_real_escape_string($conn, $inData["password"]);
+	$sessionID  = mysqli_real_escape_string($conn, $inData["sessionID"]);
 
 	//	Call stored procedure that will insert a new user
-	$sql = 'CALL contact_book.userLogin('	. $username . ',' 	. $password 	. ', ' 	. $sessionID 	.' );';
+	$sql = "CALL contact_book.userLogin('$username','$password','$sessionID');";//'CALL contact_book.userLogin("' . $username . '","' 	. $password 	. '", "' . $sessionID	.'" );';
 
+  //returnWithError($sql);
 
 	//	Capture results
 	$result = $conn->query($sql);
@@ -37,7 +38,7 @@ if($conn->connect_error)
 		we recieve the whole row so that if we need to implement
 		a session id that would be sent.
 	*/
-	if ($result->num_rows <= 0){
+	if ($result->num_rows == 0){
 		returnWithError("Error: Username Password combination doesnt exist");
 	}else{
 
@@ -47,7 +48,6 @@ if($conn->connect_error)
 		$firstName = $row["user_firstname"];
 		$lastName = $row["user_lastname"];
 
-    echo "$id $firstName $lastName";
 
 		//	if the id is zero something went wrong
 		if($id == 0)
@@ -62,17 +62,23 @@ if($conn->connect_error)
 			$sql = 'CALL findContacts ("' . $id . '","","' . $sessionID .'");';
 
 			$result =  $conn->query($sql);
-			$list = array();	// Empty array
-			while($row = $result->fetch_assoc())//mysql_fetch_assoc($result))
-			{
-				//add rows to array individually
-				$list[] = $row;
-			}
+      if($result)
+      {
+  			$list = array();	// Empty array
 
-			//	convert array of rows to json data
-			$contacts = json_encode($data);
+  			while($row = $msqli_fetch_assoc($result))//mysql_fetch_assoc($result))
+  			{
+  				//add rows to array individually
+  				$list[] = $row;
+          echo "id : " + $row["userid"];
+  			}
 
-			returnWithInfo($id, $firstName, $lastName, $contacts,"");
+  			//	convert array of rows to json data
+  			$contacts = json_encode($list);
+
+
+      }
+      returnWithInfo($id, $firstName, $lastName, $contacts);
 		}
 	}
 }
