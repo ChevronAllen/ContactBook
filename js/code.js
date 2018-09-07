@@ -356,7 +356,7 @@ function searchContact()
   	var search = new RegExp(document.getElementById("").innerHTML);
 
   	contacts.forEach(
-    	displayIfMatch(element)
+    	function displayIfMatch(element)
     	{
 			var match = 0;
 			for(var key in element)
