@@ -38,7 +38,7 @@ if($conn->connect_error)
 		a session id that would be sent.
 	*/
 	if ($result->num_rows <= 0){
-		returnWithError("Invalid Username/Password.");
+		returnWithError("Error: Username Password combination doesnt exist");
 	}else{
 
 		$row = $result->fetch_assoc();
