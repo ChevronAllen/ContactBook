@@ -1,5 +1,8 @@
 <head>
-<link href="css/ContactPageCSS.css" rel="stylesheet" type="text/css">
+<link href="ContactPageCSS.css" rel="stylesheet" type="text/css">
+<script src="js/code.js"></script>
+<script src="js/sanitize.js"></script>
+<script src="js/md5.js"></script>
 </head>
 
 
@@ -9,16 +12,43 @@
 	<img src="http://www.shadow-spy.com/img/logsinfo/contact.jpg" width "200" height = "50" align = "middle" alt = "">
 	</h2>
   </div>
-  <div class="row">
+ <div class="row"> 
     <div class="column">
      <!-- <form action="/action_page.php"> need to change this to our php page -->
-        <label for="fname">First Name</label><br>
+	 
+		<script>
+		function hideOrShow(elementId, showState)
+		{
+			var visible = "visible";
+			var display = "block";
+			if(!showState)
+			{
+				visible = "hidden";
+				display = "none";
+			}
+
+			document.getElementById(elementId).style.visibility = visible;
+			document.getElementById(elementId).style.display = display;
+		}
+		
+		
+		</script>
+	 
+	 
+	 
+		<input type="addcontact"  id="addcontact" value="Add Contact" readonly onclick="hideOrShow('searchcontact', false);">
+        <input type="deletecontact" id="deletecontact" value="Delete Contact" readonly onclick="hideOrShow('searchcontact', false);">
+		<input type="searchcontact" id="searchcontact" value="Search Contact" readonly 
+		onclick="hideOrShow('addcontact', false);hideOrShow('deletecontact', false);hideOrShow('fname', false);hideOrShow('lname', false);hideOrShow('firstname', false);hideOrShow('lastname', false);
+		hideOrShow('contactaddresslabel', false);hideOrShow('contactaddress', false);hideOrShow('statelabel', false);hideOrShow('state', false);hideOrShow('citylabel', false);hideOrShow('city', false);hideOrShow('phonenumberlabel', false);
+		hideOrShow('phonenumber', false);hideOrShow('zipcode', false);hideOrShow('zipcodelabel', false);hideOrShow('emailaddress', false);hideOrShow('emailaddresslabel', false);"> <br><br>
+        <label for="fname" id="fname">First Name</label><br>
         <input type="text" id="firstname" name="firstname" placeholder="Contact's first name..."><br>
-        <label for="lname">Last Name</label><br>
+        <label for="lname" id="lname">Last Name</label><br>
         <input type="text" id="lastname" name="lastname" placeholder="Contact's last name..."><br>
-		<label for="contactaddress">Address</label><br>
+		<label for="contactaddress" id="contactaddresslabel" >Address</label><br>
         <input type="text" id="contactaddress" name="contactaddress" placeholder="Contact's address..."><br>
-        <label for="state">State</label><br>
+        <label for="state" id="statelabel">State</label><br>
         <select id="state" name="state"><br>
           <option value="Alabama">Alabama</option>
           <option value="Alaska">Alaska</option>
@@ -71,22 +101,29 @@
 		  <option value="Winconsin">Winconsin</option>
 		  <option value="Wyoming">Wyoming</option>
         </select><br>
-		<label for="city">City</label><br>
+		<label for="city" id="citylabel">City</label><br>
         <input type="text" id="city" name="city" placeholder="Contact's city..."><br>
-		<label for="zipcode">ZIP Code</label><br>
+		<label for="zipcode" id="zipcodelabel">ZIP Code</label><br>
         <input type="text" id="zipcode" name="zipcode" placeholder="Contact's zipcode..."><br>
-		<label for="aptnum">APT#</label><br>
-        <input type="text" id="aptnum" name="aptnum" placeholder="Contact's APT#... (If one exists)"><br>
-		<label for="emailaddress">Email Address</label><br>
+		<!--<label for="aptnum">APT#</label><br>
+        <input type="text" id="aptnum" name="aptnum" placeholder="Contact's APT#... (If one exists)"><br>-->
+		<label for="emailaddress" id="emailaddresslabel">Email Address</label><br>
         <input type="text" id="emailaddress" name="emailaddress" placeholder="Contact's Email..."><br>
-		<label for="phonenumber">Phone Number</label><br>
+		<label for="phonenumber" id="phonenumberlabel">Phone Number</label><br>
         <input type="text" id="phonenumber" name="phonenumber" placeholder="Contact's phone number..."><br>
-        <input type="addcontact" value="Add Contact"><br>
-        <input type="deletecontact" value="Delete Contact"><br>
-		<input type="searchcontact" value="Search Contact"><br>
+		<input type="submitcontact"  id="submitcontact" value="Submit" readonly onclick="hideOrShow('addcontact', true);hideOrShow('deletecontact', true);hideOrShow('fname', true);hideOrShow('lname', true);hideOrShow('firstname', true);hideOrShow('lastname', true);
+		hideOrShow('contactaddresslabel', true);hideOrShow('contactaddress', true);hideOrShow('statelabel', true);hideOrShow('state', true);hideOrShow('citylabel', true);hideOrShow('city', true);hideOrShow('phonenumberlabel', true);
+		hideOrShow('phonenumber', true);hideOrShow('zipcode', true);hideOrShow('zipcodelabel', true);hideOrShow('emailaddress', true);hideOrShow('emailaddresslabel', true);hideOrShow('searchcontact', true);">
     <!--  </form> -->
     </div>
-  </div>
+	
+	
+	
+	
+	<div class = "righty">
+	<!-- <form action="/action_page.php"> need to change this to our php page -->
+	<!-- THIS IS CODE FOR THE DISPLAY CONTACTS -->
+	<!-- </form> -->
+	</div>
+  </div> <!-- for the row div -->
 </div>
-
-
