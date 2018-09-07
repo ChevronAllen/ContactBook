@@ -20,16 +20,16 @@ if($conn->connect_error)
 }else
 {
 	//	Sanitize JSON input
-	$username 	= $mysqli->real_escape_string($inData["username"]);
-	$password 	= $mysqli->real_escape_string($inData["password"]);
-	$sessionID  = $mysqli->real_escape_string($inData["sessionID"]);
-	
+	$username 	= mysqli_real_escape_string($inData["username"]);
+	$password 	= mysqli_real_escape_string($inData["password"]);
+	$sessionID  = mysqli_real_escape_string($inData["sessionID"]);
+
 	//	Call stored procedure that will insert a new user
-	$sql = 'CALL userLogin("'	. $username 	. '",
+	$sql = 'CALL contact_book.userLogin("'	. $username 	. '",
 							"' 	. $password 	. '",
 							"' 	. $sessionID 	.'");';
 	//	Capture results
-	$results = conn->query($sql);
+	$result = $conn->query($sql);
 
 	/*
 		result should be a row from the users table
@@ -42,7 +42,7 @@ if($conn->connect_error)
 	}else{
 
 		$row = $result->fetch_assoc();
-		
+
 		$id = $row["iduser"];
 		$firstName = $row["user_firstname"];
 		$lastName = $row["user_lastname"];
@@ -56,21 +56,21 @@ if($conn->connect_error)
 			/*
 				On a succesful login find all the user's contacts
 			*/
-			
+
 			$sql = 'CALL findContacts ("' . $id . '","","' . $sessionID .'");';
-			
-			$results =  conn->query($sql);
+
+			$result =  conn->query($sql);
 			$list = array();	// Empty array
-			while($row = mysql_fetch_assoc($result))
+			while($row = $result->fetch_assoc())//mysql_fetch_assoc($result))
 			{
 				//add rows to array individually
 				$list[] = $row;
 			}
-			
+
 			//	convert array of rows to json data
-			$contacts = json_encode($data); 
-			
-			returnWithInfo($id, $firstName, $lastName, $contacts,"");			
+			$contacts = json_encode($data);
+
+			returnWithInfo($id, $firstName, $lastName, $contacts,"");
 		}
 	}
 }
