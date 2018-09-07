@@ -27,7 +27,7 @@ if($inData  == NULL)
 {
 	//	Sanitize JSON input
 	$username = $mysqli->real_escape_string($inData["username"]);
-	$firstName = $mysqli->real_escape_string($inData["firstName"];
+	$firstName = $mysqli->real_escape_string($inData["firstName"]);
 	$lastName = $mysqli->real_escape_string($inData["lastName"]);
 	$password = $mysqli->real_escape_string($inData["password"]);
 
@@ -37,7 +37,7 @@ if($inData  == NULL)
 									' . $username . ',
 									' . $password . ')';
 	//	Capture results
-	$results = conn->query($sql);
+	$results = $conn->query($sql);
 
 	/*
 		result should be a row from the users table

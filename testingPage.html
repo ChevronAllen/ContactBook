@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+
+
+<script>
+function doRegister(){
+  var jsonPayload = '{ "firstName": "Larry" , "lastName": "Larry", "username": "Larry", "password": "Larry" , "sessionID": "Larry" }';
+
+  var url = 'http://cop4331-contactbook.com/Register.php';
+
+  var xhr = new XMLHttpRequest();
+
+  xhr.open("POST", url, true);	//true associates with asyncrous
+  xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+  xhr.setRequestHeader("Accept", "application/json; charset=UTF-8");
+  /*
+  xhr.onreadystatechange = function()
+  {
+    if (this.readyState == 4 && this.status == 200)
+    {
+      var jsonObject = JSON.parse(xhr.responseText);
+
+      userId = jsonObject.id;
+      error  = jsonObject.error;
+      if(userId < 1)	//checking if the username entered exists in the database
+      {
+        //document.getElementById("loginResult").innerHTML = error;
+        return;
+      }
+
+      firstName = jsonObject.firstName;
+      lastName  = jsonObject.lastName;
+      contacts  = jsonObject.contacts;
+
+      //document.getElementById("id for section to show users first and last name").innerHTML = firstName + " " + lastName;
+      //document.getElementById("LogUser").value = "";		//resetting username
+      //document.getElementById("LogPassword").value = "";	//resetting password
+
+      //hideOrShow("div for the logged in div", true);
+      //hideOrShow("accessUIDiv", true);
+      //hideOrShow("loginContainer", false);
+    }
+    else
+    {
+      //document.getElementById("loginResult").innerHTML = " error " + this.status;
+    }
+  }
+*/
+  xhr.send(jsonPayload);
+}
+</script>
+
+<button onclick="doRegister()">Test Register</button>
+
+
+</html>
