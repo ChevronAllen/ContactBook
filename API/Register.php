@@ -21,20 +21,20 @@ if($conn->connect_error)
 }else
 {
 	//	Sanitize JSON input
-	$username 	= $mysqli->real_escape_string($inData["username"]);
-	$firstName 	= $mysqli->real_escape_string($inData["firstName"];
-	$lastName 	= $mysqli->real_escape_string($inData["lastName"]);
-	$password 	= $mysqli->real_escape_string($inData["password"]);
+	$firstName 	= mysqli_real_escape_string($conn, $inData["firstName"]);
+	$lastName 	= mysqli_real_escape_string($conn, $inData["lastName"]);
+	$username 	= mysqli_real_escape_string($conn, $inData["username"]);
+	$password 	= mysqli_real_escape_string($conn, $inData["password"]);
 
 	//	Call stored procedure that will insert a new user
-	$sql = 'CALL creatUser("'  . $firstName . '",
+	$sql = 'CALL contact_book.createUser("'  . $firstName . '",
 							"' . $lastName . '",
 							"' . $username . '",
 							"' . $password . '",
-							"' . $sessionID .'")';
+							"' . $sessionID .'");';
 
 	//	Capture results
-	$results = $conn->query($sql);
+	$result = $conn->query($sql);
 
 	/*
 		result should be a row from the users table
@@ -42,20 +42,22 @@ if($conn->connect_error)
 		we recieve the whole row so that if we need to implement
 		a session id that would be sent.
 	*/
-	if ($result->num_rows <= 0){
-		returnWithError("Error adding new user");
-	}else{
+
+	if ($result->num_rows == 0){
+		returnWithError("Error: User already exists , $result");
+	}else
+	{
 
 		$row = $result->fetch_assoc();
 
-		$id = $row["iduser"];
+		$id = $row["userid"];
 		$firstName = $row["user_firstname"];
 		$lastName = $row["user_lastname"];
 
 		//	if the id is zero something went wrong
 		if($id == 0)
 		{
-			returnWithError("Error adding new user");
+			returnWithError("Error adding new user id is zero");
 		}else
 		{
 			returnWithInfo($id, $firstName, $lastName);
