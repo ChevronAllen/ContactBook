@@ -43,7 +43,7 @@ if($conn->connect_error)
 
 		$row = $result->fetch_assoc();
 
-		$id = $row["iduser"];
+		$id = $row["userid"];
 		$firstName = $row["user_firstname"];
 		$lastName = $row["user_lastname"];
 

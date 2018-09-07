@@ -19,3 +19,22 @@ HyperLink Ids
 =======================
 SignHyper - Will hide Reg div. Belongs to head.
 RegHyper - Will show Reg div. Belongs to head.
+
+
+########################################################33
+
+Divs
+======================
+contactPageContainer
+contactPageBody
+contactViewer
+contactListBox
+
+Inputs
+=======================
+inputSearch
+
+Button requests
+=======================
+doLogout()
+searchContacts()
