@@ -1,3 +1,4 @@
+var apiFolder = 'API/'
 var extension = 'php';
 
 var userId = 0;	// userId is an int that must match with the database id for contact manipulation
@@ -95,7 +96,7 @@ function doLogin()
 		+ '"sessionID":"'  + sessionID
 		+ '"}';
 
-	var url = 'API/Login.' + extension;
+	var url = apiFolder + 'Login.' + extension;
 
 	var xhr = new XMLHttpRequest();
 
@@ -204,7 +205,7 @@ function doRegister()
 		+ '"sessionID":"'   + sessionID
 		+ '"}';
 
-	var url = 'API/Register.' + extension;
+	var url =  apiFolder + 'Register.' + extension;
 
 	var xhr = new XMLHttpRequest();
 
@@ -289,7 +290,7 @@ function addContact()
 			+ '"sessionID":"'	+ sessionID
 			+ '"}';
 
-	var url = urlBase + '/AddContact.' + extension;
+	var url =  apiFolder + 'AddContact.' + extension;
 	var xhr = new XMLHttpRequest();
 
   	xhr.open("POST", url, true);	//true associates with asyncrous
@@ -327,6 +328,8 @@ function addContact()
 					+ '"phone":"'      + contactPhoneNumber  +
 					+ '"}';
 
+				// WARNING Hasnt been tested
+				// local storage of added contact
 				contacts.push(JSON.parse(jsonContact));
 				// TODO: fill contacts on html
     		}
@@ -368,5 +371,92 @@ function searchContact()
 // TODO: comments
 function deleteContact()
 {
-	// TODO: similar to add but once response is verified remove contact from contacts
+	//initailizing variable to empty strings
+	var contactFirstName = "";
+	var contactLastName = "";
+	var contactAddress = "";
+	var contactState = "";
+	var contactCity	= "";
+	var contactZipcode = "";
+	var contactAPT = "";
+	var contactEmail = "";
+	var contactPhoneNumber = "";
+
+	//obtaining and storing the values entered by user into the specified variable
+	contactFirstName = document.getElementById("firstname").value;
+	contactLastName = document.getElementById("lastname").value;
+	contactAddress = document.getElementById("contactaddress").value;
+	contactState = document.getElementById("state").value;
+	contactCity = document.getElementById("city").value;
+	contactZipcode = document.getElementById("zipcode").value;
+	contactAPT = document.getElementById("aptnum").value;
+	contactEmail = document.getElementById("emailaddress").value;
+	contactPhoneNumber = document.getElementById("phonenumber").value;
+
+	var jsonPayload = '{'
+			+ '"id":'			+ userId              + ','
+			+ '"firstName":"'	+ contactFirstName    + '",'
+			+ '"lastName":"'	+ contactLastName     + '",'
+			+ '"address":"'		+ contactAddress      + '",'
+			+ '"city":"'		+ contactCity         + '",'
+			+ '"state":"'		+ contactState        + '",'
+			+ '"zipCode":"'		+ contactZipcode      + '",'
+			+ '"email":"'		+ contactEmail        + '",'
+			+ '"phone":"'		+ contactPhoneNumber  + '",'
+			+ '"sessionID":"'	+ sessionID
+			+ '"}';
+
+	var url =  apiFolder + 'DeleteContact.' + extension;
+	var xhr = new XMLHttpRequest();
+
+  xhr.open("POST", url, true);	//true associates with asyncrous
+  xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+  xhr.onreadystatechange = function()
+  {
+  	if (this.readyState == 4)
+	{
+		if (this.status == 200)
+		{
+			var jsonObject = JSON.parse(xhr.responseText);
+
+			userId = jsonObject.id;
+			error  = jsonObject.error;
+
+			if(userId < 1)	//checking if the username entered exists in the database
+			{
+				console.log(error);  // temp notification
+				//document.getElementById("loginResult").innerHTML = error;
+				return;
+			}
+
+			var contactID = jsonObject.contactID;
+
+			var jsonContact = '{'
+					+ '"contactID":""' + contactID           + '",'
+					+ '"firstName":"'  + contactFirstName    + '",'
+					+ '"lastName":"'   + contactLastName     + '",'
+					+ '"address":"'    + contactAddress      + '",'
+					+ '"city":"'       + contactCity         + '",'
+					+ '"state":"'      + contactState        + '",'
+					+ '"zipCode":"'    + contactZipcode      + '",'
+					+ '"email":"'      + contactEmail        + '",'
+					+ '"phone":"'      + contactPhoneNumber  +
+					+ '"}';
+
+			// WARNING HASNT BEEN TESTED
+			// this should remove the contact locally
+			var index = contacts.indexof(JSON.parse(jsonContact));
+			contacts.splice(JSON.parse(jsonContact), 1);
+			// TODO: fill contacts on html
+  		}
+  		else
+  		{
+    			console.log("error with response");
+    			//document.getElementById("loginResult").innerHTML = this.status;
+  		}
+		}
+	}
+
+  xhr.send(jsonPayload);
 }
