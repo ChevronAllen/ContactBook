@@ -1,0 +1,94 @@
+* {
+    box-sizing: border-box;
+}
+
+/* Style inputs */
+input[type=text], select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+}
+
+input[type=addcontact] {
+    background-color: #99cc00;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+input[type=searchcontact] {
+    background-color: #990000;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+input[type=deletecontact] {
+    background-color: #99ccff;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+input[type=addcontact]:hover {
+    background-color: #4CAF50;
+}
+
+input[type=deletecontact]:hover {
+    background-color: #003399;
+}
+
+input[type=searchcontact]:hover {
+    background-color: #660000;
+}
+
+/* Style the container/contact section */
+.container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 10px;
+}
+
+/* Create two columns that float next to eachother */
+.column {
+    float: left;
+    width: 50%;
+    margin-top: 6px;
+    padding: 20px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+    .column, input[type=addcontact] {
+        width: 100%;
+        margin-top: 0;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .column, input[type=deletecontact] {
+        width: 100%;
+        margin-top: 0;
+    }
+}
+
+
+@media screen and (max-width: 600px) {
+    .column, input[type=searchcontact] {
+        width: 100%;
+        margin-top: 0;
+    }
+}
