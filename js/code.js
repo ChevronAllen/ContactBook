@@ -119,6 +119,7 @@ function doLogin()
 				if(userId < 1)	//checking if the username entered exists in the database
 				{
 					document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
+					document.getElementById("loginButton").disabled = false;
 					return;
 				}
 
@@ -135,10 +136,12 @@ function doLogin()
 			else
 			{
 				document.getElementById("loginResult").innerHTML = " error " + this.status;
+				document.getElementById("loginButton").disabled = false;
+				return;
 			}
 		}
 	}
-
+	document.getElementById("loginButton").disabled = true;
 	xhr.send(jsonPayload);
 }
 
@@ -225,6 +228,7 @@ function doRegister()
 				if(userId < 1)	//checking if the username entered exists in the database
 				{
 					document.getElementById("loginResult").innerHTML = error;
+					document.getElementById("loginButton").disabled = false;
 					return;
 				}
 
@@ -245,10 +249,12 @@ function doRegister()
 			else
 			{
 				document.getElementById("loginResult").innerHTML = " error " + this.status;
+				document.getElementById("loginButton").disabled = false;
 			}
 		}
 	}
 
+	document.getElementById("loginButton").disabled = true;
 	xhr.send(jsonPayload);
 }
 
