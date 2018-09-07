@@ -206,7 +206,7 @@ function doRegister()
 
 	var jsonPayload = '{'
 		+ '"firstName":"'   + firstName       + '", '
-		+ '"lastName":"'    + lasteName       + '", '
+		+ '"lastName":"'    + lastName       + '", '
 		+ '"username":"'    + username        + '", '
 		+ '"password":"'    + hashedPassword  + '", '
 		+ '"sessionID":"'   + sessionID
