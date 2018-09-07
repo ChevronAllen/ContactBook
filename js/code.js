@@ -1,4 +1,4 @@
-var urlBase = ''  //'website address';
+var urlBase = 'cop4331-contactbook.com'  //'website address';
 var extension = 'php';
 
 var userId = 0;	// userId is an int that must match with the database id for contact manipulation
