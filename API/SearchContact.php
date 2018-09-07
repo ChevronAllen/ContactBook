@@ -15,9 +15,9 @@ if($conn->connect_error)
 }else
 {
 	//	Sanitize JSON input
-	$userID 	= mysqli_real_escape_string($inData["id"]);
-	$matchString 	= mysqli_real_escape_string($inData["matchString"]);
-	$sessionID  = mysqli_real_escape_string($inData["sessionID"]);
+	$userID 	= mysqli_real_escape_string($conn, $inData["id"]);
+	$matchString 	= mysqli_real_escape_string($conn, $inData["matchString"]);
+	$sessionID  = mysqli_real_escape_string($conn, $inData["sessionID"]);
 
 	$sql = 'CALL contact_book.findContacts("'	. $userID 	. '",
 					"' 	. $matchString 	. '","' 	. $sessionID 	.'");';
