@@ -317,7 +317,7 @@ function addContact()
 				var contactID = jsonObject.contactID;
 
 				var jsonContact = '{'
-					+ '"contactID":""' + contactID           + '",'
+					+ '"contactID":"' + contactID           + '",'
 					+ '"firstName":"'  + contactFirstName    + '",'
 					+ '"lastName":"'   + contactLastName     + '",'
 					+ '"address":"'    + contactAddress      + '",'
@@ -325,7 +325,7 @@ function addContact()
 					+ '"state":"'      + contactState        + '",'
 					+ '"zipCode":"'    + contactZipcode      + '",'
 					+ '"email":"'      + contactEmail        + '",'
-					+ '"phone":"'      + contactPhoneNumber  +
+					+ '"phone":"'      + contactPhoneNumber
 					+ '"}';
 
 				// WARNING Hasnt been tested
@@ -433,7 +433,7 @@ function deleteContact()
 			var contactID = jsonObject.contactID;
 
 			var jsonContact = '{'
-					+ '"contactID":""' + contactID           + '",'
+					+ '"contactID":"' + contactID           + '",'
 					+ '"firstName":"'  + contactFirstName    + '",'
 					+ '"lastName":"'   + contactLastName     + '",'
 					+ '"address":"'    + contactAddress      + '",'
@@ -441,7 +441,7 @@ function deleteContact()
 					+ '"state":"'      + contactState        + '",'
 					+ '"zipCode":"'    + contactZipcode      + '",'
 					+ '"email":"'      + contactEmail        + '",'
-					+ '"phone":"'      + contactPhoneNumber  +
+					+ '"phone":"'      + contactPhoneNumber
 					+ '"}';
 
 			// WARNING HASNT BEEN TESTED
