@@ -1,4 +1,4 @@
-var urlBase = 'cop4331-contactbook.com'  //'website address';
+var urlBase = 'cop4331-contactbook.com/API'  //'website address';
 var extension = 'php';
 
 var userId = 0;	// userId is an int that must match with the database id for contact manipulation
@@ -97,7 +97,7 @@ function doLogin()
 		+ '"sessionID":"'  + sessionID + '", '
 		+ '"}';
 
-	var url = urlBase + '/Login.' + extension;
+	var url = 'API/Login.' + extension;
 
 	var xhr = new XMLHttpRequest();
 
@@ -212,7 +212,7 @@ function doRegister()
 		+ '"sessionID":"'   + sessionID
 		+ '"}';
 
-	var url = urlBase + '/Register.' + extension;
+	var url = 'API/Register.' + extension;
 
 	var xhr = new XMLHttpRequest();
 
