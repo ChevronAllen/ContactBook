@@ -59,7 +59,7 @@ if($conn->connect_error)
 
 			$sql = 'CALL findContacts ("' . $id . '","","' . $sessionID .'");';
 
-			$result =  conn->query($sql);
+			$result =  $conn->query($sql);
 			$list = array();	// Empty array
 			while($row = $result->fetch_assoc())//mysql_fetch_assoc($result))
 			{
