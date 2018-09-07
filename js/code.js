@@ -1,4 +1,3 @@
-var contactUrl = 'ContactPage.html';  //'website address';
 var extension = 'php';
 
 var userId = 0;	// userId is an int that must match with the database id for contact manipulation
@@ -131,12 +130,6 @@ function doLogin()
 				document.getElementById("LogUser").value = "";		//resetting username
 				document.getElementById("LogPassword").value = "";	//resetting password
 
-				sessionStorage.setItem("firstName", firstName);
-				sessionStorage.setItem("lastName", lastName);
-				sessionStorage.setItem("contacts", contacts);
-				sessionStorage.setItem("userId", userId);
-				sessionStorage.setItem("sessionID", sessionID);
-				document.location.href = contactUrl;
 			}
 			else
 			{
@@ -247,12 +240,6 @@ function doRegister()
 				//hideOrShow("loginContainer", false);
 				document.getElementById("loginResult").innerHTML = "Logged in";
 
-				sessionStorage.setItem("firstName", firstName);
-				sessionStorage.setItem("lastName", lastName);
-				sessionStorage.setItem("contacts", contacts);
-				sessionStorage.setItem("userId", userId);
-				sessionStorage.setItem("sessionID", sessionID);
-				document.location.href = contactUrl;
 			}
 			else
 			{
