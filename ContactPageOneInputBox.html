@@ -12,10 +12,10 @@
 	<img src="http://www.shadow-spy.com/img/logsinfo/contact.jpg" width "200" height = "50" align = "middle" alt = "">
 	</h2>
   </div>
- <div class="row"> 
+ <div class="row">
     <div class="column">
      <!-- <form action="/action_page.php"> need to change this to our php page -->
-	 
+
 		<script>
 		function hideOrShow(elementId, showState)
 		{
@@ -30,18 +30,21 @@
 			document.getElementById(elementId).style.visibility = visible;
 			document.getElementById(elementId).style.display = display;
 		}
-		
-		
+
+
 		</script>
-	 
-	 
-	 
-		<input type="addcontact"  id="addcontact" value="Add Contact" readonly onclick="hideOrShow('searchcontact', false);">
-        <input type="deletecontact" id="deletecontact" value="Delete Contact" readonly onclick="hideOrShow('searchcontact', false);">
-		<input type="searchcontact" id="searchcontact" value="Search Contact" readonly 
-		onclick="hideOrShow('addcontact', false);hideOrShow('deletecontact', false);hideOrShow('fname', false);hideOrShow('lname', false);hideOrShow('firstname', false);hideOrShow('lastname', false);
+
+
+    <!--put a div around this block-->
+		<input type="addcontact"  id="addcontact" value="Add Contact" readonly onclick="">
+    <input type="deletecontact" id="deletecontact" value="Delete Contact" readonly onclick="">
+		<input type="searchcontact" id="searchcontact" value="Search Contact" readonly
+		onclick="hideOrShow('fname', false);hideOrShow('lname', false);hideOrShow('firstname', false);hideOrShow('lastname', false);
 		hideOrShow('contactaddresslabel', false);hideOrShow('contactaddress', false);hideOrShow('statelabel', false);hideOrShow('state', false);hideOrShow('citylabel', false);hideOrShow('city', false);hideOrShow('phonenumberlabel', false);
-		hideOrShow('phonenumber', false);hideOrShow('zipcode', false);hideOrShow('zipcodelabel', false);hideOrShow('emailaddress', false);hideOrShow('emailaddresslabel', false);"> <br><br>
+		hideOrShow('phonenumber', false);hideOrShow('zipcode', false);hideOrShow('zipcodelabel', false);hideOrShow('emailaddress', false);hideOrShow('emailaddresslabel', false);">
+    <!-- end div-->
+    <!--put a div around this block-->
+    <br><br>
         <label for="fname" id="fname">First Name</label><br>
         <input type="text" id="firstname" name="firstname" placeholder="Contact's first name..."><br>
         <label for="lname" id="lname">Last Name</label><br>
@@ -115,11 +118,12 @@
 		hideOrShow('contactaddresslabel', true);hideOrShow('contactaddress', true);hideOrShow('statelabel', true);hideOrShow('state', true);hideOrShow('citylabel', true);hideOrShow('city', true);hideOrShow('phonenumberlabel', true);
 		hideOrShow('phonenumber', true);hideOrShow('zipcode', true);hideOrShow('zipcodelabel', true);hideOrShow('emailaddress', true);hideOrShow('emailaddresslabel', true);hideOrShow('searchcontact', true);">
     <!--  </form> -->
+    <!-- end div-->
     </div>
-	
-	
-	
-	
+
+
+
+
 	<div class = "righty">
 	<!-- <form action="/action_page.php"> need to change this to our php page -->
 	<!-- THIS IS CODE FOR THE DISPLAY CONTACTS -->
