@@ -1,4 +1,4 @@
-var urlBase = 'cop4331-contactbook.com/API'  //'website address';
+var contactUrl = 'ContactPage.html';  //'website address';
 var extension = 'php';
 
 var userId = 0;	// userId is an int that must match with the database id for contact manipulation
@@ -39,7 +39,6 @@ function switchToSignIn()
 
 	var title = document.getElementById("title").innerHTML = "Sign-In";
 	console.log("sign in");
-
 }
 
 // Changes visibility to Registration view
@@ -94,7 +93,7 @@ function doLogin()
 	var jsonPayload = '{'
 		+ '"username":"'   + username  + '", '
 		+ '"password":"'   + hashedPassword  + '", '
-		+ '"sessionID":"'  + sessionID 
+		+ '"sessionID":"'  + sessionID
 		+ '"}';
 
 	var url = 'API/Login.' + extension;
@@ -132,12 +131,12 @@ function doLogin()
 				document.getElementById("LogUser").value = "";		//resetting username
 				document.getElementById("LogPassword").value = "";	//resetting password
 
-				//hideOrShow("div for the logged in div", true);
-				//hideOrShow("accessUIDiv", true);
-				//hideOrShow("loginContainer", false);
-				document.getElementById("loginResult").innerHTML = "Logged in";
-
-				// TODO: switch to contacts page, fill contacts on html
+				sessionStorage.setItem("firstName", firstName);
+				sessionStorage.setItem("lastName", lastName);
+				sessionStorage.setItem("contacts", contacts);
+				sessionStorage.setItem("userId", userId);
+				sessionStorage.setItem("sessionID", sessionID);
+				document.location.href = contactUrl;
 			}
 			else
 			{
@@ -248,7 +247,12 @@ function doRegister()
 				//hideOrShow("loginContainer", false);
 				document.getElementById("loginResult").innerHTML = "Logged in";
 
-				// TODO: switch to contacts page, fill contacts on html
+				sessionStorage.setItem("firstName", firstName);
+				sessionStorage.setItem("lastName", lastName);
+				sessionStorage.setItem("contacts", contacts);
+				sessionStorage.setItem("userId", userId);
+				sessionStorage.setItem("sessionID", sessionID);
+				document.location.href = contactUrl;
 			}
 			else
 			{
