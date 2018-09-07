@@ -94,7 +94,7 @@ function doLogin()
 	var jsonPayload = '{'
 		+ '"username":"'   + username  + '", '
 		+ '"password":"'   + hashedPassword  + '", '
-		+ '"sessionID":"'  + sessionID +
+		+ '"sessionID":"'  + sessionID 
 		+ '"}';
 
 	var url = 'API/Login.' + extension;
