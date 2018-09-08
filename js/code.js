@@ -149,7 +149,7 @@ function doLogin()
 				document.getElementById("LogUser").value = "";		//resetting username
 				document.getElementById("LogPassword").value = "";	//resetting password
 
-				doHideorShow("SignIn", false);
+				doHideorShow("loginContainer", false); //showing login section
 				doHideorShow("contactPageContainer", true);
 				showAllContacts();
 			}
@@ -192,7 +192,7 @@ function doLogout()
 				contacts = [];
 				sessionID = 0;
 				doHideorShow("contactPageContainer", false);
-				doHideorShow("SignIn", true); //showing login section
+				doHideorShow("loginContainer", true); //showing login section
 			}
 		}
 	}
@@ -279,11 +279,10 @@ function doRegister()
 				document.getElementById("LogUser").value = "";		//resetting username
 				document.getElementById("LogPassword").value = "";	//resetting password
 
-				//hideOrShow("div for the logged in div", true);
-				//hideOrShow("accessUIDiv", true);
-				//hideOrShow("loginContainer", false);
 				document.getElementById("loginResult").innerHTML = "Logged in";
 
+				doHideorShow("loginContainer", false); //showing login section
+				doHideorShow("contactPageContainer", true);
 			}
 			else
 			{
