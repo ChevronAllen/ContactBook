@@ -6,6 +6,7 @@ var firstName = ''; // user first name
 var lastName = '';	// user last name
 var sessionID = 0;	// generated sessionID that is created and sent on login/registration
 var contacts = [];	// array of contacts for user
+var currentSelected = -1;
 
 function hideOrShow(elementId, showState)
 {
@@ -69,7 +70,7 @@ function showAllContacts()
 	var html = '';
 	for(let i = 0; i < contacts.length; i++)
 	{
-		html = '<div class="card contactCard" onclick="selectContact('+i+')">'+ contacts[i].firstName + ' ' + contacts[i].lastName + '</div>';
+		html = '<div id ="contactCard'+i+'" class="card contactCard" onclick="selectContact('+i+')">'+ contacts[i].firstName + ' ' + contacts[i].lastName + '</div>';
 		document.getElementById("contactListBox").innerHTML += html;
 	}
 }
@@ -503,5 +504,12 @@ function deleteContact()
 
 function selectContact(key)
 {
-	// TODO: display contact at element[key]
+	if(currentSelected > -1)
+	{
+		document.getElementById('contactCard'+currentSelected).classList.remove("bg-info");
+	}
+	document.getElementById('contactCard'+key).classList.add("bg-info");
+	currentSelected = key;
+
+
 }
