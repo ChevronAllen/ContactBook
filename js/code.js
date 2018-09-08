@@ -72,7 +72,7 @@ function showAllContacts()
 	{
 		for(var key in element)
 		{
-			html = '<div class="card contactCard" onclick="selectContact('+key+')">'+ element[key].firstName + ' ' + element[key].lastName'</div>';
+			html = '<div class="card contactCard" onclick="selectContact('+key+')">'+ element[key].firstName + ' ' + element[key].lastName + '</div>';
 			document.getElementById("contactListBox").innerHTML += html;
 		}
 	}
@@ -408,7 +408,7 @@ function searchContacts()
 			}
 			if(match == 1)
 			{
-				html = '<div class="card contactCard" onclick="selectContact('+key+')">'+ element[key].firstName + ' ' + element[key].lastName'</div>';
+				html = '<div class="card contactCard" onclick="selectContact('+key+')">'+ element[key].firstName + ' ' + element[key].lastName +'</div>';
 				document.getElementById("contactListBox").innerHTML += html;
 			}
 			match = 0;
