@@ -84,7 +84,7 @@ function createJSONString($userID_, $contactID_, $err_){
 	{
     "id": '.$userID_.',
     "contactID": '.$contactID_.',
-    "error": '.$err_.';
+    "error": "'.$err_.'"
   }';
   
   return $ret;
