@@ -12,13 +12,7 @@ class Contact {
 		$this->zipCode = "";
 		$this->email = "";
 		$this->phone = "";
-    }
-	
-	function print(){
-		echo "cid: $this->contactID fName: $this->firstName lName: $this->lastName";
-	}
-	
-	
+    }	
 }
 
 //	Make Connection
@@ -54,8 +48,6 @@ if($conn->connect_error)
 		returnWithError("Invalid Username/Password.");
 	}else
 	{
-		
-		
 		$row = $result->fetch_assoc();
 
 		$id = $row["userid"];
@@ -63,8 +55,7 @@ if($conn->connect_error)
 		$lastName = $row["user_lastname"];
 		
 		$result->close();
-		$conn->close();
-
+		$conn->next_result();
 
 		//	if the id is zero something went wrong
 		if($id == 0)
@@ -75,37 +66,32 @@ if($conn->connect_error)
 			/*
 				On a succesful login find all the user's contacts
 			*/
-			
-			$conn = new mysqli($serverURL, $serverLogin, $serverAuth, $serverDB);
-			if(!$conn->connect_error)
-			{
-
-				$searchSQL = 'CALL contact_book.findContacts(' . $id . ', "", "' . $sessionID . '" )';
-				//"SELECT 11 as 'contactID' ";
-				$result =  $conn->query($searchSQL);
-				
-				$jsonArray = array();
-				$jsonObject = new Contact();
-				
-				if($result->num_rows != 0)
-				{			
-					while($row = $result->fetch_assoc())
-					{
-						$jsonObject->contactID = $row["contactid"];				
-						$jsonObject->firstName = $row["contact_firstname"];
-						$jsonObject->lastName = $row["contact_lastname"];
-						$jsonObject->address = $row["contact_address"];
-						$jsonObject->city = $row["contact_city"];
-						$jsonObject->state = $row["contact_state"];
-						$jsonObject->zipCode = $row["contact_zipcode"];
-						$jsonObject->email = $row["contact_email"];
-						$jsonObject->phone = $row["contact_phone"];
 						
-						//$jsonObject->print();
-						$jsonArray[] = $jsonObject;				
-					}
+
+			$searchSQL = 'CALL contact_book.findContacts(' . $id . ', "", "' . $sessionID . '" )';
+
+			$result =  $conn->query($searchSQL);
+			
+			$jsonArray = array();			
+			
+			if($result->num_rows != 0)
+			{			
+				while($row = $result->fetch_assoc())
+				{
+					$jsonObject = new Contact();
+					$jsonObject->contactID = $row["contactid"];				
+					$jsonObject->firstName = $row["contact_firstname"];
+					$jsonObject->lastName = $row["contact_lastname"];
+					$jsonObject->address = $row["contact_address"];
+					$jsonObject->city = $row["contact_city"];
+					$jsonObject->state = $row["contact_state"];
+					$jsonObject->zipCode = $row["contact_zipcode"];
+					$jsonObject->email = $row["contact_email"];
+					$jsonObject->phone = $row["contact_phone"];
+					$jsonArray[] = $jsonObject;				
 				}
 			}
+
 			returnWithInfo($id, $firstName, $lastName, json_encode($jsonArray) );
 		}
 	}
