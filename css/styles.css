@@ -7,6 +7,8 @@
 /* Login/Register Page  */
 #loginContainer{
 	text-align: center;
+	visibility:visible;
+	display:block;
 }
 #loginContainer label{
 	display: block;
@@ -40,7 +42,7 @@
 
 #contactPageContainer{
   visibility:hidden;
-
+display:none;
   height: 100%;
   min-height:950px;
   max-width: 1100px;
