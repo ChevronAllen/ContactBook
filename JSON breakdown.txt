@@ -145,3 +145,19 @@ contacts: [                   //  Array of Contacts belonging to the user
             }...
         ],
 error: ""                     //  Error description if id = 0
+
+
+Logout POST
+=========================
+{
+  id: 0,            //  user's id to be logged out
+  sessionID:""      //  sessionID to validate user
+}
+
+
+Logout GET
+=========================
+{
+  id: 0,            //  user's ID that was logged out
+  error: ""         //  error description
+}
