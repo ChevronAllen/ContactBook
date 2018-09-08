@@ -61,6 +61,22 @@ function switchToSignUp()
 	console.log("sign up");
 }
 
+// WARNING: hasn't been TESTED
+// shows all contacts in the contact array to contact list
+function showAllContacts()
+{
+	document.getElementById("contactListBox").innerHTML = '';
+	var html = '';
+	contacts.forEach(
+		function displayIfMatch(element)
+	{
+		for(var key in element)
+		{
+			html = '<div class="card contactCard" onclick="selectContact('+key+')">'+ element[key].firstName + ' ' + element[key].lastName'</div>';
+			document.getElementById("contactListBox").innerHTML += html;
+		}
+	}
+}
 // doLogin takes a username and password from LogUser and LogPassword id
 // sessionID is created as a 10 alphanumeric char string
 // JSON payload is then created and sent asynchronously
@@ -132,6 +148,9 @@ function doLogin()
 				document.getElementById("LogUser").value = "";		//resetting username
 				document.getElementById("LogPassword").value = "";	//resetting password
 
+				doHideorShow("SignIn", false);
+				doHideorShow("contactPageContainer", true);
+				showAllContacts();
 			}
 			else
 			{
@@ -148,16 +167,35 @@ function doLogin()
 // erases logged in fields
 function doLogout()
 {
-	//resetting these three variables to empty
-	userId    = 0;
-	firstName = "";
-	lastName  = "";
-	contacts = [];
-	sessionID = 0;
+	var jsonPayload = '{'
+		+ '"userID":"'   + userId  + '", '
+		+ '"sessionID":"'  + sessionID
+		+ '"}';
 
-	doHideorShow("name of logged in div in html code", false); //hiding logged in div section
-	doHideorShow("name of access div in html code", false);	//hiding access interface section
-	doHideorShow("SignIn", true); //showing login section
+	var url = apiFolder + 'Logout.' + extension;
+	var xhr = new XMLHttpRequest();
+
+	xhr.open("POST", url, true);	//true associates with asyncrous
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+	xhr.onreadystatechange = function()
+	{
+		if (this.readyState == 4)
+		{
+			if(this.status == 200)
+			{
+				//resetting these three variables to empty
+				userId    = 0;
+				firstName = "";
+				lastName  = "";
+				contacts = [];
+				sessionID = 0;
+				doHideorShow("contactPageContainer", false);
+				doHideorShow("SignIn", true); //showing login section
+			}
+		}
+	}
+	xhr.send(jsonPayload);
 }
 
 // doRegister takes a username and password from LogUser and LogPassword id
@@ -337,7 +375,7 @@ function addContact()
 				// WARNING Hasnt been tested
 				// local storage of added contact
 				contacts.push(JSON.parse(jsonContact));
-				// TODO: fill contacts on html
+				showAllContacts();
     		}
     		else
     		{
@@ -351,14 +389,16 @@ function addContact()
 }
 
 // searches local contacts array for a match
-function searchContact()
+function searchContacts()
 {
-  	var search = new RegExp(document.getElementById("").innerHTML);
+		var html = '';
+		var match = 0;
+		document.getElementById("contactListBox").innerHTML = '';
+  	var search = new RegExp(document.getElementById("inputSearch").innerHTML);
 
   	contacts.forEach(
-    	function displayIfMatch(element)
-    	{
-			var match = 0;
+    function displayIfMatch(element)
+    {
 			for(var key in element)
 			{
 				if(search.test(element[key]))
@@ -368,8 +408,10 @@ function searchContact()
 			}
 			if(match == 1)
 			{
-				// TODO: display contact to html
+				html = '<div class="card contactCard" onclick="selectContact('+key+')">'+ element[key].firstName + ' ' + element[key].lastName'</div>';
+				document.getElementById("contactListBox").innerHTML += html;
 			}
+			match = 0;
 		}
 	);
 }
@@ -454,7 +496,7 @@ function deleteContact()
 			// this should remove the contact locally
 			var index = contacts.indexof(JSON.parse(jsonContact));
 			contacts.splice(JSON.parse(jsonContact), 1);
-			// TODO: fill contacts on html
+			showAllContacts();
   		}
   		else
   		{
@@ -465,4 +507,9 @@ function deleteContact()
 	}
 
   xhr.send(jsonPayload);
+}
+
+function selectContact(key)
+{
+	// TODO: display contact at element[key]
 }
