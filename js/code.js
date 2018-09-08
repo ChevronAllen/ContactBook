@@ -306,15 +306,14 @@ function addContact()
 	var contactPhoneNumber = "";
 
 	//obtaining and storing the values entered by user into the specified variable
-	contactFirstName = document.getElementById("firstname").value;
-	contactLastName = document.getElementById("lastname").value;
-	contactAddress = document.getElementById("contactaddress").value;
-	contactState = document.getElementById("state").value;
-	contactCity = document.getElementById("city").value;
-	contactZipcode = document.getElementById("zipcode").value;
-	contactAPT = document.getElementById("aptnum").value;
-	contactEmail = document.getElementById("emailaddress").value;
-	contactPhoneNumber = document.getElementById("phonenumber").value;
+	contactFirstName = document.getElementById("inputCFirstName").value;
+	contactLastName = document.getElementById("inputCLastName").value;
+	contactAddress = document.getElementById("inputCAddress").value;
+	contactState = document.getElementById("inputCState").value;
+	contactCity = document.getElementById("inputCCity").value;
+	contactZipcode = document.getElementById("inputCZipcode").value;
+	contactEmail = document.getElementById("inputCEmail").value;
+	contactPhoneNumber = document.getElementById("inputCPhone").value;
 
 	var jsonPayload = '{'
 			+ '"id":'			+ userId              + ','
@@ -344,12 +343,11 @@ function addContact()
       			var jsonObject = JSON.parse(xhr.responseText);
 
 				userId = jsonObject.id;
-				error  = jsonObject.error;
 
 				if(userId < 1)	//checking if the username entered exists in the database
 				{
-					console.log(error);  // temp notification
-					//document.getElementById("loginResult").innerHTML = error;
+					error  = jsonObject.error;
+					document.getElementById("contactError").innerHTML = error;
 					return;
 				}
 
@@ -367,15 +365,14 @@ function addContact()
 					+ '"phone":"'      + contactPhoneNumber
 					+ '"}';
 
-				// WARNING Hasnt been tested
-				// local storage of added contact
-				contacts.push(JSON.parse(jsonContact));
-				showAllContacts();
+					// WARNING Hasnt been tested
+					// local storage of added contact
+					contacts.push(JSON.parse(jsonContact));
+					showAllContacts();
     		}
     		else
     		{
-      			console.log("error with response");
-      			//document.getElementById("loginResult").innerHTML = this.status;
+      		document.getElementById("contactError").innerHTML = this.status;
     		}
 		}
 	}
