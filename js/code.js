@@ -76,6 +76,7 @@ function showAllContacts()
 			document.getElementById("contactListBox").innerHTML += html;
 		}
 	}
+	);
 }
 // doLogin takes a username and password from LogUser and LogPassword id
 // sessionID is created as a 10 alphanumeric char string
