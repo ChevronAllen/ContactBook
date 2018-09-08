@@ -25,16 +25,42 @@ RegHyper - Will show Reg div. Belongs to head.
 
 Divs
 ======================
-contactPageContainer
-contactPageBody
-contactViewer
-contactListBox
+#contactPageContainer
+#contactPageBody
+#contactSearchArea
+#contactFieldsArea
+#contactViewer
+#contactListBox
 
-Inputs
+
+
+Fillable spaces
 =======================
-inputSearch
+#userFullName
+#contactList
+
+Client Input Fields
+=======================
+#inputSearch
+#inputCFirstName
+#inputCLastName
+#inputCAddress
+#inputCCity
+#inputCState
+#inputCZipcode
+#inputCEmail
+#inputCPhone
+
 
 Button requests
 =======================
 doLogout()
+addContact()
 searchContacts()
+deleteContact()
+selectContact()
+
+Contact Cards
+=======================
+<div class="card contactCard" onclick="selectContact(i)">Your Name </div>
+where i is the cards contact id;

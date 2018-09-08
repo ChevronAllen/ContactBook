@@ -57,6 +57,11 @@
   max-height: 40em;
 
 }
+
+#contactFields{
+	height:1.7em
+}
+
 #contactHeader
 {
 	padding:0.2em 3em 0.3em;
@@ -107,19 +112,21 @@
   font-size: 1.2em;
   font-weight: italic;  
 }
+
 #contactListBox{
-  overflow-y: scroll;
-  max-height: -moz-calc(100% - 14em);
-  height: -webkit-calc(100% - 14em);
+	padding-top:1em;
+	overflow-y: scroll;
+	max-height: calc(100% - 14em);
+	max-height: -moz-calc(100% - 14em);
+	max-height: -webkit-calc(100% - 14em);
+	height: calc(100% - 14em);
+	height: -moz-calc(100% - 14em);
+	height: -webkit-calc(100% - 14em);
 }
 
 .contactFields
 {
 	margin: 5px 0 5px 0;
-	
-}
-.contactFields input,
-.contactFields label{
 	
 }
 
@@ -128,6 +135,7 @@
 	width:90%;
 	height:auto;
 	padding:0.5em 1em 0.5em 2em;
+	margin:2px 0px 2px 0px;
 	font-variant:small-caps;
 	font-size:1.2em;
 }
