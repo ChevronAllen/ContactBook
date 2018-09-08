@@ -40,9 +40,17 @@
 
 #contactPageContainer{
   visibility:visible;
-  padding: 0em;
-  margin: 0em;
+
   height: 100%;
+  min-height:950px;
+  max-width: 1100px;
+  min-width:860px;
+}
+
+#contactSearchArea{
+	max-height: 7em;
+	min-height: 7em;
+	padding:1em 0.5em 1em 0.5em;
 }
 
 #contactFieldsArea{
@@ -51,31 +59,35 @@
 }
 #contactHeader
 {
-	width:90%;
+	padding:0.2em 3em 0.3em;
+	height: auto;
 }
+#contactHeader #userFullName
+{
+	color:red;
+}
+
 .coloumn{	
-	padding: 0 1px 0 1px;
+	/*padding: 0 1em 0 1em;*/
 }
 
 #contactViewer{
-  min-height:11em;
-  max-height:11em;
+  min-height:14em;
+  max-height:14em;
+  padding: 0.5em;
 }
 #contactViewer span{
 	width=100%;
 }
-
 #contactViewer span[fill="name"]{
   font-size: 2em;
   font-weight: bold;
   
 }
-#contactViewer span[fill="phone"]{
-  font-size: 0.8em;
-  font-weight: italic;  
-}
+#contactViewer span[fill="phone"],
 #contactViewer span[fill="email"]{
-  font-size: 0.8em;
+  font-size: 1em;
+  color:gray;
   font-weight: italic;  
 }
 #contactViewer span[fill="address"]{
@@ -97,29 +109,25 @@
 }
 #contactListBox{
   overflow-y: scroll;
-  max-height: calc(100% - 11em);
-  height: -webkit-calc(100% - 11em);
+  max-height: -moz-calc(100% - 14em);
+  height: -webkit-calc(100% - 14em);
 }
 
 .contactFields
 {
 	margin: 5px 0 5px 0;
-	display:block;
+	
+}
+.contactFields input,
+.contactFields label{
+	
 }
 
 .contactCard
 {
-	border-style: solid;
-	border-width: 0.5px;
-	border-radius: 1.4em 5px 5px 1.4em;
-	font-weight:bold;
-	font-size: 1.5em;
-	width: 15em;
-	height:3em;
-	
-}
-.contactCard span
-{
-	float:left;
-	left:15px;
+	width:90%;
+	height:auto;
+	padding:0.5em 1em 0.5em 2em;
+	font-variant:small-caps;
+	font-size:1.2em;
 }

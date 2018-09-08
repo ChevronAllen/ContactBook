@@ -8,38 +8,49 @@
 	<script src="js/md5.js"></script>
 </head>
 <body>
-<div class="container border h-100">
-	<div class="border-bottom border-left border-right ">
-		<br/><br/><br/><br/>
+<div id="contactPageContainer" class="container border h-100">
+	<div id="contactHeader" class="border-bottom border-left border-right ">
+		Welcome <span id="userFullName">User's Full Name</span>
 	</div>
 	
-	<div class="row h-100">
+	<div class="row h-75">
 		<div class="col-5 border-right coloumn table">
-			<div class="border-bottom row" style="margin:0px; height: 5em" >
+			<div id="contactSearchArea"  class="border-bottom row" style="margin:0px; height: 5em" >
 				<span class=" " style="width:100%;"> 
 					<input placeholder="Search.." style="width:100% "/>
+					<a id="btnFindContacts" class="btn btn-primary w-100" onclick=""> Go</a>
 				</span>
 				<br>
 			</div>
-			<div class="border row" style="margin:0px" >
-				<input class="d-block d-flex contactFields" style="width:100%" placeholder="First Name"/>
+			<div class="border row container " style="margin:0px" >
+			<span class="contactFields d-block row">
+				<label for="contactFirstName" class="">First Name:
+					<input name="contactFirstName" class=" "  placeholder="First Name"/>
+				</label>
+			</span>
 				<input class="d-block d-flex contactFields" style="width:100%" placeholder="Last Name"/>
 				<textarea style="width:100%" placeholder="Address"/></textarea>
+				
 				<input class="d-block d-flex contactFields" style="width:100%" placeholder="City"/>
-				<input class="d-block d-flex contactFields" style="width:100%" placeholder="State"/>
-				<input class="d-block d-flex contactFields" style="width:100%" placeholder="Zip Code"/>
+				<span class="row">
+				<input class=" " style="width:100%" placeholder="State"/>				
+				<input class=" " style="width:100%" placeholder="Zip Code"/>
+				</span>
 				<input class="d-block d-flex contactFields" style="width:100%" placeholder="Email"/>
 				<input class="d-block d-flex contactFields" style="width:100%" placeholder="Phone #"/>
+				
+				<a id="btnAddContact" class="btn btn-primary w-100" onclick=""> Add Contact</a>
 			</div>
 		</div>
 		
 		<div class="col border-left coloumn" >
 			<div id="contactViewer" class="border-bottom " style="width:100%">
+			<center><a class="btn w-100 bg-danger" style="margin-bottom: 1em;">Delete</a></center>
 				<span class="row">
 					<span class="col d-block" fill="name">Full Name</span>
 					<div class="col">
-						<span class="d-block" fill="phone">555-555-5555</span>
-						<span class="d-block" fill="email">fake@email.com</span>
+						<span class="d-block" fill="phone"><small>555-555-5555</small></span>
+						<span class="d-block" fill="email"><small>fake@email.com</small></span>
 					</div>
 				</span>
 				<span class="d-block" fill="address">111 Fakey Hills</span>
@@ -48,8 +59,13 @@
 				<span class="d-block" fill="zipcode">333333</span>
 			</div>
 			
-			<div id="contactListBox" class="d-flex " style="width:100%;">
-			
+			<div id="contactListBox" class="d-flex" style="width:100%;">
+				<ul class="w-100">
+					<div class="card contactCard">Your Name </div>
+					<div class="card contactCard">Your Name </div>
+					<div class="card contactCard">Your Name </div>
+					<div class="card contactCard">Your Name </div>
+				</ul>
 			</div>
 		</div>
 	<div>
