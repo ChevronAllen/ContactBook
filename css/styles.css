@@ -39,7 +39,7 @@
 
 
 #contactPageContainer{
-  visibility:visible;
+  visibility:hidden;
 
   height: 100%;
   min-height:950px;
