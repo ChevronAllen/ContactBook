@@ -7,6 +7,7 @@ $conn = new mysqli($serverURL, $serverLogin, $serverAuth, $serverDB);
 
 //Get JSON input
 $inData = getRequestInfo();
+
 $userID = 0;
 $firstName = "";
 $lastName = "";
@@ -36,15 +37,21 @@ if($inData  == NULL){
 	$state = mysqli_real_escape_string($conn, $inData["state"]);
 	$zipCode = mysqli_real_escape_string($conn, $inData["zipCode"]);
 	$sessionID = mysqli_real_escape_string($conn, $inData["sessionID"]);
-
+	
+	
 	//	Call stored procedure that will insert a new user
-	$sql = 'CALL contact_book.createContact('. $userID. ',"' . $firstName . '","' . $lastName . '","' . $phoneNumber . '","' . $email . '","' . $address . '","' . $city. '","' . $state . '","' . $zipCode . '","' . $sessionID . '")';
-	echo $sql;
+	$sql = 'CALL contact_book.createContact(' . $userID . ',"' . $firstName . '","' 
+											  . $lastName . '","' . $phoneNumber . '","' 
+											  . $email . '","' . $address . '","' 
+											  . $city. '","' . $state . '","' 
+											  . $zipCode . '","' . $sessionID . '");';
+	
+	
 	//	Capture results
 	$result = $conn->query($sql);
 
 	//check if anything was returned
-	if ($result->num_rows <= 0)
+	if ($result->num_rows == 0)
 	{
 		returnWithError("There was an error adding contact.");
 	}else
@@ -79,6 +86,8 @@ function createJSONString($userID_, $contactID_, $err_){
     "contactID": '.$contactID_.',
     "error": '.$err_.';
   }';
+  
+  return $ret;
 }
 
 
