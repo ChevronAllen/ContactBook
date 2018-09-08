@@ -67,9 +67,9 @@ function showAllContacts()
 {
 	document.getElementById("contactListBox").innerHTML = '';
 	var html = '';
-	for(let i = 0; i < contact.length; i++)
+	for(let i = 0; i < contacts.length; i++)
 	{
-		html = '<div class="card contactCard" onclick="selectContact('+i+')">'+ contact[i].firstName + ' ' + contact[i].lastName + '</div>';
+		html = '<div class="card contactCard" onclick="selectContact('+i+')">'+ contacts[i].firstName + ' ' + contacts[i].lastName + '</div>';
 		document.getElementById("contactListBox").innerHTML += html;
 	}
 }
