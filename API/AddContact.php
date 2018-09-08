@@ -7,6 +7,7 @@ $conn = new mysqli($serverURL, $serverLogin, $serverAuth, $serverDB);
 
 //Get JSON input
 $inData = getRequestInfo();
+
 $userID = 0;
 $firstName = "";
 $lastName = "";
@@ -26,27 +27,31 @@ if($inData  == NULL){
 }else{
 
 	//	Sanitize JSON input
-  $userID = mysqli_real_escape_string($conn, $inData["id"]);
+	$userID = mysqli_real_escape_string($conn, $inData["id"]);
 	$firstName = mysqli_real_escape_string($conn, $inData["firstName"]);
 	$lastName = mysqli_real_escape_string($conn, $inData["lastName"]);
 	$email = mysqli_real_escape_string($conn, $inData["email"]);
-	$phoneNumber = mysqli_real_escape_string($conn, $inData["phoneNumber"]);
-  $address = mysqli_real_escape_string($conn, $inData["address"]);
-  $city = mysqli_real_escape_string($conn, $inData["city"]);
-  $state = mysqli_real_escape_string($conn, $inData["state"]);
-  $zipCode = mysqli_real_escape_string($conn, $inData["zipCode"]);
-  $sessionID = mysqli_real_escape_string($conn, $inData["sessionID"]);
-
+	$phoneNumber = mysqli_real_escape_string($conn, $inData["phone"]);
+	$address = mysqli_real_escape_string($conn, $inData["address"]);
+	$city = mysqli_real_escape_string($conn, $inData["city"]);
+	$state = mysqli_real_escape_string($conn, $inData["state"]);
+	$zipCode = mysqli_real_escape_string($conn, $inData["zipCode"]);
+	$sessionID = mysqli_real_escape_string($conn, $inData["sessionID"]);
+	
+	
 	//	Call stored procedure that will insert a new user
-	$sql = 'CALL contact_book.createContact("'.$userID.'", "'.$firstName.'",
-    "'.$lastName.'","'.$phoneNumber.'","'. $email.'","'. $address.'",
-    "'.$city.'","'.$state.'","'.$zipCode.'","'.$sessionID.'")';
-
+	$sql = 'CALL contact_book.createContact(' . $userID . ',"' . $firstName . '","' 
+											  . $lastName . '","' . $phoneNumber . '","' 
+											  . $email . '","' . $address . '","' 
+											  . $city. '","' . $state . '","' 
+											  . $zipCode . '","' . $sessionID . '");';
+	
+	
 	//	Capture results
 	$result = $conn->query($sql);
 
 	//check if anything was returned
-	if ($result->num_rows <= 0)
+	if ($result->num_rows == 0)
 	{
 		returnWithError("There was an error adding contact.");
 	}else
@@ -54,7 +59,7 @@ if($inData  == NULL){
     //capture return row from sql result data
 		$row = $result->fetch_assoc();
 		$contactID = $row["contactid"];
-		$userID = $row["iduser"];
+		$userID = $row["userid"];
 
 		//	if the id is zero something went wrong
 		if($contactID == 0 || $userID == 0) {
@@ -81,6 +86,8 @@ function createJSONString($userID_, $contactID_, $err_){
     "contactID": '.$contactID_.',
     "error": '.$err_.';
   }';
+  
+  return $ret;
 }
 
 
@@ -91,7 +98,7 @@ function sendResultInfoAsJson( $obj ){
 
 
 function returnWithError( $err ){
-  $retValue = createJSONString(0,"",$err);
+  $retValue = createJSONString(0,"[]",$err);
   sendResultInfoAsJson( $retValue );
 }
 
