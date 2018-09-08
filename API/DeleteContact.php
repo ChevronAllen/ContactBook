@@ -1,59 +1,83 @@
 <?php
 //php script will not run without the credentials file
 require("SQL_Credentials.php");
+
 //	Make Connection
 $conn = new mysqli($serverURL, $serverLogin, $serverAuth, $serverDB);
+
 //Get JSON input
 $inData = getRequestInfo();
 $userID = 0;
 $contactID = 0;
 $sessionID = "";
-if($inData  == NULL){
+
+if($inData  == NULL)
+{
 	returnWithError("Communications Error, NULL input");
 //	Test for connection errors
-}else if($conn->connect_error){
+}else if($conn->connect_error)
+{
 	returnWithError("Error Connecting to the Server");
-}else{
+}else
+{
+
 	//	Sanitize JSON input
   $userID = mysqli_real_escape_string($conn, $inData["id"]);
 	$contactID = mysqli_real_escape_string($conn, $inData["contactID"]);
   $sessionID = mysqli_real_escape_string($conn, $inData["sessionID"]);
-	//	Call stored procedure that will insert a new user
+
+	//	Call stored procedure that will delete a contact
 	$sql = 'CALL contact_book.deleteContact("'.$userID.'", "'.$contactID.'","'.$sessionID.'");';
+
 	//	Capture results
 	$result = $conn->query($sql);
-	/*
-		result should be a row from the contacts table
-		of the contact that was deleted
-	*/
-	if ($result->num_rows <= 0){
-		returnWithError("No rows returned");
-	}else{
+
+	//result should be the row of the contacts table of the contact that was deleted
+	if ($result->num_rows <= 0)
+	{
+		returnWithError("Contact could not be deleted.");
+	}else
+	{
 		returnWithInfo($userID, "");
 	}
 }
+
  // Close the connection
 $conn->close();
+
  //	Retrieves data sent to the php
-function getRequestInfo(){
+function getRequestInfo()
+{
   return json_decode(file_get_contents('php://input'), true);
 }
-function createJSONString($userID_, $err_){
+
+
+function createJSONString($userID_, $err_)
+{
   $ret = '
 	{
     "id": '.$userID_.',
     "error": '.$err_.';
   }';
 }
-function sendResultInfoAsJson( $obj ){
+
+
+function sendResultInfoAsJson( $obj )
+{
   header('Content-type: application/json');
   echo $obj;
 }
-function returnWithError( $err ){
+
+
+function returnWithError( $err )
+{
   $retValue = createJSONString(0,$err);
   sendResultInfoAsJson( $retValue );
 }
-function returnWithInfo($userID, $err){
+
+
+function returnWithInfo($userID, $err)
+{
   $retValue = createJSONString($userID, $err);
   sendResultInfoAsJson( $retValue );
 }
