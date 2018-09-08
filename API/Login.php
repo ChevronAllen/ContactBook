@@ -1,6 +1,26 @@
 <?php
 require("SQL_Credentials.php");
 
+class Contact {
+    function __construct() {
+		$this->contactID = "";
+		$this->firstName = "";
+		$this->lastName = "";
+		$this->address = "";
+		$this->city = "";
+		$this->state = "";
+		$this->zipCode = "";
+		$this->email = "";
+		$this->phone = "";
+    }
+	
+	function print(){
+		echo "cid: $this->contactID fName: $this->firstName lName: $this->lastName";
+	}
+	
+	
+}
+
 //	Make Connection
 $conn = new mysqli($serverURL, $serverLogin, $serverAuth, $serverDB);
 
@@ -8,8 +28,6 @@ $conn = new mysqli($serverURL, $serverLogin, $serverAuth, $serverDB);
 $inData = getRequestInfo();
 
 $id = 0;
-$firstName 	= "";
-$lastName 	= "";
 $username 	= "";
 $password 	= "";
 $sessionID  = "";
@@ -25,60 +43,70 @@ if($conn->connect_error)
 	$sessionID  = mysqli_real_escape_string($conn, $inData["sessionID"]);
 
 	//	Call stored procedure that will insert a new user
-	$sql = "CALL contact_book.userLogin('$username','$password','$sessionID');";//'CALL contact_book.userLogin("' . $username . '","' 	. $password 	. '", "' . $sessionID	.'" );';
-
-  //returnWithError($sql);
-
+	$sql = 'CALL contact_book.userLogin("' . $username . '", "' . $password . '", "' . $sessionID . '")';
+	
 	//	Capture results
 	$result = $conn->query($sql);
 
-	/*
-		result should be a row from the users table
-		capture the new users id to be sent back
-		we recieve the whole row so that if we need to implement
-		a session id that would be sent.
-	*/
-	if ($result->num_rows == 0){
-		returnWithError("Error: Username Password combination doesnt exist");
-	}else{
 
+	if ($result->num_rows == 0)
+	{
+		returnWithError("Invalid Username/Password.");
+	}else
+	{
+		
+		
 		$row = $result->fetch_assoc();
 
 		$id = $row["userid"];
 		$firstName = $row["user_firstname"];
 		$lastName = $row["user_lastname"];
+		
+		$result->close();
+		$conn->close();
 
 
 		//	if the id is zero something went wrong
 		if($id == 0)
 		{
-			returnWithError("Invalid Username/Password.");
+			returnWithError("Invalid Username/Password combination.");
 		}else
 		{
 			/*
 				On a succesful login find all the user's contacts
 			*/
+			
+			$conn = new mysqli($serverURL, $serverLogin, $serverAuth, $serverDB);
+			if(!$conn->connect_error)
+			{
 
-			$sql = 'CALL findContacts ("' . $id . '","","' . $sessionID .'");';
-
-			$result =  $conn->query($sql);
-      if($result)
-      {
-  			$list = array();	// Empty array
-
-  			while($row = $msqli_fetch_assoc($result))//mysql_fetch_assoc($result))
-  			{
-  				//add rows to array individually
-  				$list[] = $row;
-          echo "id : " + $row["userid"];
-  			}
-
-  			//	convert array of rows to json data
-  			$contacts = json_encode($list);
-
-
-      }
-      returnWithInfo($id, $firstName, $lastName, $contacts);
+				$searchSQL = 'CALL contact_book.findContacts(' . $id . ', "", "' . $sessionID . '" )';
+				//"SELECT 11 as 'contactID' ";
+				$result =  $conn->query($searchSQL);
+				
+				$jsonArray = array();
+				$jsonObject = new Contact();
+				
+				if($result->num_rows != 0)
+				{			
+					while($row = $result->fetch_assoc())
+					{
+						$jsonObject->contactID = $row["contactid"];				
+						$jsonObject->firstName = $row["contact_firstname"];
+						$jsonObject->lastName = $row["contact_lastname"];
+						$jsonObject->address = $row["contact_address"];
+						$jsonObject->city = $row["contact_city"];
+						$jsonObject->state = $row["contact_state"];
+						$jsonObject->zipCode = $row["contact_zipcode"];
+						$jsonObject->email = $row["contact_email"];
+						$jsonObject->phone = $row["contact_phone"];
+						
+						//$jsonObject->print();
+						$jsonArray[] = $jsonObject;				
+					}
+				}
+			}
+			returnWithInfo($id, $firstName, $lastName, json_encode($jsonArray) );
 		}
 	}
 }
@@ -99,7 +127,7 @@ function createJSONString($id_, $firstName_, $lastName_, $contacts_, $error_)
           "id" : '. $id_ .' ,
           "firstName" : "' . $firstName_ . '",
           "lastName" : "' . $lastName_ . '",
-          "contacts" : '. ($contacts_ == "" ? "[]":$contacts_) . ' ,
+          "contacts" : '. $contacts_ . ' ,
           "error" : "' . $error_ . '"
         }';
 
@@ -114,7 +142,7 @@ function sendResultInfoAsJson( $obj )
 
 function returnWithError( $err )
 {
-  $retValue = createJSONString(0,"","","",$err);
+  $retValue = createJSONString(0,"","","[]",$err);
   sendResultInfoAsJson( $retValue );
 }
 
