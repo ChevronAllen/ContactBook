@@ -67,16 +67,11 @@ function showAllContacts()
 {
 	document.getElementById("contactListBox").innerHTML = '';
 	var html = '';
-	contacts.forEach(
-		function displayIfMatch(element)
+	for(let i = 0; i < contact.length; i++)
 	{
-		for(var key in element)
-		{
-			html = '<div class="card contactCard" onclick="selectContact('+key+')">'+ element[key].firstName + ' ' + element[key].lastName + '</div>';
-			document.getElementById("contactListBox").innerHTML += html;
-		}
+		html = '<div class="card contactCard" onclick="selectContact('+i+')">'+ contact[i].firstName + ' ' + contact[i].lastName + '</div>';
+		document.getElementById("contactListBox").innerHTML += html;
 	}
-	);
 }
 // doLogin takes a username and password from LogUser and LogPassword id
 // sessionID is created as a 10 alphanumeric char string
