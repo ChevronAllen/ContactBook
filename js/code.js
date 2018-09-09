@@ -245,6 +245,11 @@ function doRegister()
 	password    = document.getElementById("LogPassword").value; //obtaining value held in loginpassoword and placing it inside password variable
 	rePassword  = document.getElementById("RePassword").value; //obtaining value held in loginpassoword and placing it inside password variable
 
+	if(username.length == 0 || lastName.length == 0  || firstName.length == 0 || password.length == 0 || rePassword.length == 0)
+	{
+		document.getElementById("loginResult").innerHTML = "One or more fields are empty";
+		return;
+	}
 
 	if(regexCheck(username, /\W/) || regexCheck(firstName, /[^a-zA-Z]/) || regexCheck(lastName, /[^a-zA-Z]/))
 	{
@@ -351,49 +356,49 @@ function addContact()
 
 	var invalidData = 0;
 	// first name check
-	if(regexCheck(contactFirstName, /[^a-zA-Z]/))
+	if(regexCheck(contactFirstName, /[^a-zA-Z]/) || contactFirstName.length == 0)
 	{
 		invalidData = 1;
 		document.getElementById("contactError").innerHTML += "First Name can only be alphabetical<br />";
 	}
 	// last name check
-	if(regexCheck(contactLastName, /[^a-zA-Z]/))
+	if(regexCheck(contactLastName, /[^a-zA-Z]/) || contactLastName.length == 0)
 	{
 		invalidData = 1;
 		document.getElementById("contactError").innerHTML += "Last Name can only be alphabetical<br />";
 	}
 	// address check
-	if(regexCheck(contactAddress, /[^\d\sa-zA-Z(.)]/))
+	if(regexCheck(contactAddress, /[^\d\sa-zA-Z(.)]/) && contactAddress.length != 0)
 	{
 		invalidData = 1;
 		document.getElementById("contactError").innerHTML += "Addresses can only containt whitespace a period and alphanumeric characters<br />";
 	}
 	// state check
-	if(regexCheck(contactState, /[^a-zA-Z]/))
+	if(regexCheck(contactState, /[^a-zA-Z]/) && contactState.length != 0)
 	{
 		invalidData = 1;
 		document.getElementById("contactError").innerHTML += "State can only be alphabetical<br />";
 	}
 	// city check
-	if(regexCheck(contactCity, /[^a-zA-Z]/))
+	if(regexCheck(contactCity, /[^\sa-zA-Z]/) && contactCity.length != 0)
 	{
 		invalidData = 1;
 		document.getElementById("contactError").innerHTML += "City can only be alphabetical <br />";
 	}
 	// zipcode check
-	if(regexCheck(contactZipcode, /[^\d]/))
+	if(!regexCheck(contactZipcode, /^[\d]{5}$/) && contactZipcode.length != 0)
 	{
 		invalidData = 1;
 		document.getElementById("contactError").innerHTML += "zipcode can only be numerical <br />";
 	}
 	// email chack
-	if(!regexCheck(contactEmail, /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/g))
+	if(!regexCheck(contactEmail, /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/g) && contactEmail.length != 0)
 	{
 		invalidData = 1;
 		document.getElementById("contactError").innerHTML += "invalid email <br />";
 	}
 	// phone number check
-	if(regexCheck(contactPhoneNumber, /[^\d]/))
+	if(!regexCheck(contactPhoneNumber, /^[\d]{10}$/) && contactPhoneNumber.length != 0)
 	{
 		invalidData = 1;
 		document.getElementById("contactError").innerHTML += "Phone Number can only be numerical <br />";
