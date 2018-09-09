@@ -1,3 +1,7 @@
+body{
+	background-color:#e0e2e5;
+}
+
 .center {
     margin: auto;
     width: 60%;
@@ -6,7 +10,11 @@
 }
 /* Login/Register Page  */
 #loginContainer{
-	margin-top:2em;
+	background-color:#b8babc;
+	border:3px solid #efefef;
+	border-radius:15px;
+	margin-top:10%;
+	margin-bottom:auto;
 	text-align: center;
 	visibility:visible;
 	display:block;
@@ -143,4 +151,5 @@ display:none;
 	margin:2px 0px 2px 0px;
 	font-variant:small-caps;
 	font-size:1.2em;
+	cursor: pointer;
 }
