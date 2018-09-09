@@ -405,6 +405,7 @@ function searchContacts()
 		{
 			if(this.status == 200)
 			{
+				document.getElementById("btnFindContacts").disabled = false;
 				var jsonObject = JSON.parse(xhr.responseText);
 
 				userId = jsonObject.id;
@@ -413,11 +414,9 @@ function searchContacts()
 				{
 					var error = jsonObject.error;
 					document.getElementById("contactError").innerHTML = error;
-					document.getElementById("btnFindContacts").disabled = false;
 					return;
 				}
 
-				document.getElementById("btnFindContacts").disabled = false;
 				contacts  = jsonObject.contacts;
 				showAllContacts();
 			}
