@@ -16,10 +16,10 @@ body{
 	margin-top:10%;
 	margin-bottom:auto;
 	text-align: center;
-	
+
 	visibility:visible;
 	display:block;
-	
+
 	min-width:320px;
 	max-width:600px;
 }
@@ -70,7 +70,7 @@ body{
 #contactError{
 	color:red;
 	font-weight: bold;
-	font-size: 2rem;
+	font-size: .7rem;
 }
 
 #contactPageContainer{
@@ -108,7 +108,7 @@ body{
 	color:red;
 }
 
-.coloumn{	
+.coloumn{
 	/*padding: 0 1rem 0 1rem;*/
 }
 
@@ -131,30 +131,30 @@ body{
 #contactViewer span[fill="name"]{
   font-size: 2rem;
   font-weight: bold;
-  
+
 }
 #contactViewer span[fill="phone"],
 #contactViewer span[fill="remail"]{
   font-size: 1rem;
   color:gray;
-  font-weight: italic;  
+  font-weight: italic;
 }
 #contactViewer span[fill="address"]{
   font-size: 1.2rem;
-  font-weight: italic; 
- 
+  font-weight: italic;
+
 }
 #contactViewer span[fill="city"]{
   font-size: 1.2rem;
-  font-weight: italic;  
+  font-weight: italic;
 }
 #contactViewer span[fill="state"]{
   font-size: 1.2rem;
-  font-weight: italic;  
+  font-weight: italic;
 }
 #contactViewer span[fill="zipcode"]{
   font-size: 1.2rem;
-  font-weight: italic;  
+  font-weight: italic;
 }
 
 #contactListBox{
@@ -169,7 +169,7 @@ body{
 .contactFields
 {
 	margin: 5px 0 5px 0;
-	
+
 }
 
 .contactCard
