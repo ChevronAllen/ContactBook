@@ -6,6 +6,7 @@ var firstName = ''; // user first name
 var lastName = '';	// user last name
 var sessionID = 0;	// generated sessionID that is created and sent on login/registration
 var contacts = [];	// array of contacts for user
+var currentSelected = -1;
 
 function hideOrShow(elementId, showState)
 {
@@ -69,7 +70,7 @@ function showAllContacts()
 	var html = '';
 	for(let i = 0; i < contacts.length; i++)
 	{
-		html = '<div class="card contactCard" onclick="selectContact('+i+')">'+ contacts[i].firstName + ' ' + contacts[i].lastName + '</div>';
+		html = '<div id ="contactCard'+i+'" class="card contactCard" onclick="selectContact('+i+')">'+ contacts[i].firstName + ' ' + contacts[i].lastName + '</div>';
 		document.getElementById("contactListBox").innerHTML += html;
 	}
 }
@@ -130,7 +131,8 @@ function doLogin()
 
 				if(userId < 1)	//checking if the username entered exists in the database
 				{
-					document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
+					var error = jsonObject.error;
+					document.getElementById("loginResult").innerHTML = error;
 					document.getElementById("loginButton").disabled = false;
 					return;
 				}
@@ -138,7 +140,6 @@ function doLogin()
 				firstName = jsonObject.firstName;
 				lastName  = jsonObject.lastName;
 				contacts  = jsonObject.contacts;
-				error     = jsonObject.error;
 
 				//document.getElementById("id for section to show users first and last name").innerHTML = firstName + " " + lastName;
 				document.getElementById("LogUser").value = "";		//resetting username
@@ -331,44 +332,44 @@ function addContact()
 	var url =  apiFolder + 'AddContact.' + extension;
 	var xhr = new XMLHttpRequest();
 
-  	xhr.open("POST", url, true);	//true associates with asyncrous
-  	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+  xhr.open("POST", url, true);	//true associates with asyncrous
+  xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
   	xhr.onreadystatechange = function()
   	{
     	if (this.readyState == 4)
-		{
-			if (this.status == 200)
+			{
+				if (this.status == 200)
     		{
       			var jsonObject = JSON.parse(xhr.responseText);
 
-				userId = jsonObject.id;
+						userId = jsonObject.id;
 
-				if(userId < 1)	//checking if the username entered exists in the database
-				{
-					error  = jsonObject.error;
-					document.getElementById("contactError").innerHTML = error;
-					return;
-				}
+						if(userId < 1)	//checking if the username entered exists in the database
+						{
+							var error = jsonObject.error;
+							document.getElementById("contactError").innerHTML = error;
+							return;
+						}
 
-				var contactID = jsonObject.contactID;
+						var contactID = jsonObject.contactID;
 
-				var jsonContact = '{'
-					+ '"contactID":"' + contactID           + '",'
-					+ '"firstName":"'  + contactFirstName    + '",'
-					+ '"lastName":"'   + contactLastName     + '",'
-					+ '"address":"'    + contactAddress      + '",'
-					+ '"city":"'       + contactCity         + '",'
-					+ '"state":"'      + contactState        + '",'
-					+ '"zipCode":"'    + contactZipcode      + '",'
-					+ '"email":"'      + contactEmail        + '",'
-					+ '"phone":"'      + contactPhoneNumber
-					+ '"}';
+						var jsonContact = '{'
+							+ '"contactID":' 	+ contactID           + ','
+							+ '"firstName":"'  + contactFirstName    + '",'
+							+ '"lastName":"'   + contactLastName     + '",'
+							+ '"address":"'    + contactAddress      + '",'
+							+ '"city":"'       + contactCity         + '",'
+							+ '"state":"'      + contactState        + '",'
+							+ '"zipCode":"'    + contactZipcode      + '",'
+							+ '"email":"'      + contactEmail        + '",'
+							+ '"phone":"'      + contactPhoneNumber
+							+ '"}';
 
-					// WARNING Hasnt been tested
-					// local storage of added contact
-					contacts.push(JSON.parse(jsonContact));
-					showAllContacts();
+						// WARNING Hasnt been tested
+						// local storage of added contact
+						contacts.push(JSON.parse(jsonContact));
+						showAllContacts();
     		}
     		else
     		{
@@ -380,69 +381,69 @@ function addContact()
   xhr.send(jsonPayload);
 }
 
-// searches local contacts array for a match
+// sends json with search criteria and gets json with contacts array that match
 function searchContacts()
 {
-		var html = '';
-		var match = 0;
-		document.getElementById("contactListBox").innerHTML = '';
-  	var search = new RegExp(document.getElementById("inputSearch").innerHTML);
+	document.getElementById("contactListBox").innerHTML = '';
+	var searchID = document.getElementById("inputSearch").innerHTML;
 
-  	contacts.forEach(
-    function displayIfMatch(element)
-    {
-			for(var key in element)
+	var jsonPayload = '{'
+			+ '"id":'							+ userId			+ ','
+			+ '"matchString":""'	+ searchID		+ '",'
+			+ '"sessionID":"'			+ sessionID
+			+ '"}';
+
+	var url =  apiFolder + 'SearchContact.' + extension;
+	var xhr = new XMLHttpRequest();
+
+	xhr.open("POST", url, true);	//true associates with asyncrous
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+	xhr.onreadystatechange = function()
+	{
+		if (this.readyState == 4)
+		{
+			if(this.status == 200)
 			{
-				if(search.test(element[key]))
+				var jsonObject = JSON.parse(xhr.responseText);
+
+				userId = jsonObject.id;
+
+				if(userId < 1)	//checking if the username entered exists in the database
 				{
-					match = 1;
+					var error = jsonObject.error;
+					document.getElementById("contactError").innerHTML = error;
+					document.getElementById("btnFindContacts").disabled = false;
+					return;
 				}
+
+				contacts  = jsonObject.contacts;
+				showAllContacts();
 			}
-			if(match == 1)
+			else
 			{
-				html = '<div class="card contactCard" onclick="selectContact('+key+')">'+ element[key].firstName + ' ' + element[key].lastName +'</div>';
-				document.getElementById("contactListBox").innerHTML += html;
+				document.getElementById("contactError").innerHTML = " error " + this.status;
+				document.getElementById("btnFindContacts").disabled = false;
+				return;
 			}
-			match = 0;
 		}
-	);
+	}
+	document.getElementById("btnFindContacts").disabled = true;
+	xhr.send(jsonPayload);
 }
 
 // TODO: comments
 function deleteContact()
 {
-	//initailizing variable to empty strings
-	var contactFirstName = "";
-	var contactLastName = "";
-	var contactAddress = "";
-	var contactState = "";
-	var contactCity	= "";
-	var contactZipcode = "";
-	var contactAPT = "";
-	var contactEmail = "";
-	var contactPhoneNumber = "";
+	if(currentSelected < 0)
+	{
+		return;
+	}
 
-	//obtaining and storing the values entered by user into the specified variable
-	contactFirstName = document.getElementById("firstname").value;
-	contactLastName = document.getElementById("lastname").value;
-	contactAddress = document.getElementById("contactaddress").value;
-	contactState = document.getElementById("state").value;
-	contactCity = document.getElementById("city").value;
-	contactZipcode = document.getElementById("zipcode").value;
-	contactAPT = document.getElementById("aptnum").value;
-	contactEmail = document.getElementById("emailaddress").value;
-	contactPhoneNumber = document.getElementById("phonenumber").value;
-
+	var contactID = contact[currentSelected].ContactID;
 	var jsonPayload = '{'
-			+ '"id":'			+ userId              + ','
-			+ '"firstName":"'	+ contactFirstName    + '",'
-			+ '"lastName":"'	+ contactLastName     + '",'
-			+ '"address":"'		+ contactAddress      + '",'
-			+ '"city":"'		+ contactCity         + '",'
-			+ '"state":"'		+ contactState        + '",'
-			+ '"zipCode":"'		+ contactZipcode      + '",'
-			+ '"email":"'		+ contactEmail        + '",'
-			+ '"phone":"'		+ contactPhoneNumber  + '",'
+			+ '"id":'					+ userId    + ','
+			+ '"ContactID":'	+ ContactID + ','
 			+ '"sessionID":"'	+ sessionID
 			+ '"}';
 
@@ -455,46 +456,29 @@ function deleteContact()
   xhr.onreadystatechange = function()
   {
   	if (this.readyState == 4)
-	{
-		if (this.status == 200)
 		{
-			var jsonObject = JSON.parse(xhr.responseText);
-
-			userId = jsonObject.id;
-			error  = jsonObject.error;
-
-			if(userId < 1)	//checking if the username entered exists in the database
+			if (this.status == 200)
 			{
-				console.log(error);  // temp notification
-				//document.getElementById("loginResult").innerHTML = error;
-				return;
-			}
+				var jsonObject = JSON.parse(xhr.responseText);
 
-			var contactID = jsonObject.contactID;
+				userId = jsonObject.id;
 
-			var jsonContact = '{'
-					+ '"contactID":"' + contactID           + '",'
-					+ '"firstName":"'  + contactFirstName    + '",'
-					+ '"lastName":"'   + contactLastName     + '",'
-					+ '"address":"'    + contactAddress      + '",'
-					+ '"city":"'       + contactCity         + '",'
-					+ '"state":"'      + contactState        + '",'
-					+ '"zipCode":"'    + contactZipcode      + '",'
-					+ '"email":"'      + contactEmail        + '",'
-					+ '"phone":"'      + contactPhoneNumber
-					+ '"}';
+				if(userId < 1)	//checking if the username entered exists in the database
+				{
+					var error = jsonObject.error;
+					console.log(error);  // temp notification
+					//document.getElementById("loginResult").innerHTML = error;
+					return;
+				}
 
-			// WARNING HASNT BEEN TESTED
-			// this should remove the contact locally
-			var index = contacts.indexof(JSON.parse(jsonContact));
-			contacts.splice(JSON.parse(jsonContact), 1);
-			showAllContacts();
-  		}
-  		else
-  		{
-    			console.log("error with response");
-    			//document.getElementById("loginResult").innerHTML = this.status;
-  		}
+				contacts.splice(currentSelected, 1);
+				showAllContacts();
+	  	}
+	  	else
+	  	{
+	    	console.log("error with response");
+	    	//document.getElementById("loginResult").innerHTML = this.status;
+	  	}
 		}
 	}
 
@@ -503,5 +487,18 @@ function deleteContact()
 
 function selectContact(key)
 {
-	// TODO: display contact at element[key]
+	if(currentSelected > -1)
+	{
+		document.getElementById('contactCard'+currentSelected).classList.remove("bg-info");
+	}
+	document.getElementById('contactCard'+key).classList.add("bg-info");
+	currentSelected = key;
+
+	document.getElementById("contactFullName").innerHTML = contacts[currentSelected].firstName + ' ' + contacts[currentSelected].lastName;
+	document.getElementById("contactPhone").innerHTML = contacts[currentSelected].phone;
+	document.getElementById("contactEmail").innerHTML = contacts[currentSelected].email;
+	document.getElementById("contactAddress").innerHTML = contacts[currentSelected].address;
+	document.getElementById("contactCity").innerHTML = contacts[currentSelected].city;
+	document.getElementById("contactState").innerHTML = contacts[currentSelected].state;
+	document.getElementById("contactZipCode").innerHTML = contacts[currentSelected].zipCode;
 }
