@@ -293,9 +293,9 @@ function doRegister()
 				var jsonObject = JSON.parse(xhr.responseText);
 
 				userId = jsonObject.id;
-				error  = jsonObject.error;
 				if(userId < 1)	//checking if the username entered exists in the database
 				{
+					var error  = jsonObject.error;
 					resetForm();
 					document.getElementById("loginResult").innerHTML = error;
 					document.getElementById("loginButton").disabled = false;
@@ -304,7 +304,6 @@ function doRegister()
 
 				firstName = jsonObject.firstName;
 				lastName  = jsonObject.lastName;
-				contacts  = jsonObject.contacts;
 
 				//document.getElementById("id for section to show users first and last name").innerHTML = firstName + " " + lastName;
 				document.getElementById("LogUser").value = "";		//resetting username
@@ -460,7 +459,6 @@ function addContact()
 							+ '"phone":"'      + contactPhoneNumber
 							+ '"}';
 
-						// WARNING Hasnt been tested
 						// local storage of added contact
 						contacts.push(JSON.parse(jsonContact));
 						showAllContacts();
