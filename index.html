@@ -30,8 +30,8 @@
 		<label> Password <br><input type="password" id="LogPassword" /></label>
 		<label class="Reg"> Re-enter Password <br><input type="password" id="RePassword" /></label>
 
-		<a class="SignIn btn btn-primary" 	id="loginButton" onclick="doLogin()" > Login </a>
-		<a class="Reg btn btn-primary" 		id="loginButton" onclick="doRegister()"> Register </a>
+		<button type="button" class="SignIn btn btn-primary" 	id="loginButton" onclick="doLogin()" > Login </button>
+		<button type="button" class="Reg btn btn-primary" 		id="loginButton" onclick="doRegister()"> Register </button>
 
     <!--
       Label that the javascript can output error text to.
@@ -58,17 +58,17 @@
 		<div id="contactHeader" class="border-bottom border-left border-right ">
 			Welcome <span id="userFullName">User's Full Name</span>
 		</div>
-		
+		<hr>
 		<div class="row h-75">
 			<div class="col-5  coloumn table">
 				
 				<div id="contactSearchArea"  class="border-bottom row" style="margin:0px; height: 5em" >
 					<span class=" " style="width:100%;"> 
 						<input id="inputSearch" placeholder="Search.." style="width:100% "/>
-						<a id="btnFindContacts" class="btn btn-primary w-100" onclick=""> Go</a>
+						<button type="button" id="btnFindContacts" class="btn btn-primary w-100" onclick="searchContacts()"> Search</button >
 					</span>
 				</div>
-				
+				<hr>
 				<div id="contactFieldsArea" class="border row container  " style="margin:0px" >
 				
 				<span class="d-block">
@@ -93,13 +93,12 @@
 					<label for="contactCity">City:
 						<input id="inputCCity"  name="contactCity" class="contactFields" placeholder="City"/>
 					</label>
-				</span>
-				
+				</span>				
 					
 				<span class="d-block">				
-					<label for="contactState">
-						<select id="inputCState"  name="contactState" class="contactFields">
-						<option value=""> </option>
+					<!--label for="contactState"></label-->
+						<select id="inputCState"  name="contactState" class="contactFields d-inline" >
+						<option value="">Select State</option>
 						<option value="AL">Alabama</option>
 						<option value="AK">Alaska</option>
 						<option value="AZ">Arizona</option>
@@ -152,10 +151,10 @@
 						<option value="WI">Wisconsin</option>
 						<option value="WY">Wyoming</option>
 					</select>				
-					</label>
-					<label for="contactZipCode">ZipCode:
-						<input id="inputCZipcode" name="contactZipCode" class="contactFields" placeholder="Zip Code"/>
-					</label>
+					
+					<label for="contactZipCode" class="d-inline w-75">Zip:</label> 
+					<input id="inputCZipcode" name="contactZipCode" class="contactFields w-25 d-inline" placeholder="Zip Code"/>
+					
 					
 				</span>
 				
@@ -170,14 +169,14 @@
 						<input id="inputCPhone" name="contactPhone" class="contactFields" placeholder="Phone #"/>
 					</label>
 				</span>
-					<a id="btnAddContact" class="btn btn-primary w-100" onclick="addContact()"> Add Contact</a>
+					<button type="button" id="btnAddContact" class="btn btn-primary w-100" onclick="addContact()"> Add Contact</button>
 				</div>
 			
 			</div>
 			
 			<div class="col border-left coloumn" >
 				<div id="contactViewer" class="border-bottom " style="width:100%">
-				<center><a class="btn w-100 bg-danger" style="margin-bottom: 1em;" onclick="deleteContact()" >Delete</a></center>
+				<center><button type="button" class="btn w-100 bg-danger" style="margin-bottom: 1em; color:white;" onclick="deleteContact()" >Delete</button></center>
 					<span class="row">
 						<span id="contactFullName" class="col d-block" fill="name"></span>
 						<div class="col">
@@ -192,7 +191,7 @@
 					<span id="contactState" class="d-block" fill="state"></span>
 					<span id="contactZipCode "class="d-block" fill="zipcode"></span>
 				</div>
-				
+				<hr>
 				<div id="contactListBox" class="" style="width:100%;">
 					<ul id="contactList" class="w-100">
 						<div class="card contactCard" onclick="selectContact(0)">Your Name </div>
