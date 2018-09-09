@@ -6,9 +6,12 @@
 }
 /* Login/Register Page  */
 #loginContainer{
+	margin-top:2em;
 	text-align: center;
 	visibility:visible;
 	display:block;
+	min-width:320px;
+	max-width:600px;
 }
 #loginContainer label{
 	display: block;
