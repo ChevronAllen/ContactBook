@@ -38,6 +38,13 @@ Fillable spaces
 =======================
 #userFullName
 #contactList
+#contactFullName
+#contactPhone
+#contactEmail
+#contactAddress
+#contactCity
+#contactState
+#contactZipCode
 
 Client Input Fields
 =======================

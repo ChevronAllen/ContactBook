@@ -97,8 +97,9 @@
 				
 					
 				<span class="d-block">				
-					<label for="contactState">State:
+					<label for="contactState">
 						<select id="inputCState"  name="contactState" class="contactFields">
+						<option value=""> </option>
 						<option value="AL">Alabama</option>
 						<option value="AK">Alaska</option>
 						<option value="AZ">Arizona</option>
@@ -178,16 +179,18 @@
 				<div id="contactViewer" class="border-bottom " style="width:100%">
 				<center><a class="btn w-100 bg-danger" style="margin-bottom: 1em;" onclick="deleteContact()" >Delete</a></center>
 					<span class="row">
-						<span class="col d-block" fill="name">Full Name</span>
+						<span id="contactFullName" class="col d-block" fill="name"></span>
 						<div class="col">
-							<span class="d-block" fill="phone"><small>555-555-5555</small></span>
-							<span class="d-block" fill="email"><small>fake@email.com</small></span>
+							<small>
+								<span id="contactPhone" class="d-block" fill="phone"></span>
+								<span id="contactEmail" class="d-block" fill="email"></span>
+							</small>
 						</div>
 					</span>
-					<span class="d-block" fill="address">111 Fakey Hills</span>
-					<span class="d-block" fill="city">Psuedoborough</span>
-					<span class="d-block" fill="state">Unknown</span>
-					<span class="d-block" fill="zipcode">333333</span>
+					<span id="contactAddress" class="d-block" fill="address"></span>
+					<span id="contactCity" class="d-block" fill="city"></span>
+					<span id="contactState" class="d-block" fill="state"></span>
+					<span id="contactZipCode "class="d-block" fill="zipcode"></span>
 				</div>
 				
 				<div id="contactListBox" class="" style="width:100%;">
