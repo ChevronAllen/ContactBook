@@ -8,6 +8,13 @@ var sessionID = 0;	// generated sessionID that is created and sent on login/regi
 var contacts = [];	// array of contacts for user
 var currentSelected = -1;
 
+function resetForm()
+{
+	document.contactSearchArea.reset();
+	document.contactFieldsArea.reset();
+	document.loginContainer.reset();
+}
+
 function hideOrShow(elementId, showState)
 {
 	var visible = "visible";
@@ -472,6 +479,7 @@ function deleteContact()
 				}
 
 				contacts.splice(currentSelected, 1);
+				currentSelected = -1;
 				showAllContacts();
 	  	}
 	  	else
