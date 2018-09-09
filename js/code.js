@@ -417,6 +417,7 @@ function searchContacts()
 					return;
 				}
 
+				document.getElementById("btnFindContacts").disabled = false;
 				contacts  = jsonObject.contacts;
 				showAllContacts();
 			}
