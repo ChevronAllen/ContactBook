@@ -26,52 +26,43 @@ $userID = 0;
 $matchString 	= "";
 $sessionID  = "";
 
-if($conn->connect_error)
+
+
+//	Sanitize JSON input
+$userID 		= mysqli_real_escape_string($conn, $inData["id"]);
+$matchString	= mysqli_real_escape_string($conn, $inData["matchString"]);
+$sessionID  	= mysqli_real_escape_string($conn, $inData["sessionID"]);
+
+$sql = 'CALL contact_book.findContacts(' . $userID . ', "' . $matchString . '", "' . $sessionID .'");';
+
+//capture results from sql
+$result = $conn->query($sql);
+
+//if no rows are return then there is no contacts or an error happened
+
+
+//create json array to store contacts
+$jsonArray = array();
+
+//iterate through search results adding the contacts to an array
+while($row = $result->fetch_assoc())
 {
-	returnWithError("Error Connecting to the Server");
-}else
-{
-	//	Sanitize JSON input
-	$userID 		= mysqli_real_escape_string($conn, $inData["id"]);
-	$matchString	= mysqli_real_escape_string($conn, $inData["matchString"]);
-	$sessionID  	= mysqli_real_escape_string($conn, $inData["sessionID"]);
-
-	$sql = 'CALL contact_book.findContacts(' . $userID . ', "' . $matchString . '", "' . $sessionID .'");';
-
-	//capture results from sql
-	$result = $conn->query($sql);
-
-	//if no rows are return then there is no contacts or an error happened
-	if ($result->num_rows == 0)
-	{
-		returnWithError("No contacts found.");
-	}else
-	{
-
-		//create json array to store contacts
-		$jsonArray = array();
-
-		//iterate through search results adding the contacts to an array
-		while($row = $result->fetch_assoc())
-		{
-			$jsonObject = new Contact();
-			$jsonObject->contactID = $row["contactid"];
-			$jsonObject->firstName = $row["contact_firstname"];
-			$jsonObject->lastName = $row["contact_lastname"];
-			$jsonObject->address = $row["contact_address"];
-			$jsonObject->city = $row["contact_city"];
-			$jsonObject->state = $row["contact_state"];
-			$jsonObject->zipCode = $row["contact_zipcode"];
-			$jsonObject->email = $row["contact_email"];
-			$jsonObject->phone = $row["contact_phone"];
-			$jsonArray[] = $jsonObject;
-		}
-
-		//sends userid and contacts array via json
-		returnWithInfo($userID, json_encode($jsonArray), "");
-
-	}
+	$jsonObject = new Contact();
+	$jsonObject->contactID = $row["contactid"];
+	$jsonObject->firstName = $row["contact_firstname"];
+	$jsonObject->lastName = $row["contact_lastname"];
+	$jsonObject->address = $row["contact_address"];
+	$jsonObject->city = $row["contact_city"];
+	$jsonObject->state = $row["contact_state"];
+	$jsonObject->zipCode = $row["contact_zipcode"];
+	$jsonObject->email = $row["contact_email"];
+	$jsonObject->phone = $row["contact_phone"];
+	$jsonArray[] = $jsonObject;
 }
+
+//sends userid and contacts array via json
+returnWithInfo($userID, json_encode($jsonArray), "");
+
 
 // Close the connection
 $conn->close();
@@ -112,7 +103,7 @@ function returnWithError( $err )
 
 function returnWithInfo($id_,  $contacts_, $err)
 {
-  $retValue = createJSONString($id_, ($contacts_ == FALSE  || $contacts_ == "" ? "[]":$contacts_), "");
+  $retValue = createJSONString($id_, ($contacts_ == FALSE  || $contacts_ == "[]" ? "[]":$contacts_), "");
   sendResultInfoAsJson( $retValue );
 }
 ?>
