@@ -11,7 +11,7 @@ body{
 /* Login/Register Page  */
 #loginContainer{
 	background-color:#b8babc;
-	border:3px solid #efefef;
+	border:3px solid #eeeeee;
 	border-radius:15px;
 	margin-top:10%;
 	margin-bottom:auto;
@@ -47,6 +47,14 @@ body{
 	margin: 0 30px 0 30px;
 }
 
+/*
+#SignHyper a,
+#RegHyper a{
+	padding: 0px 0.75rem 0px 0.75rem;
+	background-color:#ffffff;
+}
+*/
+
 /* Contact Page  */
 
 
@@ -61,23 +69,23 @@ display:none;
 }
 
 #contactSearchArea{
-	max-height: 7em;
-	min-height: 7em;
-	padding:1em 0.5em 1em 0.5em;
+	max-height: 7rem;
+	min-height: 7rem;
+	padding:1rem 0.5rem 1rem 0.5rem;
 }
 
 #contactFieldsArea{
-  max-height: 40em;
+  max-height: 40rem;
 
 }
 
 #contactFields{
-	height:1.7em
+	height:1.7rem
 }
 
 #contactHeader
 {
-	padding:0.2em 3em 0.3em;
+	padding:0.2rem 3rem 0.3rem;
 	height: auto;
 }
 #contactHeader #userFullName
@@ -86,55 +94,55 @@ display:none;
 }
 
 .coloumn{	
-	/*padding: 0 1em 0 1em;*/
+	/*padding: 0 1rem 0 1rem;*/
 }
 
 #contactViewer{
-  min-height:14em;
-  max-height:14em;
-  padding: 0.5em;
+  min-height:14rem;
+  max-height:14rem;
+  padding: 0.5rem;
 }
 #contactViewer span{
 	width=100%;
 }
 #contactViewer span[fill="name"]{
-  font-size: 2em;
+  font-size: 2rem;
   font-weight: bold;
   
 }
 #contactViewer span[fill="phone"],
-#contactViewer span[fill="email"]{
-  font-size: 1em;
+#contactViewer span[fill="remail"]{
+  font-size: 1rem;
   color:gray;
   font-weight: italic;  
 }
 #contactViewer span[fill="address"]{
-  font-size: 1.2em;
+  font-size: 1.2rem;
   font-weight: italic; 
  
 }
 #contactViewer span[fill="city"]{
-  font-size: 1.2em;
+  font-size: 1.2rem;
   font-weight: italic;  
 }
 #contactViewer span[fill="state"]{
-  font-size: 1.2em;
+  font-size: 1.2rem;
   font-weight: italic;  
 }
 #contactViewer span[fill="zipcode"]{
-  font-size: 1.2em;
+  font-size: 1.2rem;
   font-weight: italic;  
 }
 
 #contactListBox{
-	padding-top:1em;
+	padding-top:1rem;
 	overflow-y: scroll;
-	max-height: calc(100% - 14em);
-	max-height: -moz-calc(100% - 14em);
-	max-height: -webkit-calc(100% - 14em);
-	height: calc(100% - 14em);
-	height: -moz-calc(100% - 14em);
-	height: -webkit-calc(100% - 14em);
+	max-height: calc(100% - 14rem);
+	max-height: -moz-calc(100% - 14rem);
+	max-height: -webkit-calc(100% - 14rem);
+	height: calc(100% - 14rem);
+	height: -moz-calc(100% - 14rem);
+	height: -webkit-calc(100% - 14rem);
 }
 
 .contactFields
@@ -147,9 +155,9 @@ display:none;
 {
 	width:90%;
 	height:auto;
-	padding:0.5em 1em 0.5em 2em;
+	padding:0.5rem 1rem 0.5rem 2rem;
 	margin:2px 0px 2px 0px;
 	font-variant:small-caps;
-	font-size:1.2em;
+	font-size:1.2rem;
 	cursor: pointer;
 }
