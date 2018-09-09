@@ -443,7 +443,7 @@ function deleteContact()
 	var contactID = contacts[currentSelected].contactID;
 	var jsonPayload = '{'
 			+ '"id":'					+ userId    + ','
-			+ '"ContactID":'	+ ContactID + ','
+			+ '"ContactID":'	+ contactID + ','
 			+ '"sessionID":"'	+ sessionID
 			+ '"}';
 
