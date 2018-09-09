@@ -155,6 +155,8 @@ function doLogin()
 				hideOrShow("loginContainer", false); //showing login section
 				hideOrShow("contactPageContainer", true);
 				showAllContacts();
+				resetForm();
+				document.getElementById("userFullName").innerHTML = firstName + ' ' + lastName;
 			}
 			else
 			{
@@ -286,6 +288,8 @@ function doRegister()
 
 				hideOrShow("loginContainer", false); //showing login section
 				hideOrShow("contactPageContainer", true);
+				resetForm();
+				document.getElementById("userFullName").innerHTML = firstName + ' ' + lastName;
 			}
 			else
 			{
@@ -384,7 +388,7 @@ function addContact()
     		}
 		}
 	}
-
+	resetForm();
   xhr.send(jsonPayload);
 }
 
@@ -426,6 +430,7 @@ function searchContacts()
 
 				contacts  = jsonObject.contacts;
 				showAllContacts();
+				resetForm();
 			}
 			else
 			{
