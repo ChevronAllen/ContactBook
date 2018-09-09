@@ -381,7 +381,7 @@ function addContact()
 		document.getElementById("contactError").innerHTML += "City can only be alphabetical <br />";
 	}
 	// zipcode check
-	if(regexCheck(contactZipCode, /[^\d]/))
+	if(regexCheck(contactZipcode, /[^\d]/))
 	{
 		invalidData = 1;
 		document.getElementById("contactError").innerHTML += "zipcode can only be numerical <br />";
