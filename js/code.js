@@ -24,6 +24,7 @@ function resetForm()
 	document.getElementById("inputSearch").value = '';
 	document.getElementById("inputCFirstName").value = '';
 	document.getElementById("inputCLastName").value = '';
+	document.getElementById("inputCAddress").value = '';
 	document.getElementById("inputCCity").value = '';
 	document.getElementById("inputCState").value = '';
 	document.getElementById("inputCZipcode").value = '';
