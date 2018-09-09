@@ -160,9 +160,7 @@ body{
 #contactListBox{
 	padding-top:1rem;
 	overflow-y: scroll;
-	max-height: calc(100% - 14rem);
-	max-height: -moz-calc(100% - 14rem);
-	max-height: -webkit-calc(100% - 14rem);
+	max-height: 50rem;
 	height: calc(100% - 14rem);
 	height: -moz-calc(100% - 14rem);
 	height: -webkit-calc(100% - 14rem);
