@@ -22,12 +22,12 @@ if($inData  == NULL)
 {
 
 	//	Sanitize JSON input
-  $userID = mysqli_real_escape_string($conn, $inData["id"]);
+	$userID = mysqli_real_escape_string($conn, $inData["id"]);
 	$contactID = mysqli_real_escape_string($conn, $inData["contactID"]);
-  $sessionID = mysqli_real_escape_string($conn, $inData["sessionID"]);
+	$sessionID = mysqli_real_escape_string($conn, $inData["sessionID"]);
 
 	//	Call stored procedure that will delete a contact
-	$sql = 'CALL contact_book.deleteContact("'.$userID.'", "'.$contactID.'","'.$sessionID.'");';
+	$sql = 'CALL contact_book.deleteContact(' . $userID . ', "' . $contactID . '", "'.$sessionID.'");';
 
 	//	Capture results
 	$result = $conn->query($sql);
@@ -57,8 +57,10 @@ function createJSONString($userID_, $err_)
   $ret = '
 	{
     "id": '.$userID_.',
-    "error": '.$err_.';
+    "error": "'.$err_.'"
   }';
+  
+  return $ret;
 }
 
 
