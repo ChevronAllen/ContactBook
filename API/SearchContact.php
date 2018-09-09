@@ -112,7 +112,7 @@ function returnWithError( $err )
 
 function returnWithInfo($id_,  $contacts_, $err)
 {
-  $retValue = createJSONString($id_, ($contacts_ == NULL ? "[]":$contacts_), "");
+  $retValue = createJSONString($id_, ($contacts_ == FALSE  || $contacts_ == "" ? "[]":$contacts_), "");
   sendResultInfoAsJson( $retValue );
 }
 ?>
