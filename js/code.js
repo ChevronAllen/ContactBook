@@ -10,19 +10,19 @@ var currentSelected = -1;
 
 function resetForm()
 {
-	document.getElementById("LogUser").reset();
-	document.getElementById("LogPassword").reset();
-	document.getElementById("RegFirst").reset();
-	document.getElementById("RegLast").reset();
-	document.getElementById("RePassword").reset();
-	document.getElementById("inputSearch").reset();
-	document.getElementById("inputCFirstName").reset();
-	document.getElementById("inputCLastName").reset();
-	document.getElementById("inputCCity").reset();
-	document.getElementById("inputCState").reset();
-	document.getElementById("inputCZipcode").reset();
-	document.getElementById("inputCEmail").reset();
-	document.getElementById("inputCPhone").reset();
+	document.getElementById("LogUser").innerHTML = '';
+	document.getElementById("LogPassword").innerHTML = '';
+	document.getElementById("RegFirst").innerHTML = '';
+	document.getElementById("RegLast").innerHTML = '';
+	document.getElementById("RePassword").innerHTML = '';
+	document.getElementById("inputSearch").innerHTML = '';
+	document.getElementById("inputCFirstName").innerHTML = '';
+	document.getElementById("inputCLastName").innerHTML = '';
+	document.getElementById("inputCCity").innerHTML = '';
+	document.getElementById("inputCState").innerHTML = '';
+	document.getElementById("inputCZipcode").innerHTML = '';
+	document.getElementById("inputCEmail").innerHTML = '';
+	document.getElementById("inputCPhone").innerHTML = '';
 }
 
 function hideOrShow(elementId, showState)
