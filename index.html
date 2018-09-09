@@ -8,9 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
-	<!--
-    Here import the main stylesheet, javascript
-  	-->
+	<!-- Here import the main stylesheet, javascript -->
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
 	<script src="js/sanitize.js"></script>
 	<script src="js/code.js"></script>
@@ -25,14 +23,15 @@
   -->
 	<div class="center"  id="loginContainer">
 		<h3 id="title">Sign-In</h3>
+		<hr>
 		<label class="Reg"> First Name <br><input type="text" id="RegFirst"/></label>
 		<label class="Reg"> Last Name <br><input type="text" id="RegLast"/></label>
 		<label> Username <br><input type="text" id="LogUser"/></label>
 		<label> Password <br><input type="password" id="LogPassword" /></label>
 		<label class="Reg"> Re-enter Password <br><input type="password" id="RePassword" /></label>
 
-		<button type="button" class="SignIn" id="loginButton" onclick="doLogin()" > Login </button>
-		<button type="button" class="Reg" id="loginButton" onclick="doRegister()"> Register </button>
+		<a class="SignIn btn btn-primary" 	id="loginButton" onclick="doLogin()" > Login </a>
+		<a class="Reg btn btn-primary" 		id="loginButton" onclick="doRegister()"> Register </a>
 
     <!--
       Label that the javascript can output error text to.
@@ -45,11 +44,10 @@
     <!--
       These are the hyper links that switch between Sign and Register views.
     -->
-		<div>
-			<span id="SignHyper" ><a class="" onclick="switchToSignIn()" href="javascript:void(0);" return false> Sign-In </a></span>
-			<span id="RegHyper" ><a class="" onclick="switchToSignUp()" href="javascript:void(0);" return false> New User </a></span>
+		<div class="d-block">
+			<span id="SignHyper" > <a onclick="switchToSignIn()" href="javascript:void(0);" return false> Sign-In  </a> </span>
+			<span id="RegHyper" >  <a onclick="switchToSignUp()" href="javascript:void(0);" return false> New User </a> </span>
 		</div>
-
 	</div>
   
   <!--

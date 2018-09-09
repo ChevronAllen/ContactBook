@@ -41,10 +41,18 @@ body{
 	visibility:visible;
 }
 
-#loginButton,
+
 #SignHyper,
 #RegHyper{
 	margin: 0 30px 0 30px;
+
+}
+#loginButton{
+	margin: 0 30px 0 30px;
+	padding-top: 0.1rem;
+	padding-bottom: 0.1rem;
+	font-weight:bold;
+	color:white;
 }
 
 /*
