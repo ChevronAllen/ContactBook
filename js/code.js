@@ -440,7 +440,7 @@ function deleteContact()
 		return;
 	}
 
-	var contactID = contact[currentSelected].ContactID;
+	var contactID = contact[currentSelected].contactID;
 	var jsonPayload = '{'
 			+ '"id":'					+ userId    + ','
 			+ '"ContactID":'	+ ContactID + ','
