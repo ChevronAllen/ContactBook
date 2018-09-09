@@ -8,6 +8,12 @@ var sessionID = 0;	// generated sessionID that is created and sent on login/regi
 var contacts = [];	// array of contacts for user
 var currentSelected = -1;
 
+// if you find in the string given that matches the regex return true
+function regexCheck(str, reg)
+{
+	return reg.test(str);
+}
+
 function resetForm()
 {
 	document.getElementById("LogUser").value = '';
@@ -109,7 +115,7 @@ function doLogin()
 	username = document.getElementById("LogUser").value;	//obtaining value held in loginname and placing it inside the login variable
 	password = document.getElementById("LogPassword").value; //obtaining value held in loginpassoword and placing it inside password variable
 
-	if(!isAlphaNumeric(username))
+	if(regexCheck(username, /\W/))
 	{
 		document.getElementById("loginResult").innerHTML = "Username can only consist of alphabetical, numerical, or _ characters";
 		return;
@@ -148,6 +154,7 @@ function doLogin()
 
 				if(userId < 1)	//checking if the username entered exists in the database
 				{
+					resetForm();
 					var error = jsonObject.error;
 					document.getElementById("loginResult").innerHTML = error;
 					document.getElementById("loginButton").disabled = false;
@@ -170,6 +177,7 @@ function doLogin()
 			}
 			else
 			{
+				resetForm();
 				document.getElementById("loginResult").innerHTML = " error " + this.status;
 				document.getElementById("loginButton").disabled = false;
 				return;
@@ -200,12 +208,13 @@ function doLogout()
 		{
 			if(this.status == 200)
 			{
-				//resetting these three variables to empty
+				//resetting these variables to empty
 				userId    = 0;
 				firstName = "";
 				lastName  = "";
 				contacts = [];
 				sessionID = 0;
+				resetForm();
 				hideOrShow("contactPageContainer", false);
 				hideOrShow("loginContainer", true); //showing login section
 			}
@@ -237,7 +246,7 @@ function doRegister()
 	rePassword  = document.getElementById("RePassword").value; //obtaining value held in loginpassoword and placing it inside password variable
 
 
-	if(!isAlphaNumeric(username) || !isAlphaNumeric(firstName) || !isAlphaNumeric(lastName))
+	if(regexCheck(username, /\W/) || regexCheck(firstName, /[^a-zA-Z]/) || regexCheck(lastName, /[^a-zA-Z]/))
 	{
 		document.getElementById("loginResult").innerHTML = "Username and name fields can only consist of alphabetical characters, numerical characters, or _";
 		return;
@@ -281,6 +290,7 @@ function doRegister()
 				error  = jsonObject.error;
 				if(userId < 1)	//checking if the username entered exists in the database
 				{
+					resetForm();
 					document.getElementById("loginResult").innerHTML = error;
 					document.getElementById("loginButton").disabled = false;
 					return;
@@ -303,6 +313,7 @@ function doRegister()
 			}
 			else
 			{
+				resetForm();
 				document.getElementById("loginResult").innerHTML = " error " + this.status;
 				document.getElementById("loginButton").disabled = false;
 			}
@@ -316,6 +327,7 @@ function doRegister()
 // TODO: comment on addContact
 function addContact()
 {
+	document.getElementById("contactError").innerHTML = '';
 	//initailizing variable to empty strings
 	var contactFirstName = "";
 	var contactLastName = "";
@@ -336,6 +348,61 @@ function addContact()
 	contactZipcode = document.getElementById("inputCZipcode").value;
 	contactEmail = document.getElementById("inputCEmail").value;
 	contactPhoneNumber = document.getElementById("inputCPhone").value;
+
+	var invalidData = 0;
+	// first name check
+	if(regexCheck(contactFirstName, /[^a-zA-Z]/))
+	{
+		invalidData = 1;
+		document.getElementById("contactError").innerHTML += "First Name can only be alphabetical<br />";
+	}
+	// last name check
+	if(regexCheck(contactLastName, /[^a-zA-Z]/))
+	{
+		invalidData = 1;
+		document.getElementById("contactError").innerHTML += "Last Name can only be alphabetical<br />";
+	}
+	// address check
+	if(regexCheck(contactAddress, /[^\d\sa-zA-Z(.)]/))
+	{
+		invalidData = 1;
+		document.getElementById("contactError").innerHTML += "Addresses can only containt whitespace a period and alphanumeric characters<br />";
+	}
+	// state check
+	if(regexCheck(contactState, /[^a-zA-Z]/))
+	{
+		invalidData = 1;
+		document.getElementById("contactError").innerHTML += "State can only be alphabetical<br />";
+	}
+	// city check
+	if(regexCheck(contactCity, /[^a-zA-Z]/))
+	{
+		invalidData = 1;
+		document.getElementById("contactError").innerHTML += "City can only be alphabetical <br />";
+	}
+	// zipcode check
+	if(regexCheck(contactZipCode, /[^\d]/))
+	{
+		invalidData = 1;
+		document.getElementById("contactError").innerHTML += "zipcode can only be numerical <br />";
+	}
+	// email chack
+	if(!regexCheck(contactEmail, /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/g))
+	{
+		invalidData = 1;
+		document.getElementById("contactError").innerHTML += "invalid email <br />";
+	}
+	// phone number check
+	if(regexCheck(contactPhoneNumber, /[^\d]/))
+	{
+		invalidData = 1;
+		document.getElementById("contactError").innerHTML += "Phone Number can only be numerical <br />";
+	}
+	// stops the function if incorrect data is filled
+	if(invalidData == 1)
+	{
+		return;
+	}
 
 	var jsonPayload = '{'
 			+ '"id":'			+ userId              + ','
