@@ -36,7 +36,7 @@ if($conn->connect_error)
 	$matchString	= mysqli_real_escape_string($conn, $inData["matchString"]);
 	$sessionID  	= mysqli_real_escape_string($conn, $inData["sessionID"]);
 
-	$sql = 'CALL contact_book.findContacts("' . $userID . '", "' . $matchString . '", "' . $sessionID .'");';
+	$sql = 'CALL contact_book.findContacts(' . $userID . ', "' . $matchString . '", "' . $sessionID .'");';
 
 	//capture results from sql
 	$result = $conn->query($sql);
