@@ -68,7 +68,7 @@ if($conn->connect_error)
 		}
 
 		//sends userid and contacts array via json
-		returnWithInfo($userID, $json_encode($jsonArray), "");
+		returnWithInfo($userID, json_encode($jsonArray), "");
 
 	}
 }
