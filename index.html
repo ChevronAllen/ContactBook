@@ -49,7 +49,7 @@
 			<span id="RegHyper" >  <a onclick="switchToSignUp()" href="javascript:void(0);" return false> New User </a> </span>
 		</div>
 	</div>
-  
+
   <!--
 	This div contains contactPage content
   -->
@@ -63,41 +63,41 @@
 		<hr>
 		<div class="row h-75">
 			<div class="col-5  coloumn table">
-				
+
 				<div id="contactSearchArea"  class="border-bottom row" style="margin:0px; height: 5em" >
-					<span class=" " style="width:100%;"> 
+					<span class=" " style="width:100%;">
 						<input id="inputSearch" placeholder="Search.." style="width:100% "/>
 						<button type="button" id="btnFindContacts" class="btn btn-primary w-100" onclick="searchContacts()"> Search</button >
 					</span>
 				</div>
 				<hr>
 				<div id="contactFieldsArea" class="border row container  " style="margin:0px" >
-				
+
 				<span class="d-block">
 					<label for="contactFirstName" class="">First Name:
 						<input id="inputCFirstName" name="contactFirstName" class="contactFields "  placeholder="First Name"/>
 					</label>
 				</span>
-				
+
 				<span class="d-block">
 					<label for="contactLastName">Last Name:
 						<input id="inputCLastName" name="contactLastName" class="contactFields" placeholder="Last Name"/>
 					</label>
 				</span>
-				
+
 				<span class="d-block">
 					<label for="contactAddress">Address:
 						<input id="inputCAddress" class="contactFields" placeholder="Address"/></textarea>
 					</label>
 				</span>
-				
+
 				<span class="d-block">
 					<label for="contactCity">City:
 						<input id="inputCCity"  name="contactCity" class="contactFields" placeholder="City"/>
 					</label>
-				</span>				
-					
-				<span class="d-block">				
+				</span>
+
+				<span class="d-block">
 					<!--label for="contactState"></label-->
 						<select id="inputCState"  name="contactState" class="contactFields d-inline" >
 						<option value="">Select State</option>
@@ -152,30 +152,30 @@
 						<option value="WV">West Virginia</option>
 						<option value="WI">Wisconsin</option>
 						<option value="WY">Wyoming</option>
-					</select>				
-					
-					<label for="contactZipCode" class="d-inline w-75">Zip:</label> 
+					</select>
+
+					<label for="contactZipCode" class="d-inline w-75">Zip:</label>
 					<input id="inputCZipcode" name="contactZipCode" class="contactFields w-25 d-inline" placeholder="Zip Code"/>
-					
-					
+
+
 				</span>
-				
+
 				<span class="d-block">
 					<label for="contactEmail">Email:
 						<input id="inputCEmail" name="contactEmail" class="contactFields" placeholder="Email"/>
 					</label>
 				</span>
-					
-				<span class="d-block">	
+
+				<span class="d-block">
 					<label for="contactPhone">Phone:
 						<input id="inputCPhone" name="contactPhone" class="contactFields" placeholder="Phone #"/>
 					</label>
 				</span>
 					<button type="button" id="btnAddContact" class="btn btn-primary w-100" onclick="addContact()"> Add Contact</button>
 				</div>
-			
+
 			</div>
-			
+
 			<div class="col border-left coloumn" >
 				<div id="contactViewer" class="border-bottom " style="width:100%">
 				<center><button type="button" class="btn w-100 bg-danger" style="margin-bottom: 1em; color:white;" onclick="deleteContact()" >Delete</button></center>
@@ -191,7 +191,7 @@
 					<span id="contactAddress" class="d-block" fill="address"></span>
 					<span id="contactCity" class="d-block" fill="city"></span>
 					<span id="contactState" class="d-block" fill="state"></span>
-					<span id="contactZipCode "class="d-block" fill="zipcode"></span>
+					<span id="contactZipCode" class="d-block" fill="zipcode"></span>
 				</div>
 				<hr>
 				<div id="contactListBox" class="" style="width:100%;">
