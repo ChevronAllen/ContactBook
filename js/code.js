@@ -10,9 +10,19 @@ var currentSelected = -1;
 
 function resetForm()
 {
-	document.getElementById("contactSearchArea").reset();
-	document.getElementById("contactFieldsArea").reset();
-	document.getElementById("loginContainer").reset();
+	document.getElementById("LogUser").reset();
+	document.getElementById("LogPassword").reset();
+	document.getElementById("RegFirst").reset();
+	document.getElementById("RegLast").reset();
+	document.getElementById("RePassword").reset();
+	document.getElementById("inputSearch").reset();
+	document.getElementById("inputCFirstName").reset();
+	document.getElementById("inputCLastName").reset();
+	document.getElementById("inputCCity").reset();
+	document.getElementById("inputCState").reset();
+	document.getElementById("inputCZipcode").reset();
+	document.getElementById("inputCEmail").reset();
+	document.getElementById("inputCPhone").reset();
 }
 
 function hideOrShow(elementId, showState)
