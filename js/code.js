@@ -385,7 +385,7 @@ function addContact()
 function searchContacts()
 {
 	document.getElementById("contactListBox").innerHTML = '';
-	var searchID = document.getElementById("inputSearch").innerHTML;
+	var searchID = document.getElementById("inputSearch").value;
 
 	var jsonPayload = '{'
 			+ '"id":'							+ userId			+ ','
