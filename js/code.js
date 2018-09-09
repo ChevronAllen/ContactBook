@@ -355,7 +355,7 @@ function addContact()
 						var contactID = jsonObject.contactID;
 
 						var jsonContact = '{'
-							+ '"contactID":"' + contactID           + '",'
+							+ '"contactID":' 	+ contactID           + ','
 							+ '"firstName":"'  + contactFirstName    + '",'
 							+ '"lastName":"'   + contactLastName     + '",'
 							+ '"address":"'    + contactAddress      + '",'
@@ -435,38 +435,15 @@ function searchContacts()
 // TODO: comments
 function deleteContact()
 {
-	//initailizing variable to empty strings
-	var contactFirstName = "";
-	var contactLastName = "";
-	var contactAddress = "";
-	var contactState = "";
-	var contactCity	= "";
-	var contactZipcode = "";
-	var contactAPT = "";
-	var contactEmail = "";
-	var contactPhoneNumber = "";
+	if(currentSelected < 0)
+	{
+		return;
+	}
 
-	//obtaining and storing the values entered by user into the specified variable
-	contactFirstName = document.getElementById("firstname").value;
-	contactLastName = document.getElementById("lastname").value;
-	contactAddress = document.getElementById("contactaddress").value;
-	contactState = document.getElementById("state").value;
-	contactCity = document.getElementById("city").value;
-	contactZipcode = document.getElementById("zipcode").value;
-	contactAPT = document.getElementById("aptnum").value;
-	contactEmail = document.getElementById("emailaddress").value;
-	contactPhoneNumber = document.getElementById("phonenumber").value;
-
+	var contactID = contact[currentSelected].ContactID;
 	var jsonPayload = '{'
-			+ '"id":'			+ userId              + ','
-			+ '"firstName":"'	+ contactFirstName    + '",'
-			+ '"lastName":"'	+ contactLastName     + '",'
-			+ '"address":"'		+ contactAddress      + '",'
-			+ '"city":"'		+ contactCity         + '",'
-			+ '"state":"'		+ contactState        + '",'
-			+ '"zipCode":"'		+ contactZipcode      + '",'
-			+ '"email":"'		+ contactEmail        + '",'
-			+ '"phone":"'		+ contactPhoneNumber  + '",'
+			+ '"id":'					+ userId    + ','
+			+ '"ContactID":'	+ ContactID + ','
 			+ '"sessionID":"'	+ sessionID
 			+ '"}';
 
@@ -479,46 +456,29 @@ function deleteContact()
   xhr.onreadystatechange = function()
   {
   	if (this.readyState == 4)
-	{
-		if (this.status == 200)
 		{
-			var jsonObject = JSON.parse(xhr.responseText);
-
-			userId = jsonObject.id;
-			error  = jsonObject.error;
-
-			if(userId < 1)	//checking if the username entered exists in the database
+			if (this.status == 200)
 			{
-				console.log(error);  // temp notification
-				//document.getElementById("loginResult").innerHTML = error;
-				return;
-			}
+				var jsonObject = JSON.parse(xhr.responseText);
 
-			var contactID = jsonObject.contactID;
+				userId = jsonObject.id;
 
-			var jsonContact = '{'
-					+ '"contactID":"' + contactID           + '",'
-					+ '"firstName":"'  + contactFirstName    + '",'
-					+ '"lastName":"'   + contactLastName     + '",'
-					+ '"address":"'    + contactAddress      + '",'
-					+ '"city":"'       + contactCity         + '",'
-					+ '"state":"'      + contactState        + '",'
-					+ '"zipCode":"'    + contactZipcode      + '",'
-					+ '"email":"'      + contactEmail        + '",'
-					+ '"phone":"'      + contactPhoneNumber
-					+ '"}';
+				if(userId < 1)	//checking if the username entered exists in the database
+				{
+					var error = jsonObject.error;
+					console.log(error);  // temp notification
+					//document.getElementById("loginResult").innerHTML = error;
+					return;
+				}
 
-			// WARNING HASNT BEEN TESTED
-			// this should remove the contact locally
-			var index = contacts.indexof(JSON.parse(jsonContact));
-			contacts.splice(JSON.parse(jsonContact), 1);
-			showAllContacts();
-  		}
-  		else
-  		{
-    			console.log("error with response");
-    			//document.getElementById("loginResult").innerHTML = this.status;
-  		}
+				contacts.splice(currentSelected, 1);
+				showAllContacts();
+	  	}
+	  	else
+	  	{
+	    	console.log("error with response");
+	    	//document.getElementById("loginResult").innerHTML = this.status;
+	  	}
 		}
 	}
 
@@ -534,5 +494,11 @@ function selectContact(key)
 	document.getElementById('contactCard'+key).classList.add("bg-info");
 	currentSelected = key;
 
-
+	document.getElementById("contactFullName").innerHTML = contacts[currentSelected].firstName + ' ' + contacts[currentSelected].lastName;
+	document.getElementById("contactPhone").innerHTML = contacts[currentSelected].phone;
+	document.getElementById("contactEmail").innerHTML = contacts[currentSelected].email;
+	document.getElementById("contactAddress").innerHTML = contacts[currentSelected].address;
+	document.getElementById("contactCity").innerHTML = contacts[currentSelected].city;
+	document.getElementById("contactState").innerHTML = contacts[currentSelected].state;
+	document.getElementById("contactZipCode").innerHTML = contacts[currentSelected].zipCode;
 }
