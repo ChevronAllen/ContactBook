@@ -10,9 +10,9 @@ var currentSelected = -1;
 
 function resetForm()
 {
-	document.contactSearchArea.reset();
-	document.contactFieldsArea.reset();
-	document.loginContainer.reset();
+	document.getElementById("contactSearchArea").reset();
+	document.getElementById("contactFieldsArea").reset();
+	document.getElementById("loginContainer").reset();
 }
 
 function hideOrShow(elementId, showState)
