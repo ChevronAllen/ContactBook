@@ -388,9 +388,9 @@ function searchContacts()
 	var searchID = document.getElementById("inputSearch").innerHTML;
 
 	var jsonPayload = '{'
-			+ '"id":'						+ userId			+ ','
-			+ '"ContactID":""'	+ searchID		+ '",'
-			+ '"sessionID":"'		+ sessionID
+			+ '"id":'							+ userId			+ ','
+			+ '"matchString":""'	+ searchID		+ '",'
+			+ '"sessionID":"'			+ sessionID
 			+ '"}';
 
 	var url =  apiFolder + 'SearchContact.' + extension;
