@@ -389,7 +389,7 @@ function searchContacts()
 
 	var jsonPayload = '{'
 			+ '"id":'							+ userId			+ ','
-			+ '"matchString":""'	+ searchID		+ '",'
+			+ '"matchString":"'	+ searchID		+ '",'
 			+ '"sessionID":"'			+ sessionID
 			+ '"}';
 
