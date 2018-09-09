@@ -67,7 +67,11 @@ body{
 
 /* Contact Page  */
 
-
+#contactError{
+	color:red;
+	font-weight: bold;
+	font-size: 2rem;
+}
 
 #contactPageContainer{
 	visibility:hidden;
