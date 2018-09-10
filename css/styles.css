@@ -137,8 +137,8 @@ body{
 }
 
 #contactViewer{
-	min-height:14rem;
-	max-height:14rem;
+	min-height:15rem;
+	max-height:15rem;
 	padding: 0.5rem;
 	
 	/* border-style: solid;
@@ -200,13 +200,9 @@ body{
 #contactListBox{
 	padding-top:1rem;
 	overflow-y: scroll;
-	min-height:17rem;
-	max-height:
-	height: calc(100% - 14rem);
-	height: -moz-calc(100% - 14rem);
-	height: -webkit-calc(100% - 14rem);
-	
-	
+	min-height: 25rem;
+	max-height: 25rem;
+		
 	/*
 	max-height: 30rem;
 	height: calc(100% - 14rem);
