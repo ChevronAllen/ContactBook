@@ -25,7 +25,7 @@ if($inData  == NULL)
   $sessionID = mysqli_real_escape_string($conn, $inData["sessionID"]);
 
 	//	Call stored procedure that will delete a contact
-	$sql = 'CALL contact_book.logoutUser("'.$userID.'","'.$sessionID.'");';
+	$sql = 'CALL contact_book.logoutUser('.$userID.',"'.$sessionID.'");';
 
 	//	Capture results
 	$result = $conn->query($sql);
@@ -55,8 +55,10 @@ function createJSONString($userID_, $err_)
   $ret = '
 	{
     "id": '.$userID_.',
-    "error": '.$err_.';
+    "error": "'.$err_.'"
   }';
+  
+  return $ret;
 }
 
 
