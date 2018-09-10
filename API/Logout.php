@@ -25,13 +25,13 @@ if($inData  == NULL)
   $sessionID = mysqli_real_escape_string($conn, $inData["sessionID"]);
 
 	//	Call stored procedure that will delete a contact
-	$sql = 'CALL contact_book.logoutUser('.$userID.',"'.$sessionID.'");';
+	$sql = 'CALL contact_book.logOut('.$userID.',"'.$sessionID.'");';
 
 	//	Capture results
 	$result = $conn->query($sql);
 
 	//result should be the row of the contacts table of the contact that was deleted
-	if ($result->num_rows <= 0)
+	if ($result->num_rows == 0)
 	{
 		returnWithError("Logout failed.");
 	}else
