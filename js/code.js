@@ -173,6 +173,7 @@ function doLogin()
 				hideOrShow("contactPageContainer", true);
 				showAllContacts();
 				resetForm();
+				document.getElementById("loginButton").disabled = false;
 				document.getElementById("userFullName").innerHTML = firstName + ' ' + lastName;
 			}
 			else
@@ -314,6 +315,7 @@ function doRegister()
 				hideOrShow("contactPageContainer", true);
 				resetForm();
 				document.getElementById("userFullName").innerHTML = firstName + ' ' + lastName;
+				document.getElementById("loginButton").disabled = false;
 			}
 			else
 			{
