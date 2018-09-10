@@ -567,6 +567,13 @@ function deleteContact()
 				contacts.splice(currentSelected, 1);
 				currentSelected = -1;
 				showAllContacts();
+				document.getElementById("contactFullName").innerHTML = '';
+				document.getElementById("contactPhone").innerHTML = '';
+				document.getElementById("contactEmail").innerHTML = '';
+				document.getElementById("contactAddress").innerHTML = '';
+				document.getElementById("contactCity").innerHTML = '';
+				document.getElementById("contactState").innerHTML = '';
+				document.getElementById("contactZipCode").innerHTML = '';
 	  	}
 	  	else
 	  	{
