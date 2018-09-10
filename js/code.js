@@ -115,6 +115,12 @@ function doLogin()
 	username = document.getElementById("LogUser").value;	//obtaining value held in loginname and placing it inside the login variable
 	password = document.getElementById("LogPassword").value; //obtaining value held in loginpassoword and placing it inside password variable
 
+	if(username.length == 0 || password.length == 0)
+	{
+		document.getElementById("loginResult").innerHTML = "One or more fields are empty";
+		return;
+	}
+
 	if(regexCheck(username, /\W/))
 	{
 		document.getElementById("loginResult").innerHTML = "Username can only consist of alphabetical, numerical, or _ characters";
