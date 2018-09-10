@@ -1,5 +1,6 @@
 body{
 	background-color:#e0e2e5;
+	min-width:512px;
 }
 
 .center {
@@ -8,7 +9,17 @@ body{
     border: 3px solid #73AD21;
     padding: 10px;
 }
+
+#contactError,
+#loginResult{
+	color:red;
+	font: bold;
+}
+
+/* ///////////////////////////////// */
 /* Login/Register Page  */
+/* ///////////////////////////////// */
+
 #loginContainer{
 	background-color:#b8babc;
 	border:3px solid #eeeeee;
@@ -16,10 +27,10 @@ body{
 	margin-top:10%;
 	margin-bottom:auto;
 	text-align: center;
-
+	
 	visibility:visible;
 	display:block;
-
+	
 	min-width:320px;
 	max-width:600px;
 }
@@ -57,36 +68,39 @@ body{
 	color:white;
 }
 
-/*
-#SignHyper a,
-#RegHyper a{
-	padding: 0px 0.75rem 0px 0.75rem;
-	background-color:#ffffff;
-}
-*/
 
+
+
+
+/* ///////////////////////////////// */
 /* Contact Page  */
+/* ///////////////////////////////// */
 
 #contactError{
 	color:red;
 	font-weight: bold;
-	font-size: .7rem;
+	font-size: 0.8rem;
 }
 
 #contactPageContainer{
 	visibility:hidden;
 	display:none;
-
-  height: 100%;
-  min-height:950px;
-  max-width: 1100px;
-  min-width:860px;
+	background-color:#dddddd;
+	height: 100%;
+	
+	border-right: 3px #bbbbbb solid;
+	border-left: 3px #bbbbbb solid;
 }
 
 #contactSearchArea{
-	max-height: 7rem;
-	min-height: 7rem;
+	margin:0px; 
+	height: auto;	
+	
 	padding:1rem 0.5rem 0.2rem 0.5rem;
+	/* border-style: solid;
+	border-color: black;
+	border-width: 0px 1px 0px 1px;
+	border-radius: 0em 0em 0 0; */
 }
 
 #contactFieldsArea{
@@ -100,15 +114,21 @@ body{
 
 #contactHeader
 {
+	font-size: 1.5rem;
+	font-weight: bold;
 	padding:0.2rem 3rem 0.3rem;
-	height: auto;
+	max-height: 3rem;
+	height:auto;
 }
 #contactHeader #userFullName
 {
-	color:red;
+	font-size: 1.5rem;
+	font-weight: bold;
+	color:#526b93;
+	
 }
 
-.coloumn{
+.coloumn{	
 	/*padding: 0 1rem 0 1rem;*/
 }
 
@@ -116,14 +136,15 @@ body{
 	margin-bottom: 0.5rem;
 }
 
-#inputCState{
-	width:40%;
-}
-
 #contactViewer{
-  min-height:14rem;
-  max-height:14rem;
-  padding: 0.5rem;
+	min-height:14rem;
+	max-height:14rem;
+	padding: 0.5rem;
+	
+	/* border-style: solid;
+	border-color: black;
+	border-width: 0px 1px 0px 1px;
+	border-radius: 0em 0em 0 0; */
 }
 #contactViewer span{
 	width=100%;
@@ -131,45 +152,73 @@ body{
 #contactViewer span[fill="name"]{
   font-size: 2rem;
   font-weight: bold;
-
+  
 }
 #contactViewer span[fill="phone"],
-#contactViewer span[fill="remail"]{
+#contactViewer span[fill="email"]{
   font-size: 1rem;
   color:gray;
-  font-weight: italic;
+  font-weight: italic;  
 }
+#contactViewer span[fill="phone"]::before{
+	content:"☎️: ";
+}
+#contactViewer span[fill="email"]::before{
+	content:"📧: ";
+}
+
 #contactViewer span[fill="address"]{
   font-size: 1.2rem;
-  font-weight: italic;
-
+  font-weight: italic; 
+ 
+}
+#contactViewer span[fill="address"]::before{
+	content:"🏠: ";
 }
 #contactViewer span[fill="city"]{
   font-size: 1.2rem;
-  font-weight: italic;
+  font-weight: italic;  
+}
+#contactViewer span[fill="city"]::before{
+	content:"🏙: ";
 }
 #contactViewer span[fill="state"]{
   font-size: 1.2rem;
-  font-weight: italic;
+  font-weight: italic;  
+}
+#contactViewer span[fill="state"]::before{
+	content:"🇺🇸: ";
 }
 #contactViewer span[fill="zipcode"]{
   font-size: 1.2rem;
-  font-weight: italic;
+  font-weight: italic;  
+}
+#contactViewer span[fill="state"]::before{
+	content:"zip: ";
 }
 
 #contactListBox{
 	padding-top:1rem;
 	overflow-y: scroll;
-	max-height: 50rem;
+	min-height:17rem;
+	max-height:
 	height: calc(100% - 14rem);
 	height: -moz-calc(100% - 14rem);
 	height: -webkit-calc(100% - 14rem);
+	
+	
+	/*
+	max-height: 30rem;
+	height: calc(100% - 14rem);
+	height: -moz-calc(100% - 14rem);
+	height: -webkit-calc(100% - 14rem);
+	*/
 }
 
 .contactFields
 {
-	margin: 5px 0 5px 0;
-
+	margin: 0px 0 5px 0;
+	
 }
 
 .contactCard
