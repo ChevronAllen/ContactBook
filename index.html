@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+	<!-- Here import the main stylesheet, javascript -->
+	<link rel="stylesheet" type="text/css" href="css/styles.css">
+	<!--script src="js/sanitize.js"></script-->
+	<script src="js/code.js"></script>
+	<script src="js/md5.js"></script>
+
+    <title>Sign-In</title>
+  </head>
+  <body onload="resetForm()">
+
+  <!--
+    This div contains the front-page content
+  -->
+	<div class="center"  id="loginContainer">
+		<h3 id="title">Sign-In</h3>
+		<hr>
+		<label class="Reg"> First Name <br><input type="text" id="RegFirst"/></label>
+		<label class="Reg"> Last Name <br><input type="text" id="RegLast"/></label>
+		<label> Username <br><input type="text" id="LogUser"/></label>
+		<label> Password <br><input type="password" id="LogPassword" /></label>
+		<label class="Reg"> Re-enter Password <br><input type="password" id="RePassword" /></label>
+
+		<button type="button" class="SignIn btn btn-primary" 	id="loginButton" onclick="doLogin()" > Login </button>
+		<button type="button" class="Reg btn btn-primary" 		id="loginButton" onclick="doRegister()"> Register </button>
+
+    <!--
+      Label that the javascript can output error text to.
+      'Invalid Username/Password'
+      'Error connecting to Server'
+      and client safe logins
+    -->
+    <label id="loginResult"> </label>
+
+    <!--
+      These are the hyper links that switch between Sign and Register views.
+    -->
+		<div class="d-block">
+			<span id="SignHyper" > <a onclick="switchToSignIn()" href="javascript:void(0);" return false> Sign-In  </a> </span>
+			<span id="RegHyper" >  <a onclick="switchToSignUp()" href="javascript:void(0);" return false> New User </a> </span>
+		</div>
+	</div>
+  
+  <!--
+	This div contains contactPage content
+  -->
+	<div id="contactPageContainer" class="container h-100">
+	
+		<div id="contactHeader" class="" style="border-bottom:2px black solid;"> 
+			Welcome, <span id="userFullName">User's Full Name</span> 
+			<button type="button" class="btn btn-secondary float-right" onclick="doLogout()">Logout</button>
+		</div>
+		
+		<center id="contactError" style="margin-bottom:1em;">		</center>
+		
+		
+		<div class="row" >
+			<div class="col-sm-6 ">				
+				<div id="contactSearchArea"  class="" >
+					<span class=" " style="width:100%;"> 
+						<input id="inputSearch" placeholder="Search.." style="width:100% "/>
+						<button type="button" id="btnFindContacts" class="btn btn-primary w-100" onclick="searchContacts()"> Search</button >
+					</span>
+				</div>
+			</div>
+			
+			<div class="col-sm-6">
+				<div id="contactViewer" class="border-bottom w-100 " >
+				
+					<span class="row">
+						<span id="contactFullName" class="col d-block" fill="name"></span>
+						
+					</span>
+					<span class="row">							
+								<span id="contactPhone" class="col" fill="phone"></span>
+								<span id="contactEmail" class="col" fill="email"></span>							
+					</span>
+					<span class="row">
+						<span id="contactAddress" class=" col d-block" fill="address"></span>
+					</span>
+					
+					<span class="row">
+						<span id="contactCity" class="col d-inline d-block" fill="city"></span>
+						<span id="contactState" class="col d-inline d-block" fill="state"></span>
+						<span id="contactZipCode"class="col d-inline " fill="zipcode"></span>
+					</span>
+					<center><button type="button" id="btnDeleteContact" class="btn w-100 bg-danger float-right" style="margin: 1em 0 1em 0; color:white;" onclick="deleteContact()" >Delete</button></center>
+				</div>			
+			</div>	
+		</div>
+		<div class="row" >
+			<div class="col-sm-6">
+				<div id="contactFieldsArea" class="border row container  " style="margin-top:10px" >
+			
+					<span class="row w-100">
+						<label for="contactFirstName" class="col">First Name:
+							<input id="inputCFirstName" name="contactFirstName" class="contactFields float-right w-75 "  placeholder="First Name"/>
+						</label>
+					</span>
+					
+					<span class="row w-100">
+						<label for="contactLastName" class="col">Last Name:
+							<input id="inputCLastName" name="contactLastName" class="contactFields float-right w-75 " placeholder="Last Name"/>
+						</label>
+					</span>
+					
+					<span class="row w-100">
+						<label for="contactAddress" class="col">
+							Address:
+							<input id="inputCAddress" name="contactAddress" class="contactFields float-right w-75" placeholder="Address"/>
+						</label>
+					</span>
+					
+					<span class="row w-100">
+						<label for="contactCity" class="col">City:
+							<input id="inputCCity"  name="contactCity" class="contactFields float-right w-75" placeholder="City"/>
+						</label>
+					</span>				
+						
+					<span class="row w-100">	
+						<label for="contactState" class="col">State:
+							<select id="inputCState"  name="contactState" class="contactFields float-right w-75" >
+								<option value="">Select State</option>
+								<option value="AL">Alabama</option>
+								<option value="AK">Alaska</option>
+								<option value="AZ">Arizona</option>
+								<option value="AR">Arkansas</option>
+								<option value="CA">California</option>
+								<option value="CO">Colorado</option>
+								<option value="CT">Connecticut</option>
+								<option value="DE">Delaware</option>
+								<option value="DC">District Of Columbia</option>
+								<option value="FL">Florida</option>
+								<option value="GA">Georgia</option>
+								<option value="HI">Hawaii</option>
+								<option value="ID">Idaho</option>
+								<option value="IL">Illinois</option>
+								<option value="IN">Indiana</option>
+								<option value="IA">Iowa</option>
+								<option value="KS">Kansas</option>
+								<option value="KY">Kentucky</option>
+								<option value="LA">Louisiana</option>
+								<option value="ME">Maine</option>
+								<option value="MD">Maryland</option>
+								<option value="MA">Massachusetts</option>
+								<option value="MI">Michigan</option>
+								<option value="MN">Minnesota</option>
+								<option value="MS">Mississippi</option>
+								<option value="MO">Missouri</option>
+								<option value="MT">Montana</option>
+								<option value="NE">Nebraska</option>
+								<option value="NV">Nevada</option>
+								<option value="NH">New Hampshire</option>
+								<option value="NJ">New Jersey</option>
+								<option value="NM">New Mexico</option>
+								<option value="NY">New York</option>
+								<option value="NC">North Carolina</option>
+								<option value="ND">North Dakota</option>
+								<option value="OH">Ohio</option>
+								<option value="OK">Oklahoma</option>
+								<option value="OR">Oregon</option>
+								<option value="PA">Pennsylvania</option>
+								<option value="RI">Rhode Island</option>
+								<option value="SC">South Carolina</option>
+								<option value="SD">South Dakota</option>
+								<option value="TN">Tennessee</option>
+								<option value="TX">Texas</option>
+								<option value="UT">Utah</option>
+								<option value="VT">Vermont</option>
+								<option value="VA">Virginia</option>
+								<option value="WA">Washington</option>
+								<option value="WV">West Virginia</option>
+								<option value="WI">Wisconsin</option>
+								<option value="WY">Wyoming</option>
+							</select>				
+						</label>
+					</span>
+					
+					<span class="row w-100">
+						<label for="contactZipCode" class="col">Zip:
+							<input id="inputCZipcode" name="contactZipCode" class="contactFields float-right w-75" placeholder="Zip Code"/>
+						</label> 
+					</span>
+					<span class="row w-100">
+						<label for="contactEmail" class="col">Email:
+							<input id="inputCEmail" name="contactEmail" class="contactFields float-right w-75" placeholder="Email"/>
+						</label>
+					</span>
+						
+					<span class="row w-100">	
+						<label for="contactPhone" class="col">Phone:
+							<input id="inputCPhone" name="contactPhone" class="contactFields float-right w-75" placeholder="Phone #"/>
+						</label>
+					</span>
+					<button type="button" id="btnAddContact" class="btn d-block btn-primary w-100" onclick="addContact()"> Add Contact</button>
+				</div>
+			</div>			
+	
+			<div class="col-sm-6" >
+				<div id="contactListBox" class="w-100 h-100" >
+					<ul id="contactList" class="w-100 h-100">
+						
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+  </body>
+</html>

@@ -1,6 +1,20 @@
 <?php
 require("SQL_Credentials.php");
 
+class Contact {
+    function __construct() {
+		$this->contactID = "";
+		$this->firstName = "";
+		$this->lastName = "";
+		$this->address = "";
+		$this->city = "";
+		$this->state = "";
+		$this->zipCode = "";
+		$this->email = "";
+		$this->phone = "";
+    }	
+}
+
 //	Make Connection
 $conn = new mysqli($serverURL, $serverLogin, $serverAuth, $serverDB);
 
@@ -8,8 +22,6 @@ $conn = new mysqli($serverURL, $serverLogin, $serverAuth, $serverDB);
 $inData = getRequestInfo();
 
 $id = 0;
-$firstName 	= "";
-$lastName 	= "";
 $username 	= "";
 $password 	= "";
 $sessionID  = "";
@@ -20,57 +32,67 @@ if($conn->connect_error)
 }else
 {
 	//	Sanitize JSON input
-	$username 	= mysqli_real_escape_string($inData["username"]);
-	$password 	= mysqli_real_escape_string($inData["password"]);
-	$sessionID  = mysqli_real_escape_string($inData["sessionID"]);
+	$username 	= mysqli_real_escape_string($conn, $inData["username"]);
+	$password 	= mysqli_real_escape_string($conn, $inData["password"]);
+	$sessionID  = mysqli_real_escape_string($conn, $inData["sessionID"]);
 
 	//	Call stored procedure that will insert a new user
-	$sql = 'CALL contact_book.userLogin("'	. $username 	. '",
-							"' 	. $password 	. '",
-							"' 	. $sessionID 	.'");';
+	$sql = 'CALL contact_book.userLogin("' . $username . '", "' . $password . '", "' . $sessionID . '")';
+	
 	//	Capture results
 	$result = $conn->query($sql);
 
-	/*
-		result should be a row from the users table
-		capture the new users id to be sent back
-		we recieve the whole row so that if we need to implement
-		a session id that would be sent.
-	*/
-	if ($result->num_rows <= 0){
-		returnWithError("Invalid Username/Password.");
-	}else{
 
+	if ($result->num_rows == 0)
+	{
+		returnWithError("Invalid Username/Password.");
+	}else
+	{
 		$row = $result->fetch_assoc();
 
-		$id = $row["iduser"];
+		$id = $row["userid"];
 		$firstName = $row["user_firstname"];
 		$lastName = $row["user_lastname"];
+		
+		$result->close();
+		$conn->next_result();
 
 		//	if the id is zero something went wrong
 		if($id == 0)
 		{
-			returnWithError("Invalid Username/Password.");
+			returnWithError("Invalid Username/Password combination.");
 		}else
 		{
 			/*
 				On a succesful login find all the user's contacts
 			*/
+						
 
-			$sql = 'CALL findContacts ("' . $id . '","","' . $sessionID .'");';
+			$searchSQL = 'CALL contact_book.findContacts(' . $id . ', "", "' . $sessionID . '" )';
 
-			$result =  conn->query($sql);
-			$list = array();	// Empty array
-			while($row = $result->fetch_assoc())//mysql_fetch_assoc($result))
-			{
-				//add rows to array individually
-				$list[] = $row;
+			$result =  $conn->query($searchSQL);
+			
+			$jsonArray = array();			
+			
+			if($result->num_rows != 0)
+			{			
+				while($row = $result->fetch_assoc())
+				{
+					$jsonObject = new Contact();
+					$jsonObject->contactID = $row["contactid"];				
+					$jsonObject->firstName = $row["contact_firstname"];
+					$jsonObject->lastName = $row["contact_lastname"];
+					$jsonObject->address = $row["contact_address"];
+					$jsonObject->city = $row["contact_city"];
+					$jsonObject->state = $row["contact_state"];
+					$jsonObject->zipCode = $row["contact_zipcode"];
+					$jsonObject->email = $row["contact_email"];
+					$jsonObject->phone = $row["contact_phone"];
+					$jsonArray[] = $jsonObject;				
+				}
 			}
 
-			//	convert array of rows to json data
-			$contacts = json_encode($data);
-
-			returnWithInfo($id, $firstName, $lastName, $contacts,"");
+			returnWithInfo($id, $firstName, $lastName, json_encode($jsonArray) );
 		}
 	}
 }
@@ -106,7 +128,7 @@ function sendResultInfoAsJson( $obj )
 
 function returnWithError( $err )
 {
-  $retValue = createJSONString(0,"","","",$err);
+  $retValue = createJSONString(0,"","","[]",$err);
   sendResultInfoAsJson( $retValue );
 }
 

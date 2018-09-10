@@ -8,7 +8,6 @@ $conn = new mysqli($serverURL, $serverLogin, $serverAuth, $serverDB);
 //Get JSON input
 $inData = getRequestInfo();
 $userID = 0;
-$contactID = 0;
 $sessionID = "";
 
 if($inData  == NULL)
@@ -22,20 +21,19 @@ if($inData  == NULL)
 {
 
 	//	Sanitize JSON input
-	$userID = mysqli_real_escape_string($conn, $inData["id"]);
-	$contactID = mysqli_real_escape_string($conn, $inData["contactID"]);
-	$sessionID = mysqli_real_escape_string($conn, $inData["sessionID"]);
+  $userID = mysqli_real_escape_string($conn, $inData["id"]);
+  $sessionID = mysqli_real_escape_string($conn, $inData["sessionID"]);
 
 	//	Call stored procedure that will delete a contact
-	$sql = 'CALL contact_book.deleteContact(' . $userID . ', ' . $contactID . ', "'.$sessionID.'");';
-	
+	$sql = 'CALL contact_book.logOut('.$userID.',"'.$sessionID.'");';
+
 	//	Capture results
 	$result = $conn->query($sql);
 
 	//result should be the row of the contacts table of the contact that was deleted
-	if ($result->num_rows <= 0)
+	if ($result->num_rows == 0)
 	{
-		returnWithError("Contact could not be deleted.");
+		returnWithError("Logout failed.");
 	}else
 	{
 		returnWithInfo($userID, "");
@@ -56,7 +54,7 @@ function createJSONString($userID_, $err_)
 {
   $ret = '
 	{
-    "id": ' .$userID_.',
+    "id": '.$userID_.',
     "error": "'.$err_.'"
   }';
   
