@@ -86,7 +86,6 @@ function switchToSignUp()
 	console.log("sign up");
 }
 
-// WARNING: hasn't been TESTED
 // shows all contacts in the contact array to contact list
 function showAllContacts()
 {
@@ -193,7 +192,7 @@ function doLogin()
 function doLogout()
 {
 	var jsonPayload = '{'
-		+ '"userID":"'   + userId  + '", '
+		+ '"id":"'   + userId  + '", '
 		+ '"sessionID":"'  + sessionID
 		+ '"}';
 
@@ -442,6 +441,7 @@ function addContact()
 						{
 							var error = jsonObject.error;
 							document.getElementById("contactError").innerHTML = error;
+							document.getElementById("btnFindContacts").disabled = false;
 							return;
 						}
 
@@ -462,14 +462,17 @@ function addContact()
 						// local storage of added contact
 						contacts.push(JSON.parse(jsonContact));
 						showAllContacts();
+						document.getElementById("btnFindContacts").disabled = false;
     		}
     		else
     		{
+					document.getElementById("btnFindContacts").disabled = false;
       		document.getElementById("contactError").innerHTML = this.status;
     		}
 		}
 	}
 	resetForm();
+	document.getElementById("btnFindContacts").disabled = true;
   xhr.send(jsonPayload);
 }
 
@@ -559,8 +562,8 @@ function deleteContact()
 				if(userId < 1)	//checking if the username entered exists in the database
 				{
 					var error = jsonObject.error;
-					console.log(error);  // temp notification
-					//document.getElementById("loginResult").innerHTML = error;
+					document.getElementById("contactError").innerHTML = error;
+					document.getElementById("btnDeleteContact").disabled = false;
 					return;
 				}
 
@@ -574,15 +577,16 @@ function deleteContact()
 				document.getElementById("contactCity").innerHTML = '';
 				document.getElementById("contactState").innerHTML = '';
 				document.getElementById("contactZipCode").innerHTML = '';
+				document.getElementById("btnDeleteContact").disabled = false;
 	  	}
 	  	else
 	  	{
-	    	console.log("error with response");
-	    	//document.getElementById("loginResult").innerHTML = this.status;
+				document.getElementById("btnDeleteContact").disabled = false;
+	    	document.getElementById("contactError").innerHTML = this.status + 'error';
 	  	}
 		}
 	}
-
+	document.getElementById("btnDeleteContact").disabled = true;
   xhr.send(jsonPayload);
 }
 
