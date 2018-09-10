@@ -56,7 +56,8 @@
 	<div id="contactPageContainer" class="container h-100">
 	
 		<div id="contactHeader" class="" style="border-bottom:2px black solid;"> 
-			Welcome, <span id="userFullName">User's Full Name</span>
+			Welcome, <span id="userFullName">User's Full Name</span> 
+			<button type="button" class="btn btn-secondary float-right" onclick="doLogout()">Logout</button>
 		</div>
 		
 		<center id="contactError" style="margin-bottom:1em;">		</center>
@@ -76,23 +77,23 @@
 				<div id="contactViewer" class="border-bottom w-100 " >
 				
 					<span class="row">
-						<span id="contactFullName" class="col d-block" fill="name">full name</span>
+						<span id="contactFullName" class="col d-block" fill="name"></span>
 						
 					</span>
 					<span class="row">							
-								<span id="contactPhone" class="col" fill="phone">phone</span>
-								<span id="contactEmail" class="col" fill="email">email</span>							
+								<span id="contactPhone" class="col" fill="phone"></span>
+								<span id="contactEmail" class="col" fill="email"></span>							
 					</span>
 					<span class="row">
-						<span id="contactAddress" class=" col d-block" fill="address">Address</span>
+						<span id="contactAddress" class=" col d-block" fill="address"></span>
 					</span>
 					
 					<span class="row">
-						<span id="contactCity" class="col d-inline d-block" fill="city">city</span>
-						<span id="contactState" class="col d-inline d-block" fill="state">state</span>
-						<span id="contactZipCode "class="col d-inline " fill="zipcode">zipcode</span>
+						<span id="contactCity" class="col d-inline d-block" fill="city"></span>
+						<span id="contactState" class="col d-inline d-block" fill="state"></span>
+						<span id="contactZipCode "class="col d-inline " fill="zipcode"></span>
 					</span>
-					<center><button type="button" class="btn w-100 bg-danger float-right" style="margin: 1em 0 1em 0; color:white;" onclick="deleteContact()" >Delete</button></center>
+					<center><button type="button" id="btnDeleteContact" class="btn w-100 bg-danger float-right" style="margin: 1em 0 1em 0; color:white;" onclick="deleteContact()" >Delete</button></center>
 				</div>			
 			</div>	
 		</div>

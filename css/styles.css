@@ -193,7 +193,7 @@ body{
   font-size: 1.2rem;
   font-weight: italic;  
 }
-#contactViewer span[fill="state"]::before{
+#contactViewer span[fill="zipcode"]::before{
 	content:"zip: ";
 }
 
