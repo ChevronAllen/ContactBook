@@ -221,6 +221,7 @@ function doLogout()
 				lastName  = "";
 				contacts = [];
 				sessionID = 0;
+				currentSelected = -1;
 				resetForm();
 				hideOrShow("contactPageContainer", false);
 				hideOrShow("loginContainer", true); //showing login section
