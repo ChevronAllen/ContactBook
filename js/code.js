@@ -533,6 +533,7 @@ function searchContacts()
 		}
 	}
 	document.getElementById("btnFindContacts").disabled = true;
+	currentSelected = -1;
 	xhr.send(jsonPayload);
 }
 
