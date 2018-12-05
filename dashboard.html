@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+<title>Dashboard</title>
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Dashboard</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <!-- Bootstrap Core CSS -->
+    <link href="bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="sb-admin-2.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script src = "js/dashboard.js"></script>
+    <script src = "js/loginRegister.js"></script>
+    
+
+</head>
+<body>
+
+     <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/index.html">Polling Zone</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/index.html">Home<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/createPoll.html">Create Poll</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/dashboard.html">Admin</a>
+                </li>
+            </ul>
+        </div>
+    
+        <form class="form-inline" id="accountButtons">
+            <a class="btn btn-sm btn-outline-success" onclick="logout();">Logout</a>
+        </form>
+</nav>
+
+ <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+    Open modal
+  </button>-->
+
+<!-- Modal HTML -->
+<form>
+ <!-- Button to Open the Modal -->
+ 
+  <!-- The Modal -->
+  <div class="modal" id="myModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Poll Name Given By User</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+        </div>
+        <!-- Modal body
+        <div class="modal-body">
+          Overall Results
+        </div> -->
+
+                    <!--Accordion wrapper-->
+            <div class="accordion md-accordion" id="accordionEx" role="tablist" aria-multiselectable="true">
+
+              <!-- Accordion card -->
+              <div class="card">
+
+                <!-- Card header -->
+                <div class="card-header" role="tab" id="headingOne1">
+                  <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne1" aria-expanded="true"
+                    aria-controls="collapseOne1">
+                    <h5 class="mb-0">
+                      Overall Results <i class="fa fa-angle-down rotate-icon"></i>
+                    </h5>
+                  </a>
+                </div>
+
+                <!-- Card body -->
+                <div id="collapseOne1" class="collapse show" role="tabpanel" aria-labelledby="headingOne1"
+                  data-parent="#accordionEx">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-sm">
+                    Graphs
+                  </div>
+                  <div class="col-sm d-flex justify-content-end">
+                    <div class="pre-scrollable">
+                 <ul style="height:200px; width: 165px;list-style-type: none" id="studentList">
+                    <li>
+                        <div class="row">
+                            <div class="col-sm">
+                        Student</div>
+                        <div class="col-sm">| Grade</div>
+                   
+</li>
+</ul>
+</div>
+                  </div>
+
+            
+                </div>
+
+              </div>
+          </div>
+      </div>
+
+              <!-- Accordion card -->
+
+              
+              <!-- Accordion card -->
+
+            </div>
+            <!-- Accordion wrapper -->
+        
+            
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  
+</div>
+</form>
+
+<!-- Modal HTML -->
+<!-- dashboard from bootstrap -->
+ <div id="wrapper">
+   <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Dashboard</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div>Polls Created</div>
+            <br>
+            <div class="row">
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-tasks fa-5x"></i>
+                                </div>
+                                <!--adding value to tile-->
+                                <div class="col-xs-9 text-right">
+                                    <div id="firstCreated"class="medium"></div>
+                                    <br>
+                                </div>
+                                <!--<div class="col-xs-9 text-right">
+                                    <div class="huge">26</div>
+                                    <div>New Comments!</div>
+                                </div>-->
+                            </div>
+                        </div>
+                        <a data-target="#myModal" data-toggle="modal" id="myModal"href="#myModal" onclick="populateModal()">
+                            <div class="panel-footer">
+                                <span>View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-tasks fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div id="secondCreated"class="medium">Second Created Test Code/Test Name</div>
+                                  
+                                </div>
+                                <!--<div class="col-xs-9 text-right">
+                                    <div class="huge">12</div>
+                                    <div>New Tasks!</div>
+                                </div>-->
+                            </div>
+                        </div>
+                        <a data-target="#myModal"  data-toggle="modal" id = "myModal"href="#myModal">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-yellow">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-tasks fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="medium">Third Created Test Code/Test Name</div>
+                                    <br>
+                                </div>
+                               <!-- <div class="col-xs-9 text-right">
+                                    <div class="huge">124</div>
+                                    <div>New Orders!</div>
+                                </div>-->
+                            </div>
+                        </div>
+                        <a data-target="#myModal"  data-toggle="modal" id = "myModal"href="#myModal">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-red">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-tasks fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="medium">Fourth Created Test Code/Test Name</div>
+                                </div>
+                                <!--<div class="col-xs-9 text-right">
+                                    <div class="huge">13</div>
+                                    <div>Support Tickets!</div>
+                                </div>-->
+                            </div>
+                        </div>
+                        <a data-target="#myModal"  data-toggle="modal" id = "myModal"href="#myModal">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                </div>
+                <div>Polls Answered</div>
+                <br>
+                <div class="row">
+                    
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-tasks fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div id="firstAnswered" class="medium">First Answered Test Code/Test Name</div>
+                                    <br>
+                                    <div style="font-size:120%;"> 100% </div>
+                                </div>
+                                <!--<div class="col-xs-9 text-right">
+                                    <div class="huge">13</div>
+                                    <div>Support Tickets!</div>
+                                </div>-->
+                            </div>
+                        </div>
+                        <a data-target="#myModal"  data-toggle="modal" id = "myModal"href="#myModal">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-tasks fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div id="secondAnswered" class="medium">Second Answered Test Code/Test Name</div>
+                                    <br>
+                                    <div style="font-size:120%;"> 100% </div>
+                                </div>
+                                <!--<div class="col-xs-9 text-right">
+                                    <div class="huge">13</div>
+                                    <div>Support Tickets!</div>
+                                </div>-->
+                            </div>
+                        </div>
+                        <a data-target="#myModal"  data-toggle="modal" id = "myModal"href="#myModal">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-yellow">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-tasks fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div id="thirdAnswered"class="medium">Third Answered Test Code/Test Name</div>
+                                    <br>
+                                    <div style="font-size:120%;"> 100% </div>
+                                </div>
+                                <!--<div class="col-xs-9 text-right">
+                                    <div class="huge">13</div>
+                                    <div>Support Tickets!</div>
+                                </div>-->
+                            </div>
+                        </div>
+                        <a data-target="#myModal"  data-toggle="modal" id = "myModal"href="#myModal">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-red">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-tasks fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div id = "fourthAnswered" class="medium">Fourth Answered Test Code/Test Name</div>
+                                    <br>
+                                    <div style="font-size:120%;"> 100% </div>
+                                </div>
+                                <!--<div class="col-xs-9 text-right">
+                                    <div class="huge">13</div>
+                                    <div>Support Tickets!</div>
+                                </div>-->
+                            </div>
+                        </div>
+                        <a data-target="#myModal"  data-toggle="modal" id = "myModal"href="#myModal">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            </div>
+            </div>
+            </div>
+
+            </div>
+            <!-- /.row -->
+           
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <script>
+                getDashboard();
+            </script>
+        
+
+            </body>
+            </html>
